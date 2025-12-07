@@ -488,21 +488,579 @@ class SentenceParadigm:
         finally: # Ensure pygame quits properly
             pygame.quit() # Quit pygame once at the end
 
-# Example usage
-if __name__ == "__main__":
-    paradigm = SentenceParadigm(
-        sentences_file="sentences_en.txt",
-        char_speed = 1.2,
-        prep_time = 1.8,
-        prep_time_jitter = 0.3,
-        jitter_mean = 0.5,
-        jitter_std = 0.1, # in fact, this is half-width of uniform distribution
-        dot_interval = 0.6,
-        prep_mode = 'dots',  # 'square' or 'dots'
-        play_mode = 'green',  # 'green' or 'progress'
-        progress_duration = 1.2, 
-        progress_pause = 0.5,
-        inter_sentence_interval = 2.0 # total inter-sentence interval in seconds
-    )
+class ReadingParadigm:
+    def __init__(self, words_file, word_duration=0.3, prep_time=1.5, prep_time_jitter=0.1, 
+                 word_jitter_mean=0.5, word_jitter_std=0.1, inter_word_interval=2.0):
+        """
+        Initialize the reading paradigm display.
+        
+        Parameters:
+        -----------
+        words_file : str
+            Path to the .txt file containing words (one per line)
+        word_duration : float
+            Duration to display each word (seconds)
+        prep_time : float
+            Center time to display red square before word appears (seconds)
+        prep_time_jitter : float
+            Half-width of uniform distribution for prep_time jitter (seconds)
+        word_jitter_mean : float
+            Center of uniform distribution for word appearance delay after square turns green (seconds)
+            Only used when play_mode='green'
+        word_jitter_std : float
+            Half-width of uniform distribution for word appearance delay (seconds)
+            Only used when play_mode='green'
+        inter_word_interval : float
+            Total interval between words including black screen and white cross (seconds)
+        """
+        self.words_file = words_file
+        self.word_duration = word_duration
+        self.prep_time = prep_time
+        self.prep_time_jitter = prep_time_jitter
+        self.word_jitter_mean = word_jitter_mean
+        self.word_jitter_std = word_jitter_std
+        self.inter_word_interval = inter_word_interval
+        
+        # Load words
+        with open(words_file, 'r', encoding='utf-8') as f:
+            self.words = [line.strip() for line in f if line.strip()]
+        
+        # Initialize pygame
+        pygame.init()
+        
+        # Set up display (fullscreen)
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.width, self.height = self.screen.get_size()
+        pygame.display.set_caption("Reading Paradigm")
+        
+        # Colors
+        self.BLACK = (0, 0, 0)
+        self.WHITE = (255, 255, 255)
+        self.GREEN = (0, 255, 0)
+        self.RED = (255, 0, 0)
+        
+        # Font settings
+        self.font_size = 80
+        self.font = pygame.font.Font(None, self.font_size)
+        
+        # Try to load a Chinese/English font
+        try:
+            chinese_fonts = [
+                'C:/Windows/Fonts/msyh.ttc',
+                'C:/Windows/Fonts/simhei.ttf',
+                'C:/Windows/Fonts/simsun.ttc',
+                'C:/Windows/Fonts/msyhbd.ttc',
+            ]
+            
+            font_loaded = False
+            for font_path in chinese_fonts:
+                try:
+                    self.font = pygame.font.Font(font_path, self.font_size)
+                    print(f"Successfully loaded font: {font_path}")
+                    font_loaded = True
+                    break
+                except:
+                    continue
+            
+            if not font_loaded:
+                self.font = pygame.font.Font(None, self.font_size)
+        except:
+            self.font = pygame.font.Font(None, self.font_size)
+        
+        # Square settings
+        self.square_size = 40
+        
+        # Clock for timing
+        self.clock = pygame.time.Clock()
+    
+    def draw_red_square(self, word_y):
+        """Draw red square below the word."""
+        square_x = self.width // 2 - self.square_size // 2
+        square_y = word_y + 120
+        pygame.draw.rect(self.screen, self.RED, 
+                        (square_x, square_y, self.square_size, self.square_size))
+    
+    def draw_green_square(self, word_y):
+        """Draw green square below the word."""
+        square_x = self.width // 2 - self.square_size // 2
+        square_y = word_y + 120
+        pygame.draw.rect(self.screen, self.GREEN, 
+                        (square_x, square_y, self.square_size, self.square_size))
+    
+    def display_word(self, word):
+        """
+        Display a single word with the paradigm:
+        1. Preparation phase (red square, no word)
+        2. Green square with jitter delay
+        3. Word appears with green square for word_duration
+        """
+        word_y = self.height // 2 - 40
+        
+        # Sample prep_time from uniform distribution
+        actual_prep_time = random.uniform(self.prep_time - self.prep_time_jitter,
+                                          self.prep_time + self.prep_time_jitter)
+        
+        # Sample word appearance jitter from uniform distribution
+        word_jitter = random.uniform(self.word_jitter_mean - self.word_jitter_std,
+                                     self.word_jitter_mean + self.word_jitter_std)
+        
+        # Phase 1: Preparation phase (red square, no word)
+        start_time = time.time()
+        while time.time() - start_time < actual_prep_time:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        return False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    return False
+            
+            # Clear screen
+            self.screen.fill(self.BLACK)
+            
+            # Draw red square
+            self.draw_red_square(word_y)
+            
+            pygame.display.flip()
+            self.clock.tick(60)
+        
+        # Phase 2: Green square without word (jitter delay)
+        start_time = time.time()
+        while time.time() - start_time < word_jitter:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        return False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    return False
+            
+            # Clear screen
+            self.screen.fill(self.BLACK)
+            
+            # Draw green square (no word yet)
+            self.draw_green_square(word_y)
+            
+            pygame.display.flip()
+            self.clock.tick(60)
+        
+        # Phase 3: Display word with green square for word_duration
+        start_time = time.time()
+        while time.time() - start_time < self.word_duration:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        return False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    return False
+            
+            # Clear screen
+            self.screen.fill(self.BLACK)
+            
+            # Render and center the word
+            word_surface = self.font.render(word, True, self.WHITE)
+            word_rect = word_surface.get_rect(center=(self.width // 2, word_y))
+            self.screen.blit(word_surface, word_rect)
+            
+            # Draw green square
+            self.draw_green_square(word_y)
+            
+            pygame.display.flip()
+            self.clock.tick(60)
+        
+        return True
+    
+    def run(self):
+        """Run the paradigm for all words."""
+        print(f"Loaded {len(self.words)} words")
+        print("Press ESC or click mouse to quit")
+        print(f"Word duration: {self.word_duration} s")
+        print(f"Preparation time: {self.prep_time} s")
+        
+        try:
+            for i, word in enumerate(self.words):
+                print(f"Displaying word {i+1}/{len(self.words)}: {word}")
+                
+                if not self.display_word(word):
+                    return
+                
+                # Inter-word interval with black screen then white cross
+                # First 0.5s: black screen
+                self.screen.fill(self.BLACK)
+                pygame.display.flip()
+                black_start = time.time()
+                while time.time() - black_start < 0.5:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            return
+                        if event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_ESCAPE:
+                                return
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                            return
+                    self.clock.tick(60)
+                
+                # Remaining time: white cross in center
+                if self.inter_word_interval > 0.5:
+                    cross_start = time.time()
+                    while time.time() - cross_start < (self.inter_word_interval - 0.5):
+                        for event in pygame.event.get():
+                            if event.type == pygame.QUIT:
+                                return
+                            if event.type == pygame.KEYDOWN:
+                                if event.key == pygame.K_ESCAPE:
+                                    return
+                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                return
+                        
+                        self.screen.fill(self.BLACK)
+                        
+                        # Draw white cross in center
+                        cross_size = 40
+                        cross_thickness = 10
+                        center_x = self.width // 2
+                        center_y = self.height // 2
+                        
+                        # Horizontal line
+                        pygame.draw.rect(self.screen, self.WHITE,
+                                       (center_x - cross_size, center_y - cross_thickness // 2,
+                                        cross_size * 2, cross_thickness))
+                        # Vertical line
+                        pygame.draw.rect(self.screen, self.WHITE,
+                                       (center_x - cross_thickness // 2, center_y - cross_size,
+                                        cross_thickness, cross_size * 2))
+                        
+                        pygame.display.flip()
+                        self.clock.tick(60)
+        
+        finally:
+            pygame.quit()
 
-    paradigm.run()
+class ListeningParadigm:
+    def __init__(self, audios_folder="audios", prep_time=1.5, prep_time_jitter=0.1, 
+                 audio_jitter_mean=0.5, audio_jitter_std=0.1,
+                 inter_audio_interval=2.0, repetitions=3):
+        """
+        Initialize the listening paradigm display.
+        
+        Parameters:
+        -----------
+        audios_folder : str
+            Path to the folder containing audio files (relative path)
+        prep_time : float
+            Center time to display red square before audio plays (seconds)
+        prep_time_jitter : float
+            Half-width of uniform distribution for prep_time jitter (seconds)
+        audio_jitter_mean : float
+            Center of uniform distribution for audio start delay after square turns green (seconds)
+        audio_jitter_std : float
+            Half-width of uniform distribution for audio start delay (seconds)
+        inter_audio_interval : float
+            Total interval between audios including black screen and white cross (seconds)
+        repetitions : int
+            Number of times each audio should be played (default: 3)
+        """
+        self.audios_folder = audios_folder
+        self.prep_time = prep_time
+        self.prep_time_jitter = prep_time_jitter
+        self.audio_jitter_mean = audio_jitter_mean
+        self.audio_jitter_std = audio_jitter_std
+        self.inter_audio_interval = inter_audio_interval
+        self.repetitions = repetitions
+        
+        # Load audio files
+        import os
+        import glob
+        audio_extensions = ['*.mp3', '*.wav', '*.ogg']
+        self.audio_files = []
+        for ext in audio_extensions:
+            self.audio_files.extend(glob.glob(os.path.join(audios_folder, ext)))
+        
+        if not self.audio_files:
+            raise ValueError(f"No audio files found in {audios_folder}")
+        
+        print(f"Found {len(self.audio_files)} audio files: {[os.path.basename(f) for f in self.audio_files]}")
+        
+        # Create randomized playlist (each audio repeated 'repetitions' times)
+        self.playlist = []
+        for audio_file in self.audio_files:
+            self.playlist.extend([audio_file] * self.repetitions)
+        
+        # Shuffle the playlist
+        random.shuffle(self.playlist)
+        print(f"Created playlist with {len(self.playlist)} items (random order)")
+        
+        # Initialize pygame
+        pygame.init()
+        pygame.mixer.init()
+        
+        # Set up display (fullscreen)
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.width, self.height = self.screen.get_size()
+        pygame.display.set_caption("Listening Paradigm")
+        
+        # Colors
+        self.BLACK = (0, 0, 0)
+        self.WHITE = (255, 255, 255)
+        self.GREEN = (0, 255, 0)
+        self.RED = (255, 0, 0)
+        
+        # Font settings
+        self.font_size = 80
+        self.font = pygame.font.Font(None, self.font_size)
+        
+        # Try to load a font
+        try:
+            chinese_fonts = [
+                'C:/Windows/Fonts/msyh.ttc',
+                'C:/Windows/Fonts/simhei.ttf',
+                'C:/Windows/Fonts/simsun.ttc',
+                'C:/Windows/Fonts/msyhbd.ttc',
+            ]
+            
+            font_loaded = False
+            for font_path in chinese_fonts:
+                try:
+                    self.font = pygame.font.Font(font_path, self.font_size)
+                    print(f"Successfully loaded font: {font_path}")
+                    font_loaded = True
+                    break
+                except:
+                    continue
+            
+            if not font_loaded:
+                self.font = pygame.font.Font(None, self.font_size)
+        except:
+            self.font = pygame.font.Font(None, self.font_size)
+        
+        # Square settings
+        self.square_size = 40
+        
+        # Clock for timing
+        self.clock = pygame.time.Clock()
+    
+    def draw_red_square(self, text_y):
+        """Draw red square below the text."""
+        square_x = self.width // 2 - self.square_size // 2
+        square_y = text_y + 120
+        pygame.draw.rect(self.screen, self.RED, 
+                        (square_x, square_y, self.square_size, self.square_size))
+    
+    def draw_green_square(self, text_y):
+        """Draw green square below the text."""
+        square_x = self.width // 2 - self.square_size // 2
+        square_y = text_y + 120
+        pygame.draw.rect(self.screen, self.GREEN, 
+                        (square_x, square_y, self.square_size, self.square_size))
+    
+    def play_audio(self, audio_file):
+        """
+        Play a single audio file with the paradigm:
+        1. Preparation phase (red square, no text)
+        2. Green square with jitter delay (no audio yet)
+        3. Audio plays with green square (no text)
+        """
+        import os
+        
+        text_y = self.height // 2 - 40
+        
+        # Get filename for console output only
+        filename = os.path.basename(audio_file)
+        
+        # Sample prep_time from uniform distribution
+        actual_prep_time = random.uniform(self.prep_time - self.prep_time_jitter,
+                                          self.prep_time + self.prep_time_jitter)
+        
+        # Sample audio start jitter from uniform distribution
+        audio_jitter = random.uniform(self.audio_jitter_mean - self.audio_jitter_std,
+                                     self.audio_jitter_mean + self.audio_jitter_std)
+        
+        # Phase 1: Preparation phase (red square, no text)
+        start_time = time.time()
+        while time.time() - start_time < actual_prep_time:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        return False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    return False
+            
+            # Clear screen
+            self.screen.fill(self.BLACK)
+            
+            # Draw red square
+            self.draw_red_square(text_y)
+            
+            pygame.display.flip()
+            self.clock.tick(60)
+        
+        # Phase 2: Green square without audio (jitter delay)
+        start_time = time.time()
+        while time.time() - start_time < audio_jitter:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        return False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    return False
+            
+            # Clear screen
+            self.screen.fill(self.BLACK)
+            
+            # Draw green square (no audio yet)
+            self.draw_green_square(text_y)
+            
+            pygame.display.flip()
+            self.clock.tick(60)
+        
+        # Phase 3: Play audio with green square (no text displayed)
+        try:
+            # Load and play audio
+            pygame.mixer.music.load(audio_file)
+            pygame.mixer.music.play()
+            
+            # Display green square while audio is playing (no text)
+            while pygame.mixer.music.get_busy():
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.mixer.music.stop()
+                        return False
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            pygame.mixer.music.stop()
+                            return False
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        pygame.mixer.music.stop()
+                        return False
+                
+                # Clear screen
+                self.screen.fill(self.BLACK)
+                
+                # Draw green square only (no text)
+                self.draw_green_square(text_y)
+                
+                pygame.display.flip()
+                self.clock.tick(60)
+            
+        except Exception as e:
+            print(f"Error playing audio {audio_file}: {e}")
+            return False
+        
+        return True
+    
+    def run(self):
+        """Run the paradigm for all audio files in the playlist."""
+        print(f"Starting listening paradigm with {len(self.playlist)} audio presentations")
+        print("Press ESC or click mouse to quit")
+        print(f"Preparation time: {self.prep_time} s")
+        
+        try:
+            for i, audio_file in enumerate(self.playlist):
+                import os
+                filename = os.path.basename(audio_file)
+                print(f"Playing audio {i+1}/{len(self.playlist)}: {filename}")
+                
+                if not self.play_audio(audio_file):
+                    return
+                
+                # Inter-audio interval with black screen then white cross
+                # First 0.5s: black screen
+                self.screen.fill(self.BLACK)
+                pygame.display.flip()
+                black_start = time.time()
+                while time.time() - black_start < 0.5:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            return
+                        if event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_ESCAPE:
+                                return
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                            return
+                    self.clock.tick(60)
+                
+                # Remaining time: white cross in center
+                if self.inter_audio_interval > 0.5:
+                    cross_start = time.time()
+                    while time.time() - cross_start < (self.inter_audio_interval - 0.5):
+                        for event in pygame.event.get():
+                            if event.type == pygame.QUIT:
+                                return
+                            if event.type == pygame.KEYDOWN:
+                                if event.key == pygame.K_ESCAPE:
+                                    return
+                            if event.type == pygame.MOUSEBUTTONDOWN:
+                                return
+                        
+                        self.screen.fill(self.BLACK)
+                        
+                        # Draw white cross in center
+                        cross_size = 40
+                        cross_thickness = 10
+                        center_x = self.width // 2
+                        center_y = self.height // 2
+                        
+                        # Horizontal line
+                        pygame.draw.rect(self.screen, self.WHITE,
+                                       (center_x - cross_size, center_y - cross_thickness // 2,
+                                        cross_size * 2, cross_thickness))
+                        # Vertical line
+                        pygame.draw.rect(self.screen, self.WHITE,
+                                       (center_x - cross_thickness // 2, center_y - cross_size,
+                                        cross_thickness, cross_size * 2))
+                        
+                        pygame.display.flip()
+                        self.clock.tick(60)
+            
+            print("Listening paradigm completed!")
+        
+        finally:
+            pygame.mixer.quit()
+            pygame.quit()
+# Example usage for ReadingParadigm
+if __name__ == "__main__":
+    # paradigm = SentenceParadigm(
+    #     sentences_file="sentences_en.txt",
+    #     char_speed = 1.2,
+    #     prep_time = 1.5,
+    #     prep_time_jitter = 0.3,
+    #     jitter_mean = 0.5,
+    #     jitter_std = 0.1, # in fact, this is half-width of uniform distribution
+    #     dot_interval = 0.6,
+    #     prep_mode = 'square',  # 'square' or 'dots'
+    #     play_mode = 'green',  # 'green' or 'progress'
+    #     progress_duration = 1.2, 
+    #     progress_pause = 0.5,
+    #     inter_sentence_interval = 2.0 # total inter-sentence interval in seconds
+    # )
+    # paradigm.run()
+
+    # reading = ReadingParadigm(
+    #     words_file="words_reading.txt",
+    #     word_duration=0.3,  # 300ms per word
+    #     prep_time=1.5,
+    #     prep_time_jitter=0.1,
+    #     inter_word_interval=2.0,
+    #     word_jitter_mean=0.5,  # 中心值 0.5s
+    #     word_jitter_std=0.1,   # 半宽 0.1s，即范围 0.4-0.6s
+    # )
+    # reading.run()
+
+    listening = ListeningParadigm(
+        audios_folder="audios",
+        prep_time=1.5,
+        prep_time_jitter=0.1,
+        inter_audio_interval=2.0,
+        audio_jitter_mean=0.5,  # Center value 0.5s
+        audio_jitter_std=0.1,   # Half-width 0.1s, range 0.4-0.6s
+        repetitions=3
+    )
+    listening.run()

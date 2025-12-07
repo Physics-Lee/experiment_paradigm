@@ -1,0 +1,63 @@
+{
+  "experiment_start": "2025-12-07T14:42:41.748792",
+  "total_trials": 3,
+  "trials": [
+    {
+      "trial_id": 1,
+      "paradigm": "reading",
+      "word": "De zon schijnt vandaag fel",
+      "trial_start": 0.0003162999637424946,
+      "trial_start_abs": "2025-12-07T14:42:41.749791",
+      "actual_prep_time": 1.5222203984967455,
+      "actual_word_jitter": 0.5906615146537534,
+      "red_square_onset": 0.00032739993184804916,
+      "red_square_onset_abs": "2025-12-07T14:42:41.749791",
+      "green_square_onset": 1.5225514001213014,
+      "green_square_onset_abs": "2025-12-07T14:42:43.272253",
+      "word_onset": 2.1228678999468684,
+      "word_onset_abs": "2025-12-07T14:42:43.872600",
+      "word_offset": 2.3366352999582887,
+      "word_offset_abs": "2025-12-07T14:42:44.086330",
+      "trial_end": 2.3366597001440823,
+      "trial_end_abs": "2025-12-07T14:42:44.086330"
+    },
+    {
+      "trial_id": 2,
+      "paradigm": "reading",
+      "word": "Room",
+      "trial_start": 4.3616571999154985,
+      "trial_start_abs": "2025-12-07T14:42:46.111126",
+      "actual_prep_time": 1.4732626728542055,
+      "actual_word_jitter": 0.5596645235416134,
+      "red_square_onset": 4.361697799991816,
+      "red_square_onset_abs": "2025-12-07T14:42:46.111126",
+      "green_square_onset": 5.851059900131077,
+      "green_square_onset_abs": "2025-12-07T14:42:47.600779",
+      "word_onset": 6.414426800329238,
+      "word_onset_abs": "2025-12-07T14:42:48.164121",
+      "word_offset": 6.616527700331062,
+      "word_offset_abs": "2025-12-07T14:42:48.366241",
+      "trial_end": 6.616552100051194,
+      "trial_end_abs": "2025-12-07T14:42:48.366241"
+    },
+    {
+      "trial_id": 3,
+      "paradigm": "reading",
+      "word": "Pet",
+      "trial_start": 8.640672200359404,
+      "trial_start_abs": "2025-12-07T14:42:50.390077",
+      "actual_prep_time": 1.5229949403787861,
+      "actual_word_jitter": 0.4289195940344902,
+      "red_square_onset": 8.640708500053734,
+      "red_square_onset_abs": "2025-12-07T14:42:50.390077",
+      "green_square_onset": 10.166246199980378,
+      "green_square_onset_abs": "2025-12-07T14:42:51.915966",
+      "word_onset": 10.59661820018664,
+      "word_onset_abs": "2025-12-07T14:42:52.346315",
+      "word_offset": 10.797691800165921,
+      "word_offset_abs": "2025-12-07T14:42:52.547418",
+      "trial_end": 10.797703700140119,
+      "trial_end_abs": "2025-12-07T14:42:52.547418"
+    }
+  ]
+}

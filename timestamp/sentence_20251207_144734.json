@@ -1,0 +1,28 @@
+{
+  "experiment_start": "2025-12-07T14:47:17.719080",
+  "total_trials": 1,
+  "trials": [
+    {
+      "trial_id": 1,
+      "paradigm": "sentence",
+      "sentence": "I like playing basketball.",
+      "prep_mode": "square",
+      "play_mode": "green",
+      "trial_start": 0.006132800132036209,
+      "trial_start_abs": "2025-12-07T14:47:17.725566",
+      "prep_onset": 0.0069516003131866455,
+      "prep_onset_abs": "2025-12-07T14:47:17.726566",
+      "actual_prep_time": 1.2416549519781857,
+      "prep_offset": 1.2641557003371418,
+      "prep_offset_abs": "2025-12-07T14:47:18.983928",
+      "first_word_onset": 1.264192699920386,
+      "first_word_onset_abs": "2025-12-07T14:47:18.983928",
+      "actual_jitter": 0.568770905311414,
+      "sentence_complete": 5.455217000097036,
+      "sentence_complete_abs": "2025-12-07T14:47:23.174979",
+      "trial_end": 5.9587679002434015,
+      "trial_end_abs": "2025-12-07T14:47:23.678525",
+      "word_count": 4
+    }
+  ]
+}

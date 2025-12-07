@@ -1,0 +1,45 @@
+{
+  "experiment_start": "2025-12-07T14:36:43.825000",
+  "total_trials": 3,
+  "trials": [
+    {
+      "trial_id": 1,
+      "paradigm": "listening",
+      "audio_filename": "wet.mp3",
+      "trial_start": 0.001538899727165699,
+      "actual_prep_time": 1.4396981232893415,
+      "actual_audio_jitter": 0.42175903900981637,
+      "red_square_onset": 0.0015465999022126198,
+      "green_square_onset": 1.450729999691248,
+      "audio_onset": 1.882863299921155,
+      "audio_offset": 2.6414606999605894,
+      "trial_end": 2.6414705999195576
+    },
+    {
+      "trial_id": 2,
+      "paradigm": "listening",
+      "audio_filename": "step.mp3",
+      "trial_start": 4.660032499581575,
+      "actual_prep_time": 1.446973290894591,
+      "actual_audio_jitter": 0.44184058496419726,
+      "red_square_onset": 4.660050999838859,
+      "green_square_onset": 6.108605799730867,
+      "audio_onset": 6.5610950998961926,
+      "audio_offset": 7.3739490997977555,
+      "trial_end": 7.373952999711037
+    },
+    {
+      "trial_id": 3,
+      "paradigm": "listening",
+      "audio_filename": "bad.mp3",
+      "trial_start": 9.38487989967689,
+      "actual_prep_time": 1.5651654766968466,
+      "actual_audio_jitter": 0.48758868830656543,
+      "red_square_onset": 9.384888099972159,
+      "green_square_onset": 10.95019539957866,
+      "audio_onset": 11.446250199805945,
+      "audio_offset": 12.209748599678278,
+      "trial_end": 12.209756399970502
+    }
+  ]
+}

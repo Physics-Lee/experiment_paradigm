@@ -1,0 +1,58 @@
+{
+  "experiment_start": "2025-12-07T14:41:47.095902",
+  "total_trials": 4,
+  "trials": [
+    {
+      "trial_id": 1,
+      "paradigm": "listening",
+      "audio_filename": "bad.mp3",
+      "trial_start": 0.0014492999762296677,
+      "actual_prep_time": 1.4028697386888924,
+      "actual_audio_jitter": 0.5217092284509289,
+      "red_square_onset": 0.0014539998956024647,
+      "green_square_onset": 1.4178530001081526,
+      "audio_onset": 1.952072000131011,
+      "audio_offset": 2.713637199718505,
+      "trial_end": 2.7136460999026895
+    },
+    {
+      "trial_id": 2,
+      "paradigm": "listening",
+      "audio_filename": "bang.mp3",
+      "trial_start": 4.726264399942011,
+      "actual_prep_time": 1.542524807545477,
+      "actual_audio_jitter": 0.5506396849263735,
+      "red_square_onset": 4.726280599832535,
+      "green_square_onset": 6.284002599772066,
+      "audio_onset": 6.843766300007701,
+      "audio_offset": 7.607976799830794,
+      "trial_end": 7.607984600123018
+    },
+    {
+      "trial_id": 3,
+      "paradigm": "listening",
+      "audio_filename": "radio.mp3",
+      "trial_start": 9.627248699776828,
+      "actual_prep_time": 1.4359159362954819,
+      "actual_audio_jitter": 0.5160160018069947,
+      "red_square_onset": 9.627257599961013,
+      "green_square_onset": 11.075104599818587,
+      "audio_onset": 11.591125099919736,
+      "audio_offset": 12.671091800089926,
+      "trial_end": 12.671098600141704
+    },
+    {
+      "trial_id": 4,
+      "paradigm": "listening",
+      "audio_filename": "bang.mp3",
+      "trial_start": 14.695340099744499,
+      "actual_prep_time": 1.5013816595445117,
+      "actual_audio_jitter": 0.4296247345547126,
+      "red_square_onset": 14.695361699908972,
+      "green_square_onset": 16.20095059974119,
+      "audio_onset": 16.64502270007506,
+      "audio_offset": 17.41403069999069,
+      "trial_end": 17.414036800153553
+    }
+  ]
+}

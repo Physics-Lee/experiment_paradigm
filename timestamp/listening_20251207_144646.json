@@ -1,0 +1,45 @@
+{
+  "experiment_start": "2025-12-07T14:46:32.129473",
+  "total_trials": 3,
+  "trials": [
+    {
+      "trial_id": 1,
+      "paradigm": "listening",
+      "audio_filename": "pet.mp3",
+      "trial_start": 0.001575700007379055,
+      "actual_prep_time": 1.4889609025423585,
+      "actual_audio_jitter": 0.4768404233135548,
+      "red_square_onset": 0.0015802998095750809,
+      "green_square_onset": 1.4950978998094797,
+      "audio_onset": 1.9722609999589622,
+      "audio_offset": 2.807518699672073,
+      "trial_end": 2.8075230000540614
+    },
+    {
+      "trial_id": 2,
+      "paradigm": "listening",
+      "audio_filename": "pen.mp3",
+      "trial_start": 4.823886099737138,
+      "actual_prep_time": 1.575669325542522,
+      "actual_audio_jitter": 0.509134751879668,
+      "red_square_onset": 4.823905099648982,
+      "green_square_onset": 6.413238399662077,
+      "audio_onset": 6.937078499700874,
+      "audio_offset": 7.696300299838185,
+      "trial_end": 7.696304599754512
+    },
+    {
+      "trial_id": 3,
+      "paradigm": "listening",
+      "audio_filename": "room.mp3",
+      "trial_start": 9.713663599919528,
+      "actual_prep_time": 1.5337496678359142,
+      "actual_audio_jitter": 0.49982094454770615,
+      "red_square_onset": 9.713671199977398,
+      "green_square_onset": 11.256599499844015,
+      "audio_onset": 11.769039299804717,
+      "audio_offset": 12.5735994996503,
+      "trial_end": 12.573604899924248
+    }
+  ]
+}

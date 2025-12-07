@@ -1,0 +1,25 @@
+{
+  "experiment_start": "2025-12-07T14:46:04.612552",
+  "total_trials": 1,
+  "trials": [
+    {
+      "trial_id": 1,
+      "paradigm": "reading",
+      "word": "De zon schijnt vandaag fel",
+      "trial_start": 0.004558200016617775,
+      "trial_start_abs": "2025-12-07T14:46:04.617056",
+      "actual_prep_time": 1.5717711969945618,
+      "actual_word_jitter": 0.4318591020963246,
+      "red_square_onset": 0.004573400132358074,
+      "red_square_onset_abs": "2025-12-07T14:46:04.617056",
+      "green_square_onset": 1.591615699697286,
+      "green_square_onset_abs": "2025-12-07T14:46:06.204234",
+      "word_onset": 2.0389962000772357,
+      "word_onset_abs": "2025-12-07T14:46:06.651625",
+      "word_offset": 2.2546620001085103,
+      "word_offset_abs": "2025-12-07T14:46:06.867265",
+      "trial_end": 2.254679299890995,
+      "trial_end_abs": "2025-12-07T14:46:06.867265"
+    }
+  ]
+}

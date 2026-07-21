@@ -1,0 +1,35 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Generated experiment output
+timestamp/*.csv
+timestamp/*.json
+
+# Generated plans, reports, and reference exports
+/docs/generated/
+*.pdf
+/reference/*
+!/reference/AGENTS.md
+
+# Logs and temporary files
+*.log
+*.tmp

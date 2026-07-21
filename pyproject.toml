@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "experiment-paradigm"
+version = "0.1.0"
+description = "Fullscreen Pygame sentence, reading, and listening paradigms"
+readme = "docs/readme.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pygame==2.6.1",
+    "edge-tts==7.2.8",
+    "mutagen==1.47.0",
+    "typing-extensions==4.16.0",
+]
+
+[project.scripts]
+generate-sentence-audio = "experiment_paradigm.tts:main"
+run-sentence-audio = "experiment_paradigm.cli:main"
+run-sentence-audio-zh = "experiment_paradigm.cli:main_zh"
+run-locked-in-sentence-reading = "experiment_paradigm.cli:main_locked_in"
+run-reading = "experiment_paradigm.cli:main_reading"
+run-listening = "experiment_paradigm.cli:main_listening"
+
+[tool.setuptools.packages.find]
+where = ["src"]

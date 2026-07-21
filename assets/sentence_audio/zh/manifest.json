@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "complete": true,
+  "created_at": "2026-07-20T07:24:49.822153+00:00",
+  "updated_at": "2026-07-20T07:25:43.922756+00:00",
+  "sentences_file": "..\\..\\..\\stimuli\\sentences.txt",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "我教数学",
+      "file": "sentence_001.mp3",
+      "duration_ms": 1680,
+      "sha256": "08bd193d150deca8c8469ff4aa53c665f1cdf1fb16585152f23a24279210567b"
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "我交书费",
+      "file": "sentence_002.mp3",
+      "duration_ms": 1584,
+      "sha256": "7c1c947d4ea3998a5164d1087f6cb280f0d4579f6a2c9665e161734a4849c3ec"
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "和我取快递",
+      "file": "sentence_003.mp3",
+      "duration_ms": 1776,
+      "sha256": "164e80f5fac313ef3fe8ae479aeb37794dc7acdf588d0bfbeedbeba0472b3848"
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "我爸我妈好爱我",
+      "file": "sentence_004.mp3",
+      "duration_ms": 2016,
+      "sha256": "ef6a566e721fa74cec08e6b68fab1284e04762d614879a899af0e93d006d6645"
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "I love you.",
+      "file": "sentence_005.mp3",
+      "duration_ms": 1536,
+      "sha256": "e4c31fd66a4e938c8afd4a2e9c657c1496b48d2d98001e9556ec908411e16824"
+    }
+  ]
+}

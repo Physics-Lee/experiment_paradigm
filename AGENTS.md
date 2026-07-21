@@ -1,0 +1,47 @@
+# Repository Guidance
+
+## Purpose and layout
+
+This repository contains fullscreen Pygame paradigms for sentence, reading, and
+listening experiments.
+
+- `src/experiment_paradigm/` contains the maintained package implementation.
+  `paradigms.py` defines the sentence, reading, and listening paradigms;
+  `tts.py` generates neural sentence audio; and `cli.py` owns argument parsing
+  and runnable experiment entry points.
+- `scripts/` contains thin repository-checkout wrappers only. Maintained
+  behavior, defaults, validation, and reusable imports belong in the package.
+- `stimuli/` contains authoritative UTF-8 line-oriented sentence and word lists.
+- `assets/` contains intentional, versioned listening audio, sentence TTS assets,
+  manifests, and example videos.
+- `timestamp/` contains versioned example results and receives generated run
+  output.
+- `docs/` contains repository documentation.
+- `reference/` contains local-only raw reference material and is not runtime
+  input.
+
+## Working conventions
+
+- Run commands from the repository root because scripts use relative paths.
+- Keep timing values in seconds and preserve the event/timestamp field names
+  when changing experiment behavior.
+- Do not launch the fullscreen entry points as an automated check. They require
+  a display and user input; press Escape to exit an interactive run.
+- `pyproject.toml` is the package and dependency source of truth;
+  `requirements.txt` mirrors its pinned runtime dependencies for simple setup.
+- Installed console commands are `run-sentence-audio`,
+  `run-sentence-audio-zh`, `run-locked-in-sentence-reading`, `run-reading`,
+  `run-listening`, and `generate-sentence-audio`.
+- Use this non-interactive syntax check after Python edits:
+  `python -c "import ast, pathlib; [ast.parse(p.read_text(encoding='utf-8')) for p in pathlib.Path('src').rglob('*.py')]"`
+
+## Generated files and safety
+
+- Treat newly created `timestamp/*.csv` and `timestamp/*.json` files as local
+  run output unless a specific result is intentionally selected as a fixture.
+- Treat `docs/generated/`, PDFs, caches, logs, and local environment files as
+  generated or machine-local; they are ignored by Git.
+- Existing tracked timestamp files and media are repository fixtures/assets.
+  Do not remove, rewrite, recompress, or untrack them without explicit approval.
+- Preserve unrelated working-tree changes, especially experiment data and
+  stimulus edits.

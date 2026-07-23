@@ -1,3 +1,4 @@
+import asyncio
 import hashlib
 import json
 import os
@@ -6,6 +7,8 @@ import tempfile
 import unittest
 import wave
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 
 
 os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
@@ -19,6 +22,7 @@ from experiment_paradigm import (
     SentenceParadigm,
 )
 from experiment_paradigm.tts import can_reuse_audio
+from experiment_paradigm.tts import build_audio_set
 
 
 def write_silent_wav(path, duration=0.04, sample_rate=44100):
@@ -59,6 +63,48 @@ class SentenceAudioTests(unittest.TestCase):
                             "file": audio_path.name,
                             "duration_ms": 40,
                             "sha256": sha256_file(audio_path),
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        return sentences_path, manifest_path
+
+    def build_segmented_fixture(self, root):
+        sentences_path = root / "sentences.txt"
+        sentences_path.write_text("手机\n", encoding="utf-8")
+
+        segments = []
+        for index, character in enumerate("手机", start=1):
+            segment_id = f"sentence_001_char_{index:03d}"
+            audio_path = root / f"{segment_id}.wav"
+            write_silent_wav(audio_path)
+            segments.append(
+                {
+                    "id": segment_id,
+                    "index": index,
+                    "text": character,
+                    "file": audio_path.name,
+                    "duration_ms": 40,
+                    "sha256": sha256_file(audio_path),
+                }
+            )
+
+        manifest_path = root / "manifest.json"
+        manifest_path.write_text(
+            json.dumps(
+                {
+                    "schema_version": 2,
+                    "complete": True,
+                    "items": [
+                        {
+                            "id": "sentence_001",
+                            "index": 1,
+                            "text": "手机",
+                            "unit": "character",
+                            "duration_ms": 80,
+                            "segments": segments,
                         }
                     ],
                 }
@@ -249,11 +295,48 @@ class SentenceAudioTests(unittest.TestCase):
             )
             self.assertAlmostEqual(
                 layout["square_size"] / lower_half_height,
-                0.75,
+                0.60,
                 places=2,
             )
 
-    def test_locked_in_rest_screen_has_large_gray_center_cross(self):
+    def test_locked_in_rest_screen_has_half_size_gray_center_cross(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            sentences_path, manifest_path = self.build_fixture(
+                root,
+                manifest_text="喝",
+            )
+            sentences_path.write_text("喝\n", encoding="utf-8")
+            paradigm = LockedInSentenceReadingParadigm(
+                sentences_file=str(sentences_path),
+                audio_manifest=str(manifest_path),
+                rest_cross=True,
+                cue_tone=False,
+            )
+
+            paradigm._draw_rest_screen()
+            center = (paradigm.width // 2, paradigm.height // 2)
+            cross_inside = (
+                center[0] + round(min(paradigm.width, paradigm.height) * 0.1),
+                center[1],
+            )
+            cross_outside = (
+                center[0] + round(min(paradigm.width, paradigm.height) * 0.12),
+                center[1],
+            )
+
+            self.assertEqual(paradigm.screen.get_at(center)[:3], paradigm.GRAY)
+            self.assertEqual(
+                paradigm.screen.get_at(cross_inside)[:3],
+                paradigm.GRAY,
+            )
+            self.assertEqual(
+                paradigm.screen.get_at(cross_outside)[:3],
+                paradigm.BLACK,
+            )
+            self.assertEqual(paradigm.screen.get_at((0, 0))[:3], paradigm.BLACK)
+
+    def test_locked_in_rest_screen_is_black_by_default(self):
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
             sentences_path, manifest_path = self.build_fixture(
@@ -269,17 +352,9 @@ class SentenceAudioTests(unittest.TestCase):
 
             paradigm._draw_rest_screen()
             center = (paradigm.width // 2, paradigm.height // 2)
-            cross_edge = (
-                center[0] + round(min(paradigm.width, paradigm.height) * 0.2),
-                center[1],
-            )
 
-            self.assertEqual(paradigm.screen.get_at(center)[:3], paradigm.GRAY)
-            self.assertEqual(
-                paradigm.screen.get_at(cross_edge)[:3],
-                paradigm.GRAY,
-            )
-            self.assertEqual(paradigm.screen.get_at((0, 0))[:3], paradigm.BLACK)
+            self.assertFalse(paradigm.rest_cross_enabled)
+            self.assertEqual(paradigm.screen.get_at(center)[:3], paradigm.BLACK)
 
     def test_locked_in_progress_mode_records_progress_events(self):
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -321,6 +396,82 @@ class SentenceAudioTests(unittest.TestCase):
                 events[-1]["completion"],
             )
 
+    def test_character_audio_segments_play_in_order(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            sentences_path, manifest_path = self.build_segmented_fixture(root)
+            paradigm = LockedInSentenceReadingParadigm(
+                sentences_file=str(sentences_path),
+                audio_manifest=str(manifest_path),
+                progress_duration=0.001,
+                progress_pause=0,
+                baseline_min=0.001,
+                baseline_max=0.001,
+                pre_audio_delay_min=0.001,
+                pre_audio_delay_max=0.001,
+                silent_delay_min=0.001,
+                silent_delay_max=0.001,
+                final_hold=0.001,
+                rest_min=0.001,
+                rest_max=0.001,
+                cue_tone=False,
+            )
+
+            self.assertTrue(
+                paradigm.display_sentence(
+                    "手机",
+                    trial_id=2,
+                    stimulus_index=1,
+                    repetition=2,
+                    repetition_trial=1,
+                )
+            )
+            trial = paradigm.trials_data[0]
+            segment_events = trial["target_audio_segments"]
+
+            self.assertEqual(trial["trial_id"], 2)
+            self.assertEqual(trial["stimulus_index"], 1)
+            self.assertEqual(trial["repetition"], 2)
+            self.assertEqual(trial["repetition_trial"], 1)
+            self.assertEqual(trial["audio_segment_count"], 2)
+            self.assertEqual(
+                [event["text"] for event in segment_events],
+                ["手", "机"],
+            )
+            self.assertLess(
+                segment_events[0]["offset"],
+                segment_events[1]["onset"],
+            )
+
+    def test_locked_in_schedule_reshuffles_each_repetition(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            sentences_path, manifest_path = self.build_fixture(root)
+            paradigm = LockedInSentenceReadingParadigm(
+                sentences_file=str(sentences_path),
+                audio_manifest=str(manifest_path),
+                repetitions=2,
+                shuffle=True,
+                cue_tone=False,
+            )
+            paradigm.sentences = ["甲", "乙", "丙"]
+
+            with patch(
+                "experiment_paradigm.paradigms.random.shuffle",
+                side_effect=lambda order: order.reverse(),
+            ) as shuffle:
+                schedule = paradigm._build_trial_schedule()
+
+            self.assertEqual(shuffle.call_count, 2)
+            self.assertEqual(
+                [trial["stimulus_index"] for trial in schedule],
+                [3, 2, 1, 3, 2, 1],
+            )
+            self.assertEqual(
+                [trial["repetition"] for trial in schedule],
+                [1, 1, 1, 2, 2, 2],
+            )
+
     def test_existing_generated_audio_is_reused_only_when_hash_matches(self):
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
@@ -349,6 +500,51 @@ class SentenceAudioTests(unittest.TestCase):
                     sentence_id="sentence_001",
                     text="Test sentence.",
                 )
+            )
+
+    def test_tts_generator_sends_chinese_characters_separately(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            sentences_path = root / "sentences.txt"
+            sentences_path.write_text("手机\n", encoding="utf-8")
+            output_dir = root / "audio"
+            args = SimpleNamespace(
+                sentences=sentences_path,
+                output_dir=output_dir,
+                tts_unit="auto",
+                voice="zh-CN-XiaoxiaoNeural",
+                rate="-50%",
+                volume="+0%",
+                pitch="+0Hz",
+                force=False,
+            )
+            generated_texts = []
+
+            async def fake_generate_audio(**kwargs):
+                generated_texts.append(kwargs["text"])
+                kwargs["output_path"].write_bytes(kwargs["text"].encode("utf-8"))
+
+            def fake_audio_metadata(path):
+                return 1000, sha256_file(path)
+
+            with patch(
+                "experiment_paradigm.tts.generate_audio",
+                side_effect=fake_generate_audio,
+            ), patch(
+                "experiment_paradigm.tts.audio_metadata",
+                side_effect=fake_audio_metadata,
+            ):
+                manifest = asyncio.run(build_audio_set(args))
+
+            self.assertEqual(generated_texts, ["手", "机"])
+            self.assertEqual(manifest["schema_version"], 2)
+            self.assertEqual(manifest["items"][0]["unit"], "character")
+            self.assertEqual(
+                [
+                    segment["text"]
+                    for segment in manifest["items"][0]["segments"]
+                ],
+                ["手", "机"],
             )
 
 

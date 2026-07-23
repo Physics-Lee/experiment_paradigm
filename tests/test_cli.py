@@ -15,6 +15,7 @@ from experiment_paradigm.cli import (
     parse_reading_args,
 )
 from experiment_paradigm.tts import parse_args as parse_tts_args
+from experiment_paradigm.text_units import split_tts_units
 
 
 class CommandLineDefaultsTests(unittest.TestCase):
@@ -38,14 +39,17 @@ class CommandLineDefaultsTests(unittest.TestCase):
         self.assertEqual(args.sentences, Path("stimuli/sentences.txt"))
         self.assertEqual(args.pre_audio_delay_min, 0.4)
         self.assertEqual(args.pre_audio_delay_max, 0.6)
-        self.assertEqual(args.silent_delay_min, 2.0)
-        self.assertEqual(args.silent_delay_max, 3.0)
+        self.assertEqual(args.silent_delay_min, 1.5)
+        self.assertEqual(args.silent_delay_max, 2.0)
         self.assertEqual(args.rest_min, 5.0)
         self.assertEqual(args.rest_max, 6.0)
         self.assertEqual(args.play_mode, "progress")
         self.assertEqual(args.progress_duration, 3.0)
         self.assertEqual(args.progress_pause, 0.5)
         self.assertEqual(args.cue_volume, 0.7)
+        self.assertEqual(args.repetitions, 1)
+        self.assertFalse(args.shuffle)
+        self.assertFalse(args.show_rest_cross)
 
     def test_locked_in_progress_mode_can_be_selected(self):
         args = parse_locked_in_args(["--play-mode", "progress"])
@@ -62,7 +66,22 @@ class CommandLineDefaultsTests(unittest.TestCase):
         self.assertIn("视觉提示与速度", help_text)
         self.assertIn("试次时序", help_text)
         self.assertIn("统一提示音", help_text)
+        self.assertIn("循环与顺序", help_text)
+        self.assertIn("--repetitions", help_text)
+        self.assertIn("--shuffle", help_text)
+        self.assertIn("--show-rest-cross", help_text)
         self.assertIn("--cue-volume", help_text)
+
+    def test_locked_in_repetitions_and_shuffle_can_be_selected(self):
+        args = parse_locked_in_args(["--repetitions", "4", "--shuffle"])
+
+        self.assertEqual(args.repetitions, 4)
+        self.assertTrue(args.shuffle)
+
+    def test_locked_in_rest_cross_can_be_enabled(self):
+        args = parse_locked_in_args(["--show-rest-cross"])
+
+        self.assertTrue(args.show_rest_cross)
 
     def test_tts_help_is_described_and_grouped(self):
         output = io.StringIO()
@@ -74,6 +93,17 @@ class CommandLineDefaultsTests(unittest.TestCase):
         self.assertIn("TTS 语音设置", help_text)
         self.assertIn("生成策略", help_text)
         self.assertIn("--force", help_text)
+        self.assertIn("--tts-unit", help_text)
+
+    def test_tts_auto_unit_splits_chinese_but_not_english(self):
+        self.assertEqual(
+            split_tts_units("手机。", "auto"),
+            ("character", ["手", "机"]),
+        )
+        self.assertEqual(
+            split_tts_units("mobile phone", "auto"),
+            ("line", ["mobile phone"]),
+        )
 
 
 if __name__ == "__main__":

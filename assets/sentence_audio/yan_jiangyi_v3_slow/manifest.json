@@ -1,0 +1,88 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-07-22T09:19:31.912772+00:00",
+  "updated_at": "2026-07-22T09:19:37.157272+00:00",
+  "sentences_file": "..\\..\\..\\stimuli\\yan_jiangyi_v3txt",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "rate": "-50%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "character"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "拉",
+      "unit": "character",
+      "duration_ms": 2064,
+      "segments": [
+        {
+          "id": "sentence_001_char_001",
+          "index": 1,
+          "text": "拉",
+          "file": "sentence_001_char_001.mp3",
+          "duration_ms": 2064,
+          "sha256": "9489449790d0ef18b70017b889ca08282ef041dd41e0e448d36ce31d2d06d65b"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "喝",
+      "unit": "character",
+      "duration_ms": 2064,
+      "segments": [
+        {
+          "id": "sentence_002_char_001",
+          "index": 1,
+          "text": "喝",
+          "file": "sentence_002_char_001.mp3",
+          "duration_ms": 2064,
+          "sha256": "7688af15a84eb6d169c07db06a08cd1eee29fccc99e988a6102e31848a4f0e7a"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "好",
+      "unit": "character",
+      "duration_ms": 2016,
+      "segments": [
+        {
+          "id": "sentence_003_char_001",
+          "index": 1,
+          "text": "好",
+          "file": "sentence_003_char_001.mp3",
+          "duration_ms": 2016,
+          "sha256": "69257d26ee7d515c3707adda05144c204970b8eadec7403a6e270508ee1359c4"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "啊",
+      "unit": "character",
+      "duration_ms": 2112,
+      "segments": [
+        {
+          "id": "sentence_004_char_001",
+          "index": 1,
+          "text": "啊",
+          "file": "sentence_004_char_001.mp3",
+          "duration_ms": 2112,
+          "sha256": "693710afab58756718f95145b65aaeb454d887b81b913977f77fb985b4f1992a"
+        }
+      ]
+    }
+  ]
+}

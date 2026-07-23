@@ -15,15 +15,23 @@ from typing import Any
 import edge_tts
 from mutagen.mp3 import MP3
 
+from .stimuli import read_news_items, read_nonempty_lines, split_tts_units
 
-SCHEMA_VERSION = 1
+
+SCHEMA_VERSION = 2
 DEFAULT_VOICE = "en-US-JennyNeural"
+
+
+class DetailedHelpFormatter(
+    argparse.ArgumentDefaultsHelpFormatter,
+    argparse.RawDescriptionHelpFormatter,
+):
+    """Show defaults while preserving multi-line usage notes."""
 
 
 def read_sentences(path: Path) -> list[str]:
     """Read non-empty UTF-8 stimulus lines without changing their order."""
-    with path.open("r", encoding="utf-8") as handle:
-        return [line.strip() for line in handle if line.strip()]
+    return read_nonempty_lines(path)
 
 
 def sha256_file(path: Path) -> str:
@@ -122,25 +130,40 @@ def audio_metadata(path: Path) -> tuple[int, str]:
     return duration_ms, sha256_file(path)
 
 
-async def build_audio_set(args: argparse.Namespace) -> dict[str, Any]:
+async def build_audio_set(
+    args: argparse.Namespace,
+    *,
+    text_loader=read_sentences,
+) -> dict[str, Any]:
     """Generate or reuse the full ordered sentence audio set."""
     sentences_path = args.sentences.resolve()
     output_dir = args.output_dir.resolve()
     manifest_path = output_dir / "manifest.json"
-    sentences = read_sentences(sentences_path)
+    sentences = text_loader(sentences_path)
     if not sentences:
         raise ValueError(f"No non-empty sentences found in {sentences_path}")
 
-    existing_manifest = load_manifest(manifest_path)
-    existing_items = {}
-    if existing_manifest:
-        existing_items = {
-            item.get("id"): item
-            for item in existing_manifest.get("items", [])
-            if isinstance(item, dict)
-        }
+    segmented_sentences = [
+        (text, *split_tts_units(text, args.tts_unit))
+        for text in sentences
+    ]
 
-    requested_tts = {
+    existing_manifest = load_manifest(manifest_path)
+    existing_segments: dict[str, dict[str, Any]] = {}
+    if existing_manifest:
+        for item in existing_manifest.get("items", []):
+            if not isinstance(item, dict):
+                continue
+            segments = item.get("segments")
+            if isinstance(segments, list):
+                for segment in segments:
+                    if isinstance(segment, dict):
+                        existing_segments[segment.get("id")] = segment
+            elif isinstance(item.get("id"), str):
+                # Schema 1 stored one whole-line audio file directly on item.
+                existing_segments[item["id"]] = item
+
+    base_tts_settings = {
         "provider": "microsoft-edge-tts",
         "client": "edge-tts",
         "client_version": edge_tts.__version__,
@@ -150,9 +173,26 @@ async def build_audio_set(args: argparse.Namespace) -> dict[str, Any]:
         "pitch": args.pitch,
         "format": "mp3",
     }
+    requested_tts = {
+        **base_tts_settings,
+        "unit": args.tts_unit,
+    }
+    all_resolved_as_lines = all(
+        resolved_unit == "line"
+        for _, resolved_unit, _ in segmented_sentences
+    )
+    existing_tts = (
+        existing_manifest.get("tts") if existing_manifest else None
+    )
     settings_match = (
         existing_manifest is not None
-        and existing_manifest.get("tts") == requested_tts
+        and (
+            existing_tts == requested_tts
+            or (
+                existing_tts == base_tts_settings
+                and all_resolved_as_lines
+            )
+        )
     )
     generation_started_at = (
         existing_manifest.get("created_at")
@@ -164,65 +204,91 @@ async def build_audio_set(args: argparse.Namespace) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     items: list[dict[str, Any]] = []
     generated_any = False
-    for index, text in enumerate(sentences, start=1):
+    for index, (text, resolved_unit, text_units) in enumerate(
+        segmented_sentences,
+        start=1,
+    ):
         sentence_id = f"sentence_{index:03d}"
-        output_path = output_dir / f"{sentence_id}.mp3"
-        existing_item = existing_items.get(sentence_id)
+        segments: list[dict[str, Any]] = []
 
-        reusable = settings_match and can_reuse_audio(
-            output_path,
-            existing_item,
-            sentence_id=sentence_id,
-            text=text,
-        )
-        if args.force or not reusable:
-            if output_path.exists() and not args.force:
-                raise FileExistsError(
-                    f"Refusing to overwrite unmatched audio file: {output_path}. "
-                    "Use --force only after reviewing the existing asset."
-                )
-            print(f"Generating {sentence_id}: {text}")
-            await generate_audio(
-                text=text,
-                output_path=output_path,
-                voice=args.voice,
-                rate=args.rate,
-                volume=args.volume,
-                pitch=args.pitch,
+        for unit_index, unit_text in enumerate(text_units, start=1):
+            if resolved_unit == "line":
+                segment_id = sentence_id
+                filename = f"{sentence_id}.mp3"
+            else:
+                segment_id = f"{sentence_id}_char_{unit_index:03d}"
+                filename = f"{segment_id}.mp3"
+
+            output_path = output_dir / filename
+            existing_segment = existing_segments.get(segment_id)
+            reusable = settings_match and can_reuse_audio(
+                output_path,
+                existing_segment,
+                sentence_id=segment_id,
+                text=unit_text,
             )
-            generated_any = True
-        else:
-            print(f"Reusing {sentence_id}: {output_path.name}")
+            if args.force or not reusable:
+                if output_path.exists() and not args.force:
+                    raise FileExistsError(
+                        "Refusing to overwrite unmatched audio file: "
+                        f"{output_path}. Use --force only after reviewing "
+                        "the existing asset."
+                    )
+                print(f"Generating {segment_id}: {unit_text}")
+                await generate_audio(
+                    text=unit_text,
+                    output_path=output_path,
+                    voice=args.voice,
+                    rate=args.rate,
+                    volume=args.volume,
+                    pitch=args.pitch,
+                )
+                generated_any = True
+            else:
+                print(f"Reusing {segment_id}: {output_path.name}")
 
-        duration_ms, audio_hash = audio_metadata(output_path)
-        items.append(
-            {
+            duration_ms, audio_hash = audio_metadata(output_path)
+            segments.append(
+                {
+                    "id": segment_id,
+                    "index": unit_index,
+                    "text": unit_text,
+                    "file": filename,
+                    "duration_ms": duration_ms,
+                    "sha256": audio_hash,
+                }
+            )
+
+            current_item = {
                 "id": sentence_id,
                 "index": index,
                 "text": text,
-                "file": output_path.name,
-                "duration_ms": duration_ms,
-                "sha256": audio_hash,
+                "unit": resolved_unit,
+                "duration_ms": sum(
+                    segment["duration_ms"] for segment in segments
+                ),
+                "segments": segments,
             }
-        )
 
-        # Persist resumable progress after each completed audio item. Leave an
-        # already complete, fully reusable manifest untouched.
-        if generated_any or not (
-            settings_match and existing_manifest.get("complete") is True
-        ):
-            write_manifest_atomic(
-                manifest_path,
-                {
-                    "schema_version": SCHEMA_VERSION,
-                    "complete": False,
-                    "created_at": generation_started_at,
-                    "updated_at": datetime.now(timezone.utc).isoformat(),
-                    "sentences_file": sentences_file,
-                    "tts": requested_tts,
-                    "items": items,
-                },
-            )
+            # Persist after every segment so interrupted character generation
+            # can resume without rewriting completed audio.
+            if generated_any or not (
+                settings_match and existing_manifest.get("complete") is True
+            ):
+                write_manifest_atomic(
+                    manifest_path,
+                    {
+                        "schema_version": SCHEMA_VERSION,
+                        "complete": False,
+                        "created_at": generation_started_at,
+                        "updated_at": datetime.now(timezone.utc).isoformat(),
+                        "sentences_file": sentences_file,
+                        "tts": requested_tts,
+                        "items": [*items, current_item],
+                    },
+                )
+
+        items.append(current_item)
 
     if (
         existing_manifest is not None
@@ -250,78 +316,32 @@ async def build_audio_set(args: argparse.Namespace) -> dict[str, Any]:
     return manifest
 
 
-def parse_args(argv=None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description=(
-            "为句子刺激文件逐行生成稳定的神经 TTS 音频，"
-            "并建立文字—音频 manifest.json 对应清单。"
-        ),
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-        epilog=(
-            "示例: python scripts/generate_sentence_audio.py "
-            "--sentences stimuli/yan_jiangyi.txt "
-            "--output-dir assets/sentence_audio/yan_jiangyi "
-            "--voice zh-CN-XiaoxiaoNeural"
-        ),
-    )
-    files = parser.add_argument_group("输入与输出")
-    files.add_argument(
-        "--sentences",
-        type=Path,
-        default=Path("stimuli/sentences_en.txt"),
-        help="UTF-8 刺激文件；每个非空行生成一个音频。",
-    )
-    files.add_argument(
-        "--output-dir",
-        type=Path,
-        default=Path("assets/sentence_audio/en"),
-        help="MP3 文件和 manifest.json 的输出目录。",
-    )
+def parse_args(argv=None):
+    """Compatibility wrapper for the relocated sentence-TTS parser."""
+    from .commands.tts import parse_args as command_parser
 
-    speech = parser.add_argument_group("TTS 语音设置")
-    speech.add_argument(
-        "--voice",
-        default=DEFAULT_VOICE,
-        help=(
-            "Microsoft Edge TTS 语音名称；中文可使用 "
-            "zh-CN-XiaoxiaoNeural。"
-        ),
-    )
-    speech.add_argument(
-        "--rate",
-        default="+0%",
-        help="语速相对调整，例如 -10%%、+20%%。",
-    )
-    speech.add_argument(
-        "--volume",
-        default="+0%",
-        help="音量相对调整，例如 -10%%、+20%%。",
-    )
-    speech.add_argument(
-        "--pitch",
-        default="+0Hz",
-        help="音调相对调整，例如 -10Hz、+20Hz。",
-    )
-
-    generation = parser.add_argument_group("生成策略")
-    generation.add_argument(
-        "--force",
-        action="store_true",
-        help=(
-            "强制重新生成并替换已有音频；仅在确认需要"
-            "覆盖后使用。"
-        ),
-    )
-    return parser.parse_args(argv)
+    return command_parser(argv)
 
 
-def main() -> None:
-    args = parse_args()
-    manifest = asyncio.run(build_audio_set(args))
-    print(
-        f"Wrote {len(manifest['items'])} audio files and manifest to "
-        f"{args.output_dir.resolve()}"
-    )
+def main(argv=None) -> None:
+    """Compatibility wrapper for sentence TTS generation."""
+    from .commands.tts import main as command_main
+
+    command_main(argv)
+
+
+def parse_news_args(argv=None):
+    """Compatibility wrapper for the relocated news-TTS parser."""
+    from .commands.tts import parse_news_args as command_parser
+
+    return command_parser(argv)
+
+
+def main_news(argv=None) -> None:
+    """Compatibility wrapper for relaxing-news TTS generation."""
+    from .commands.tts import main_news as command_main
+
+    command_main(argv)
 
 
 if __name__ == "__main__":

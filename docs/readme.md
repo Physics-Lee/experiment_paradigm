@@ -16,10 +16,12 @@ python -m pip install -e .
 
 ## Source layout
 
-- `src/experiment_paradigm/paradigms.py` contains the maintained, reusable
-  Pygame implementations.
-- `src/experiment_paradigm/cli.py` contains argument parsing, defaults, and
-  installed experiment entry points.
+- `src/experiment_paradigm/paradigms/` contains one maintained Pygame
+  implementation module per experiment type.
+- `src/experiment_paradigm/core/` contains shared audio, display, timing,
+  lifecycle, and result-persistence services.
+- `src/experiment_paradigm/commands/` contains argument parsing, defaults, and
+  installed experiment entry points. `cli.py` remains a compatibility import.
 - `src/experiment_paradigm/tts.py` contains resumable neural TTS generation.
 - `stimuli/` contains the authoritative sentence and word lists.
 - `assets/` contains listening audio, sentence TTS assets, and example videos.
@@ -56,6 +58,23 @@ Each output directory contains a `manifest.json` recording the ordered sentence
 mapping, TTS settings, duration, and SHA-256 checksum. Matching files are
 reused. An existing unmatched file is never overwritten unless `--force` is
 explicitly supplied after review.
+
+The generator defaults to `--tts-unit auto`: stimuli containing only Chinese
+ideographs are sent to TTS one character at a time, while English and other
+text remain one TTS request per line. For example, `手机` produces two audio
+segments (`手`, then `机`) under one trial item in the manifest. Use
+`--tts-unit line` to force the former whole-line behavior or
+`--tts-unit character` to force character segmentation. Playback preloads all
+segments, plays them consecutively, and records every segment's onset and
+offset.
+
+`--rate` controls relative Edge TTS speaking speed, not an exact output
+duration. For example, PowerShell requires `--rate=-50%` for a negative rate.
+Different characters and phrases do not scale to an identical duration per
+character, so exact targets such as 3.0 seconds per Chinese character require a
+separate pitch-preserving time-stretching step that is not built into this
+generator. Use `edge-tts --list-voices` to inspect available voice names and
+`python scripts/generate_sentence_audio.py -h` for generation/reuse details.
 
 ## Run the sentence paradigm with audio
 
@@ -94,18 +113,18 @@ Every trial uses:
 2. the large white sentence and red square appearing first;
 3. after a randomized 0.4–0.6-second visual lead, the matching target audio
    playing while the sentence and red square remain visible;
-4. after the audio ends, a randomized 2.0–3.0-second silent delay that keeps
+4. after the audio ends, a randomized 1.5–2.0-second silent delay that keeps
    the same sentence and red square visible;
 5. one synchronized onset for the green square, first character progress bar,
    and category-neutral cue tone;
 6. character-by-character progress bars, taking 3.0 seconds per character by
    default;
-7. a 0.5-second final-state hold and randomized 5.0–6.0-second rest with a
-   large gray cross centered on black, followed directly by the next trial
+7. a 0.5-second final-state hold and randomized 5.0–6.0-second black rest,
+   optionally showing a centered gray cross, followed directly by the next trial
    without an extra black transition.
 
 The sentence is automatically fitted as a single centered row in the upper
-half of the screen. The square occupies 75% of the lower-half height and is
+half of the screen. The square occupies 60% of the lower-half height and is
 centered in that half. Character transitions remain green so the current
 progress stays visible.
 
@@ -114,6 +133,11 @@ CSV and JSON files under `timestamp/`. The output includes audio identifiers,
 runtime duration, audio command onset and offset timestamps, randomized planned
 and actual phase durations, square/cue onset, every character's green onset,
 last-character completion, and trial end.
+
+Use `--repetitions N --shuffle` to run the full stimulus list N times and
+independently reshuffle it before each repetition. Output rows retain the
+original `stimulus_index` and add `repetition` plus `repetition_trial`, so the
+actual randomized presentation order is recoverable from the timestamps.
 
 Useful options:
 
@@ -127,6 +151,7 @@ run-sentence-audio-zh --play-mode progress `
   --progress-duration 3.0 --progress-pause 0.5
 run-sentence-audio-zh --no-cue-tone
 run-sentence-audio-zh --cue-volume 0.9
+run-sentence-audio-zh --show-rest-cross
 run-locked-in-sentence-reading --baseline-min 1.5 --baseline-max 2.5
 ```
 
@@ -151,6 +176,39 @@ python scripts/run_listening.py
 ```
 
 Use `--help` on either installed command to inspect its package-owned defaults.
+
+## Run the relaxing news paradigm
+
+The separate news paradigm is intended for passive patient relaxation. It
+accepts either a plain UTF-8 file with one news item per non-empty line or a
+Markdown table. For a Markdown table it automatically extracts the column whose
+header contains `标题`, so table headers, categories, and scores are not read
+aloud.
+
+Generate today's six news recordings once using the normal Microsoft neural
+voice speed:
+
+```powershell
+python scripts/generate_news_audio.py
+```
+
+Then run the fullscreen paradigm using the local generated audio:
+
+```powershell
+python scripts/run_relaxing_news.py
+```
+
+Each news item appears as wrapped white text at a maximum 40-pixel font size
+with a centered 100-pixel red square. The square remains red throughout the
+news presentation; there is no reading progress, green state, or cue tone.
+Audio starts 0.5 seconds after the text appears at the generated `+0%` normal
+speed. The final news screen remains for 1.0 second after audio completion,
+then changes directly to a small gray cross for a randomized 5.0–6.0-second
+rest. Use `python scripts/run_relaxing_news.py -h` to change these display and
+timing values.
+
+See [`relaxing_news_paradigm.md`](relaxing_news_paradigm.md) for the complete
+news input, generation, playback, and replacement workflow.
 
 ## Tests
 

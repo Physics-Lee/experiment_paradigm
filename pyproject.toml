@@ -16,12 +16,14 @@ dependencies = [
 ]
 
 [project.scripts]
-generate-sentence-audio = "experiment_paradigm.tts:main"
-run-sentence-audio = "experiment_paradigm.cli:main"
-run-sentence-audio-zh = "experiment_paradigm.cli:main_zh"
-run-locked-in-sentence-reading = "experiment_paradigm.cli:main_locked_in"
-run-reading = "experiment_paradigm.cli:main_reading"
-run-listening = "experiment_paradigm.cli:main_listening"
+generate-sentence-audio = "experiment_paradigm.commands.tts:main"
+generate-news-audio = "experiment_paradigm.commands.tts:main_news"
+run-sentence-audio = "experiment_paradigm.commands.sentence:main"
+run-sentence-audio-zh = "experiment_paradigm.commands.locked_in_reading:main_zh"
+run-locked-in-sentence-reading = "experiment_paradigm.commands.locked_in_reading:main_locked_in"
+run-relaxing-news = "experiment_paradigm.commands.relaxing_news:main_relaxing_news"
+run-reading = "experiment_paradigm.commands.reading:main_reading"
+run-listening = "experiment_paradigm.commands.listening:main_listening"
 
 [tool.setuptools.packages.find]
 where = ["src"]

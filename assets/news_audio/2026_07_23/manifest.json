@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-07-23T07:41:00.424477+00:00",
+  "updated_at": "2026-07-23T08:07:39.333789+00:00",
+  "sentences_file": "..\\..\\..\\stimuli\\news\\2026_07_23.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "26年7月22日，AMD 在旧金山举办人工智能大会，挑战英伟达对显卡的垄断地位",
+      "unit": "line",
+      "duration_ms": 8664,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "26年7月22日，AMD 在旧金山举办人工智能大会，挑战英伟达对显卡的垄断地位",
+          "file": "sentence_001.mp3",
+          "duration_ms": 8664,
+          "sha256": "7f97f76c9fbad832106ac9cc269d7fb3149c79d2697a3f4314eb882d7e7f8577"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "26年7月21日，OpenAI 声称自己的最新模型GPT-5.6 Sol在基准测试中逃出训练沙盒，对 Hugging Face 发起了真实攻击。后者采用智谱的GLM-5.2进行防御",
+      "unit": "line",
+      "duration_ms": 16992,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "26年7月21日，OpenAI 声称自己的最新模型GPT-5.6 Sol在基准测试中逃出训练沙盒，对 Hugging Face 发起了真实攻击。后者采用智谱的GLM-5.2进行防御",
+          "file": "sentence_002.mp3",
+          "duration_ms": 16992,
+          "sha256": "8a7863fa9ea7631d179ef0002df77fe7000426d470c3c39cbda6661365d2cc43"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "26年7月21日，《科学美国人》报道：NASA 近日公布了一段令人着迷的火星延时影像。灵神星探测器在前往富金属小行星灵神星的旅程中飞掠火星，借机拍摄下这组画面，清晰展现了火星表面的陨石坑、极地冰盖与广袤沙漠地貌特征。",
+      "unit": "line",
+      "duration_ms": 22656,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "26年7月21日，《科学美国人》报道：NASA 近日公布了一段令人着迷的火星延时影像。灵神星探测器在前往富金属小行星灵神星的旅程中飞掠火星，借机拍摄下这组画面，清晰展现了火星表面的陨石坑、极地冰盖与广袤沙漠地貌特征。",
+          "file": "sentence_003.mp3",
+          "duration_ms": 22656,
+          "sha256": "a4ea21224e93405cf1b01dc56c9b76ca76b21f37274ce6f3a1d05b9c45a25646"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "26年7月15日，《自然》报道：一项研究展示了在真实量子硬件上，通过编织（braiding）与融合（fusing）任意子（anyons）来实现通用量子逻辑门，为容错量子计算提供了关键进展。",
+      "unit": "line",
+      "duration_ms": 16104,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "26年7月15日，《自然》报道：一项研究展示了在真实量子硬件上，通过编织（braiding）与融合（fusing）任意子（anyons）来实现通用量子逻辑门，为容错量子计算提供了关键进展。",
+          "file": "sentence_004.mp3",
+          "duration_ms": 16104,
+          "sha256": "d28e9ff895dd12618e295f5f692f1217e50e0cc145d0976afd9666e7d9f2873c"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "26年7月22日，《Elife》报道：PKM-PKC 双基因敲除证实 aPKC 对小鼠记忆至关重要",
+      "unit": "line",
+      "duration_ms": 9312,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "26年7月22日，《Elife》报道：PKM-PKC 双基因敲除证实 aPKC 对小鼠记忆至关重要",
+          "file": "sentence_005.mp3",
+          "duration_ms": 9312,
+          "sha256": "97b10afc3c1c6c0797bab9b77268f85b400a1786667b88e29722d8db07a98695"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "26年7月9日，《科学》报道：泛病毒组泛素连接酶发现揭示免疫逃逸机制",
+      "unit": "line",
+      "duration_ms": 7512,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "26年7月9日，《科学》报道：泛病毒组泛素连接酶发现揭示免疫逃逸机制",
+          "file": "sentence_006.mp3",
+          "duration_ms": 7512,
+          "sha256": "3af21f35f13a85d2dcb918d1628074aa821b59bc27ff0387cb550fa3bbd05d9e"
+        }
+      ]
+    }
+  ]
+}

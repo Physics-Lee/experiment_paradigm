@@ -1,0 +1,129 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-07-22T08:58:19.080056+00:00",
+  "updated_at": "2026-07-22T08:58:29.479569+00:00",
+  "sentences_file": "..\\..\\..\\stimuli\\yan_jiangyi_v2.txt",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "rate": "-50%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "character"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "上厕所",
+      "unit": "character",
+      "duration_ms": 6528,
+      "segments": [
+        {
+          "id": "sentence_001_char_001",
+          "index": 1,
+          "text": "上",
+          "file": "sentence_001_char_001.mp3",
+          "duration_ms": 2208,
+          "sha256": "345e93ce3e71e1424fb365ecd69495533e54ac3f0a00eeb4b397d8d3d3be226c"
+        },
+        {
+          "id": "sentence_001_char_002",
+          "index": 2,
+          "text": "厕",
+          "file": "sentence_001_char_002.mp3",
+          "duration_ms": 2136,
+          "sha256": "9581e692a135397646a5ee801f05223dc578b64501a6ebc5220fbc3bf0d662ac"
+        },
+        {
+          "id": "sentence_001_char_003",
+          "index": 3,
+          "text": "所",
+          "file": "sentence_001_char_003.mp3",
+          "duration_ms": 2184,
+          "sha256": "c988ead2bbe1962eb2cc26b1e793f918cf86288aba46073a8f909fa14f3c5fb5"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "手机",
+      "unit": "character",
+      "duration_ms": 4248,
+      "segments": [
+        {
+          "id": "sentence_002_char_001",
+          "index": 1,
+          "text": "手",
+          "file": "sentence_002_char_001.mp3",
+          "duration_ms": 2208,
+          "sha256": "fc0b3ee600e4edac66be70938ecb465c324340ad231c7a16ad7ff3bbab3f17f9"
+        },
+        {
+          "id": "sentence_002_char_002",
+          "index": 2,
+          "text": "机",
+          "file": "sentence_002_char_002.mp3",
+          "duration_ms": 2040,
+          "sha256": "b282f08cf1e158b0c0e1d54580207d888d1cd486cabda56677e7ae3fe7bdf1e2"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "睡",
+      "unit": "character",
+      "duration_ms": 2208,
+      "segments": [
+        {
+          "id": "sentence_003_char_001",
+          "index": 1,
+          "text": "睡",
+          "file": "sentence_003_char_001.mp3",
+          "duration_ms": 2208,
+          "sha256": "0a63d50690e28f67b720644e46ad99f9adf2953f463048945bee044a6a235b43"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "疼",
+      "unit": "character",
+      "duration_ms": 2040,
+      "segments": [
+        {
+          "id": "sentence_004_char_001",
+          "index": 1,
+          "text": "疼",
+          "file": "sentence_004_char_001.mp3",
+          "duration_ms": 2040,
+          "sha256": "9ac790dd48acf3e07ee3e9a1641d044167841695649afd48055c3d3c3aa0dc8e"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "喝",
+      "unit": "character",
+      "duration_ms": 2064,
+      "segments": [
+        {
+          "id": "sentence_005_char_001",
+          "index": 1,
+          "text": "喝",
+          "file": "sentence_005_char_001.mp3",
+          "duration_ms": 2064,
+          "sha256": "9eb9b7b7132386a9ef1a34f707f193b6fd4e1d45d5adecc435f525198eedddfc"
+        }
+      ]
+    }
+  ]
+}

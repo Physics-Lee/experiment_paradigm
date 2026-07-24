@@ -43,6 +43,7 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         repetitions=1,
         shuffle=False,
         output_prefix="locked_in_sentence_reading",
+        display_mode="borderless",
     ):
         """Initialize the locked-in sentence-reading paradigm."""
         self._validate_duration_range(
@@ -96,6 +97,7 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
             play_audio_after=False,
             audio_screen="black",
             token_mode="character",
+            display_mode=display_mode,
         )
 
         self.baseline_min = baseline_min

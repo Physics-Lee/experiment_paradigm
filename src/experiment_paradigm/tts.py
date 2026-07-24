@@ -20,6 +20,9 @@ from .stimuli import read_news_items, read_nonempty_lines, split_tts_units
 
 SCHEMA_VERSION = 2
 DEFAULT_VOICE = "en-US-JennyNeural"
+CHARACTER_PRONUNCIATION_ALIASES = {
+    "觉": "叫",
+}
 
 
 class DetailedHelpFormatter(
@@ -75,6 +78,7 @@ def can_reuse_audio(
     *,
     sentence_id: str,
     text: str,
+    tts_text: str | None = None,
 ) -> bool:
     """Return whether an existing audio file exactly matches its manifest item."""
     if not output_path.exists() or existing_item is None:
@@ -85,8 +89,22 @@ def can_reuse_audio(
         or existing_item.get("file") != output_path.name
     ):
         return False
+    expected_tts_text = text if tts_text is None else tts_text
+    existing_tts_text = existing_item.get(
+        "tts_text",
+        existing_item.get("text"),
+    )
+    if existing_tts_text != expected_tts_text:
+        return False
     expected_hash = existing_item.get("sha256")
     return isinstance(expected_hash, str) and sha256_file(output_path) == expected_hash
+
+
+def resolve_tts_text(unit_text: str, resolved_unit: str) -> str:
+    """Apply hidden pronunciation aliases only to isolated character TTS."""
+    if resolved_unit != "character":
+        return unit_text
+    return CHARACTER_PRONUNCIATION_ALIASES.get(unit_text, unit_text)
 
 
 async def generate_audio(
@@ -173,21 +191,39 @@ async def build_audio_set(
         "pitch": args.pitch,
         "format": "mp3",
     }
-    requested_tts = {
-        **base_tts_settings,
-        "unit": args.tts_unit,
-    }
     all_resolved_as_lines = all(
         resolved_unit == "line"
         for _, resolved_unit, _ in segmented_sentences
     )
+    requested_tts = {
+        **base_tts_settings,
+        "unit": args.tts_unit,
+    }
+    if not all_resolved_as_lines:
+        requested_tts["character_pronunciation_aliases"] = (
+            CHARACTER_PRONUNCIATION_ALIASES
+        )
     existing_tts = (
         existing_manifest.get("tts") if existing_manifest else None
     )
+    existing_tts_without_aliases = (
+        {
+            key: value
+            for key, value in existing_tts.items()
+            if key != "character_pronunciation_aliases"
+        }
+        if isinstance(existing_tts, dict)
+        else None
+    )
+    requested_tts_without_aliases = {
+        key: value
+        for key, value in requested_tts.items()
+        if key != "character_pronunciation_aliases"
+    }
     settings_match = (
         existing_manifest is not None
         and (
-            existing_tts == requested_tts
+            existing_tts_without_aliases == requested_tts_without_aliases
             or (
                 existing_tts == base_tts_settings
                 and all_resolved_as_lines
@@ -212,6 +248,7 @@ async def build_audio_set(
         segments: list[dict[str, Any]] = []
 
         for unit_index, unit_text in enumerate(text_units, start=1):
+            tts_text = resolve_tts_text(unit_text, resolved_unit)
             if resolved_unit == "line":
                 segment_id = sentence_id
                 filename = f"{sentence_id}.mp3"
@@ -226,6 +263,7 @@ async def build_audio_set(
                 existing_segment,
                 sentence_id=segment_id,
                 text=unit_text,
+                tts_text=tts_text,
             )
             if args.force or not reusable:
                 if output_path.exists() and not args.force:
@@ -234,9 +272,15 @@ async def build_audio_set(
                         f"{output_path}. Use --force only after reviewing "
                         "the existing asset."
                     )
-                print(f"Generating {segment_id}: {unit_text}")
+                pronunciation_note = (
+                    f" -> {tts_text}" if tts_text != unit_text else ""
+                )
+                print(
+                    f"Generating {segment_id}: "
+                    f"{unit_text}{pronunciation_note}"
+                )
                 await generate_audio(
-                    text=unit_text,
+                    text=tts_text,
                     output_path=output_path,
                     voice=args.voice,
                     rate=args.rate,
@@ -253,6 +297,7 @@ async def build_audio_set(
                     "id": segment_id,
                     "index": unit_index,
                     "text": unit_text,
+                    "tts_text": tts_text,
                     "file": filename,
                     "duration_ms": duration_ms,
                     "sha256": audio_hash,

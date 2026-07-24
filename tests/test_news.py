@@ -5,7 +5,9 @@ import tempfile
 import unittest
 import wave
 from pathlib import Path
+from unittest.mock import patch
 
+import pygame
 
 os.environ.setdefault("SDL_VIDEODRIVER", "dummy")
 os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
@@ -64,6 +66,12 @@ class NewsStimulusTests(unittest.TestCase):
         self.assertEqual(args.post_audio_hold, 1.0)
         self.assertEqual(args.rest_min, 5.0)
         self.assertEqual(args.rest_max, 6.0)
+        self.assertEqual(args.rest_screen, "news")
+
+        cross_args = parse_relaxing_news_args(
+            ["--rest-screen", "cross"]
+        )
+        self.assertEqual(cross_args.rest_screen, "cross")
 
     def test_news_tts_defaults_to_whole_line_normal_speed(self):
         args = parse_news_args([])
@@ -123,6 +131,117 @@ class NewsStimulusTests(unittest.TestCase):
                 self.assertEqual(
                     paradigm.screen.get_at(screen_center)[:3],
                     paradigm.GRAY,
+                )
+
+                button_rect = paradigm._continue_button_rect()
+                paradigm._draw_continue_state(
+                    layout,
+                    button_rect,
+                    label="下一条",
+                    enabled=True,
+                    hovered=False,
+                    remaining=0,
+                )
+                normal_button_color = paradigm.screen.get_at(
+                    (button_rect.left + 8, button_rect.top + 8)
+                )[:3]
+                self.assertEqual(
+                    paradigm.screen.get_at(
+                        layout["square_rect"].center
+                    )[:3],
+                    paradigm.RED,
+                )
+
+                paradigm._draw_continue_state(
+                    layout,
+                    button_rect,
+                    label="下一条",
+                    enabled=True,
+                    hovered=True,
+                    remaining=0,
+                )
+                hover_button_color = paradigm.screen.get_at(
+                    (button_rect.left + 8, button_rect.top + 8)
+                )[:3]
+                self.assertNotEqual(
+                    normal_button_color,
+                    hover_button_color,
+                )
+
+                paradigm.rest_screen = "cross"
+                paradigm._draw_continue_state(
+                    layout,
+                    button_rect,
+                    label="下一条",
+                    enabled=True,
+                    hovered=False,
+                    remaining=0,
+                )
+                self.assertEqual(
+                    paradigm.screen.get_at(screen_center)[:3],
+                    paradigm.GRAY,
+                )
+
+                paradigm.rest_screen = "news"
+                click_event = pygame.event.Event(
+                    pygame.MOUSEBUTTONDOWN,
+                    button=1,
+                    pos=button_rect.center,
+                )
+                with patch.object(
+                    pygame.event,
+                    "get",
+                    return_value=[click_event],
+                ), patch.object(
+                    pygame.mouse,
+                    "get_pos",
+                    return_value=button_rect.center,
+                ):
+                    continued, events = paradigm._wait_for_continue(
+                        layout,
+                        0,
+                        is_last=False,
+                    )
+
+                self.assertTrue(continued)
+                self.assertIsNotNone(events["continue_button_click"])
+                self.assertGreaterEqual(
+                    events["actual_rest_duration"],
+                    0,
+                )
+
+                with patch.object(
+                    paradigm,
+                    "get_timestamp",
+                    side_effect=[0.0, 0.0, 5.0, 5.1],
+                ), patch.object(
+                    paradigm,
+                    "get_absolute_time",
+                    return_value="2026-07-24T00:00:00",
+                ), patch.object(
+                    pygame.event,
+                    "get",
+                    side_effect=[[click_event], [click_event]],
+                ) as event_get, patch.object(
+                    pygame.mouse,
+                    "get_pos",
+                    return_value=button_rect.center,
+                ):
+                    continued, events = paradigm._wait_for_continue(
+                        layout,
+                        5.0,
+                        is_last=False,
+                    )
+
+                self.assertTrue(continued)
+                self.assertEqual(event_get.call_count, 2)
+                self.assertAlmostEqual(
+                    events["actual_rest_duration"],
+                    5.1,
+                )
+                self.assertAlmostEqual(
+                    events["continue_wait_after_minimum"],
+                    0.1,
                 )
             finally:
                 paradigm.cleanup()

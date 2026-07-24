@@ -547,6 +547,84 @@ class SentenceAudioTests(unittest.TestCase):
                 ["手", "机"],
             )
 
+    def test_character_tts_secretly_maps_jue_to_jiao_pronunciation(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            sentences_path = root / "sentences.txt"
+            sentences_path.write_text("睡觉\n", encoding="utf-8")
+            output_dir = root / "audio"
+            args = SimpleNamespace(
+                sentences=sentences_path,
+                output_dir=output_dir,
+                tts_unit="character",
+                voice="zh-CN-XiaoxiaoNeural",
+                rate="-50%",
+                volume="+0%",
+                pitch="+0Hz",
+                force=False,
+            )
+            generated_texts = []
+
+            async def fake_generate_audio(**kwargs):
+                generated_texts.append(kwargs["text"])
+                kwargs["output_path"].write_bytes(
+                    kwargs["text"].encode("utf-8")
+                )
+
+            def fake_audio_metadata(path):
+                return 1000, sha256_file(path)
+
+            with patch(
+                "experiment_paradigm.tts.generate_audio",
+                side_effect=fake_generate_audio,
+            ), patch(
+                "experiment_paradigm.tts.audio_metadata",
+                side_effect=fake_audio_metadata,
+            ):
+                manifest = asyncio.run(build_audio_set(args))
+
+            self.assertEqual(generated_texts, ["睡", "叫"])
+            self.assertEqual(manifest["items"][0]["text"], "睡觉")
+            self.assertEqual(
+                [
+                    segment["text"]
+                    for segment in manifest["items"][0]["segments"]
+                ],
+                ["睡", "觉"],
+            )
+            self.assertEqual(
+                [
+                    segment["tts_text"]
+                    for segment in manifest["items"][0]["segments"]
+                ],
+                ["睡", "叫"],
+            )
+            self.assertEqual(
+                manifest["tts"]["character_pronunciation_aliases"],
+                {"觉": "叫"},
+            )
+
+    def test_wrong_legacy_jue_audio_is_not_reused_after_alias_change(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            audio_path = Path(temporary_directory) / "jue.mp3"
+            audio_path.write_bytes(b"old isolated jue audio")
+            legacy_item = {
+                "id": "sentence_001_char_002",
+                "text": "觉",
+                "file": audio_path.name,
+                "sha256": sha256_file(audio_path),
+            }
+
+            self.assertFalse(
+                can_reuse_audio(
+                    audio_path,
+                    legacy_item,
+                    sentence_id="sentence_001_char_002",
+                    text="觉",
+                    tts_text="叫",
+                )
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -37,6 +37,7 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
         audio_screen="fixation",
         token_mode="word",
         sentences=None,
+        display_mode="borderless",
     ):
         """Initialize the sentence paradigm display."""
         if sentences is None:
@@ -79,7 +80,11 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
 
         # Only create the fullscreen window after all paths, text mappings, and
         # checksums have passed validation.
-        super().__init__(caption="Sentence Paradigm", output_prefix=output_prefix)
+        super().__init__(
+            caption="Sentence Paradigm",
+            output_prefix=output_prefix,
+            display_mode=display_mode,
+        )
 
         self.sentences_file = sentences_file
         self.sentences = sentences
@@ -442,4 +447,3 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
         finally:
             self.save_data()
             self.cleanup()
-

@@ -11,9 +11,13 @@ from ..core import BaseParadigm
 class ReadingParadigm(BaseParadigm):
     def __init__(self, words_file, word_duration=0.3, prep_time=1.5, prep_time_jitter=0.1, 
                  word_jitter_mean=0.5, word_jitter_std=0.1, inter_word_interval=2.0,
-                 output_prefix="reading"):
+                 output_prefix="reading", display_mode="borderless"):
         """Initialize the reading paradigm display."""
-        super().__init__(caption="Reading Paradigm", output_prefix=output_prefix)
+        super().__init__(
+            caption="Reading Paradigm",
+            output_prefix=output_prefix,
+            display_mode=display_mode,
+        )
         
         self.words_file = words_file
         self.word_duration = word_duration
@@ -123,4 +127,3 @@ class ReadingParadigm(BaseParadigm):
         finally:
             self.save_data()
             self.cleanup()
-

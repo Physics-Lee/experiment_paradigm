@@ -9,7 +9,10 @@ os.environ.setdefault("PYGAME_HIDE_SUPPORT_PROMPT", "1")
 
 import pygame
 
-from experiment_paradigm import SentenceParadigm
+from experiment_paradigm import (
+    LockedInSentenceReadingParadigm,
+    RelaxingNewsParadigm,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,33 +22,27 @@ class RepositoryManifestTests(unittest.TestCase):
     def tearDown(self):
         pygame.quit()
 
-    def test_english_and_chinese_manifests_match_their_stimulus_lists(self):
-        cases = (
-            (
-                "stimuli/sentences_en.txt",
-                "assets/sentence_audio/en/manifest.json",
-                3,
-                "word",
+    def test_primary_patient_manifests_match_their_stimulus_lists(self):
+        locked_in = LockedInSentenceReadingParadigm(
+            sentences_file=str(ROOT / "stimuli/yan_jiangyi_v4.txt"),
+            audio_manifest=str(
+                ROOT
+                / "assets/sentence_audio/yan_jiangyi_v4_slow/manifest.json"
             ),
-            (
-                "stimuli/sentences.txt",
-                "assets/sentence_audio/zh/manifest.json",
-                5,
-                "character",
+            cue_tone=False,
+        )
+        self.assertEqual(len(locked_in.sentences), 5)
+        self.assertEqual(len(locked_in.sentence_audio), 5)
+        pygame.quit()
+
+        relaxing_news = RelaxingNewsParadigm(
+            news_file=str(ROOT / "stimuli/news/2026_07_23.md"),
+            audio_manifest=str(
+                ROOT / "assets/news_audio/2026_07_23/manifest.json"
             ),
         )
-        for sentences, manifest, expected_count, token_mode in cases:
-            with self.subTest(manifest=manifest):
-                paradigm = SentenceParadigm(
-                    sentences_file=str(ROOT / sentences),
-                    audio_manifest=str(ROOT / manifest),
-                    token_mode=token_mode,
-                )
-                self.assertEqual(len(paradigm.sentences), expected_count)
-                self.assertEqual(len(paradigm.sentence_audio), expected_count)
-                self.assertTrue(paradigm.play_audio_before)
-                self.assertTrue(paradigm.play_audio_after)
-                pygame.quit()
+        self.assertEqual(len(relaxing_news.sentences), 6)
+        self.assertEqual(len(relaxing_news.sentence_audio), 6)
 
 
 if __name__ == "__main__":

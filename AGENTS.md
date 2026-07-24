@@ -2,16 +2,18 @@
 
 ## Purpose and layout
 
-This repository contains fullscreen Pygame paradigms for sentence, reading, and
-listening experiments.
+This repository contains fullscreen Pygame paradigms for locked-in sentence
+reading, relaxing news, general sentences, word reading, and audio listening.
 
 - `src/experiment_paradigm/` contains the maintained package implementation.
-  `paradigms.py` defines the sentence, reading, and listening paradigms;
-  `tts.py` generates neural sentence audio; and `cli.py` owns argument parsing
-  and runnable experiment entry points.
+  `paradigms/` contains one implementation module per experiment; `core/`
+  contains shared runtime services; `commands/` owns argument parsing and
+  defaults; `stimuli/` owns input parsing; and `tts.py` generates neural audio.
+  `cli.py`, `news.py`, and `text_units.py` are compatibility re-exports.
 - `scripts/` contains thin repository-checkout wrappers only. Maintained
   behavior, defaults, validation, and reusable imports belong in the package.
-- `stimuli/` contains authoritative UTF-8 line-oriented sentence and word lists.
+- `stimuli/` contains authoritative UTF-8 sentence/word lists and Markdown news
+  tables.
 - `assets/` contains intentional, versioned listening audio, sentence TTS assets,
   manifests, and example videos.
 - `timestamp/` contains versioned example results and receives generated run
@@ -31,7 +33,8 @@ listening experiments.
   `requirements.txt` mirrors its pinned runtime dependencies for simple setup.
 - Installed console commands are `run-sentence-audio`,
   `run-sentence-audio-zh`, `run-locked-in-sentence-reading`, `run-reading`,
-  `run-listening`, and `generate-sentence-audio`.
+  `run-listening`, `run-relaxing-news`, `generate-sentence-audio`, and
+  `generate-news-audio`.
 - Use this non-interactive syntax check after Python edits:
   `python -c "import ast, pathlib; [ast.parse(p.read_text(encoding='utf-8')) for p in pathlib.Path('src').rglob('*.py')]"`
 

@@ -13,9 +13,13 @@ class ListeningParadigm(BaseParadigm):
     def __init__(self, audios_folder="assets/listening_audio", prep_time=1.5, prep_time_jitter=0.1, 
                  audio_jitter_mean=0.5, audio_jitter_std=0.1,
                  inter_audio_interval=2.0, repetitions=3,
-                 output_prefix="listening"):
+                 output_prefix="listening", display_mode="borderless"):
         """Initialize the listening paradigm display."""
-        super().__init__(caption="Listening Paradigm", output_prefix=output_prefix)
+        super().__init__(
+            caption="Listening Paradigm",
+            output_prefix=output_prefix,
+            display_mode=display_mode,
+        )
         
         self.audios_folder = audios_folder
         self.prep_time = prep_time
@@ -154,4 +158,3 @@ class ListeningParadigm(BaseParadigm):
             pygame.mixer.quit()
             self.save_data()
             self.cleanup()
-

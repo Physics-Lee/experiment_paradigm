@@ -9,4 +9,5 @@ This directory contains compatibility entry points for repository-root workflows
   inputs, or re-export package APIs here.
 - Resolve `src/` relative to the repository root so scripts work without relying
   on the caller's current `PYTHONPATH`.
-- Prefer the installed console commands documented in `docs/readme.md`.
+- Prefer the primary patient workflows documented in the root `README.md`; use
+  `docs/readme.md` for the broader package command reference.

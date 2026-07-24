@@ -6,6 +6,7 @@ import argparse
 from pathlib import Path
 
 from ..paradigms import RelaxingNewsParadigm
+from .common import add_display_arguments
 
 
 def parse_relaxing_news_args(argv=None) -> argparse.Namespace:
@@ -13,7 +14,7 @@ def parse_relaxing_news_args(argv=None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "运行患者放松新闻范式：显示较小白字和小红方块，"
-            "以正常语速朗读新闻，随后显示灰色十字休息。"
+            "以正常语速朗读新闻，休息结束后点击按钮进入下一条。"
         ),
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         epilog=(
@@ -21,6 +22,7 @@ def parse_relaxing_news_args(argv=None) -> argparse.Namespace:
             "正式播放全程使用本地音频，不需要联网。"
         ),
     )
+    add_display_arguments(parser)
     files = parser.add_argument_group("新闻、音频与输出")
     files.add_argument(
         "--news",
@@ -56,6 +58,15 @@ def parse_relaxing_news_args(argv=None) -> argparse.Namespace:
         default=100,
         help="始终保持红色的正方形边长（像素）。",
     )
+    visual.add_argument(
+        "--rest-screen",
+        choices=("news", "cross"),
+        default="news",
+        help=(
+            "休息阶段的背景：news=保留刚才的新闻页面；"
+            "cross=黑底灰色十字。两种模式都显示继续按钮。"
+        ),
+    )
 
     timing = parser.add_argument_group("时序（全部为秒）")
     timing.add_argument(
@@ -74,13 +85,13 @@ def parse_relaxing_news_args(argv=None) -> argparse.Namespace:
         "--rest-min",
         type=float,
         default=5.0,
-        help="灰色十字休息时长的随机下限。",
+        help="继续按钮启用前的随机最短休息时长下限。",
     )
     timing.add_argument(
         "--rest-max",
         type=float,
         default=6.0,
-        help="灰色十字休息时长的随机上限。",
+        help="继续按钮启用前的随机最短休息时长上限。",
     )
     return parser.parse_args(argv)
 
@@ -97,6 +108,8 @@ def main_relaxing_news(argv=None) -> None:
         post_audio_hold=args.post_audio_hold,
         rest_min=args.rest_min,
         rest_max=args.rest_max,
+        rest_screen=args.rest_screen,
         output_prefix=args.output_prefix,
+        display_mode=args.display_mode,
     )
     paradigm.run()

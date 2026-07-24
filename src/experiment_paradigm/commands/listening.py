@@ -6,6 +6,7 @@ import argparse
 from pathlib import Path
 
 from ..paradigms import ListeningParadigm
+from .common import add_display_arguments
 
 
 def parse_listening_args(argv=None) -> argparse.Namespace:
@@ -14,6 +15,7 @@ def parse_listening_args(argv=None) -> argparse.Namespace:
         description="运行带时间戳的听力范式。",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+    add_display_arguments(parser)
     files = parser.add_argument_group("输入与输出")
     files.add_argument(
         "--audio-dir",
@@ -81,6 +83,6 @@ def main_listening(argv=None) -> None:
         inter_audio_interval=args.inter_audio_interval,
         repetitions=args.repetitions,
         output_prefix=args.output_prefix,
+        display_mode=args.display_mode,
     )
     paradigm.run()
-

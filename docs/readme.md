@@ -32,29 +32,47 @@ In short, `src/` is the product code and the only implementation source of
 truth. `scripts/` is a convenience adapter: it adds `src/` to the import path
 and calls a package entry point.
 
+## Display mode
+
+All runnable paradigms default to borderless desktop fullscreen. This fills the
+current desktop without asking Windows to switch display resolution, so other
+application windows are not resized or moved when an experiment starts or
+ends.
+
+Every experiment command accepts the same selector:
+
+```powershell
+# Recommended default: borderless desktop fullscreen
+run-sentence-audio-zh --display-mode borderless
+
+# Optional legacy Pygame exclusive fullscreen
+run-sentence-audio-zh --display-mode exclusive
+```
+
+`exclusive` uses `pygame.FULLSCREEN` and may switch the system display mode on
+some Windows, DPI-scaling, or multi-monitor configurations. Use `borderless`
+for OBS recording unless the target experiment computer has been tested with
+exclusive fullscreen.
+
 ## Generate sentence audio
 
 The generator uses Microsoft Edge online neural TTS to produce one stable MP3
 per non-empty stimulus line. Generation requires network access; experiment
 playback does not.
 
+The primary locked-in v4 set uses character-by-character Chinese TTS:
+
 ```powershell
 conda activate experiment_paradigm
-
-# English
 generate-sentence-audio `
-  --sentences stimuli/sentences_en.txt `
-  --output-dir assets/sentence_audio/en `
-  --voice en-US-JennyNeural
-
-# Chinese
-generate-sentence-audio `
-  --sentences stimuli/sentences.txt `
-  --output-dir assets/sentence_audio/zh `
-  --voice zh-CN-XiaoxiaoNeural
+  --sentences stimuli/yan_jiangyi_v4.txt `
+  --output-dir assets/sentence_audio/yan_jiangyi_v4_slow `
+  --voice zh-CN-XiaoxiaoNeural `
+  --rate=-50% `
+  --tts-unit character
 ```
 
-Each output directory contains a `manifest.json` recording the ordered sentence
+The output directory contains a `manifest.json` recording the ordered sentence
 mapping, TTS settings, duration, and SHA-256 checksum. Matching files are
 reused. An existing unmatched file is never overwritten unless `--force` is
 explicitly supplied after review.
@@ -203,9 +221,12 @@ with a centered 100-pixel red square. The square remains red throughout the
 news presentation; there is no reading progress, green state, or cue tone.
 Audio starts 0.5 seconds after the text appears at the generated `+0%` normal
 speed. The final news screen remains for 1.0 second after audio completion,
-then changes directly to a small gray cross for a randomized 5.0–6.0-second
-rest. Use `python scripts/run_relaxing_news.py -h` to change these display and
-timing values.
+then begins a randomized 5.0–6.0-second minimum rest while retaining the news
+page by default. When the minimum rest ends, the patient must click the
+hover-responsive `下一条` button to continue. Use `--rest-screen cross` to show
+the small gray cross instead; both rest screens require the button click. Use
+`python scripts/run_relaxing_news.py -h` to change these display and timing
+values.
 
 See [`relaxing_news_paradigm.md`](relaxing_news_paradigm.md) for the complete
 news input, generation, playback, and replacement workflow.

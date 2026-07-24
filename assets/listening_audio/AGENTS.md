@@ -1,8 +1,8 @@
 # Audio Asset Guidance
 
 This directory contains the MP3 stimuli loaded by `ListeningParadigm` in
-`src/experiment_paradigm/paradigms.py`. The class discovers `.mp3`, `.wav`, and
-`.ogg` files and shuffles the resulting playlist.
+`src/experiment_paradigm/paradigms/listening.py`. The class discovers `.mp3`,
+`.wav`, and `.ogg` files and shuffles the resulting playlist.
 
 - Audio files are intentional, versioned experiment inputs; do not edit,
   normalize, rename, or recompress them unless the experiment design requires

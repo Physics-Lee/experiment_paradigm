@@ -1,7 +1,9 @@
 # Timestamp Data Guidance
 
 This directory contains CSV and JSON experiment results written by
-`BaseParadigm.save_data()` in `src/experiment_paradigm/paradigms.py`.
+`BaseParadigm.save_data()` in
+`src/experiment_paradigm/core/base.py`, using the writers in
+`src/experiment_paradigm/core/results.py`.
 
 - Existing tracked 2025 files are historical repository fixtures. Preserve them
   unless a data-retention change is explicitly requested.

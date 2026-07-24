@@ -13,7 +13,12 @@ from .results import write_csv, write_json, write_run_results
 class BaseParadigm:
     """Base class for all experimental paradigms"""
     
-    def __init__(self, caption="Paradigm", output_prefix="experiment"):
+    def __init__(
+        self,
+        caption="Paradigm",
+        output_prefix="experiment",
+        display_mode="borderless",
+    ):
         """
         Initialize the base paradigm with common pygame setup.
         
@@ -23,13 +28,35 @@ class BaseParadigm:
             Window caption text
         output_prefix : str
             Prefix for output files (will generate {prefix}_timestamp.csv and .json)
+        display_mode : str
+            ``borderless`` uses a desktop-sized frameless window without
+            changing the system display mode. ``exclusive`` uses Pygame's
+            exclusive fullscreen mode.
         """
+        if display_mode not in ("borderless", "exclusive"):
+            raise ValueError(
+                "display_mode must be 'borderless' or 'exclusive'"
+            )
+
         # Initialize pygame
         pygame.init()
         
-        # Set up display (fullscreen)
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        # Borderless desktop fullscreen avoids the Windows resolution switch
+        # that can resize and move other application windows. Exclusive mode
+        # remains available for environments that explicitly require it.
+        if display_mode == "borderless":
+            desktop_size = pygame.display.get_desktop_sizes()[0]
+            self.screen = pygame.display.set_mode(
+                desktop_size,
+                pygame.NOFRAME,
+            )
+        else:
+            self.screen = pygame.display.set_mode(
+                (0, 0),
+                pygame.FULLSCREEN,
+            )
         self.width, self.height = self.screen.get_size()
+        self.display_mode = display_mode
         pygame.display.set_caption(caption)
         
         # Colors

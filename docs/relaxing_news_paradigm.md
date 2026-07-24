@@ -34,8 +34,7 @@ python scripts/generate_news_audio.py
 python scripts/run_relaxing_news.py
 ```
 
-按 `Esc` 或单击鼠标退出。完成的 trial 会保存到 `timestamp/` 下的 CSV 和
-JSON 文件。
+按 `Esc` 退出。完成的 trial 会保存到 `timestamp/` 下的 CSV 和 JSON 文件。
 
 ## 默认 trial 流程
 
@@ -43,10 +42,20 @@ JSON 文件。
 2. 画面保持 0.5 秒。
 3. 正常语速音频开始，文字和方块保持不变。
 4. 音频结束后继续保持画面 1.0 秒。
-5. 直接切换到灰色十字，随机休息 5.0–6.0 秒。
-6. 进入下一条新闻。
+5. 默认继续显示刚才的新闻页面，同时显示禁用的“下一条”按钮。
+6. 随机休息 5.0–6.0 秒后按钮启用；患者必须点击按钮才会进入下一条新闻。
+7. 最后一条新闻显示“结束”按钮，点击后结束范式。
 
 方块在新闻呈现阶段始终为红色；该范式没有绿色状态、跟读进度条或提示音。
+休息计时是按钮启用前的最短时间；患者未点击时，当前页面会继续保留。
+
+如果需要恢复黑底灰色十字休息画面：
+
+```powershell
+python scripts/run_relaxing_news.py --rest-screen cross
+```
+
+`--rest-screen news` 和 `--rest-screen cross` 都需要点击按钮才会继续。
 
 ## 常用参数
 
@@ -56,6 +65,7 @@ python scripts/run_relaxing_news.py -h
 python scripts/run_relaxing_news.py `
   --font-size 36 `
   --square-size 80 `
+  --rest-screen news `
   --rest-min 5 `
   --rest-max 6
 ```

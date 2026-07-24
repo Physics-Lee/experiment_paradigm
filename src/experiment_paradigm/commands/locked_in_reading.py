@@ -6,7 +6,7 @@ import argparse
 from pathlib import Path
 
 from ..paradigms import LockedInSentenceReadingParadigm
-from .common import positive_int
+from .common import add_display_arguments, positive_int
 
 
 def parse_locked_in_args(argv=None) -> argparse.Namespace:
@@ -19,23 +19,24 @@ def parse_locked_in_args(argv=None) -> argparse.Namespace:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         epilog=(
             "示例: python scripts/run_sentence_audio_zh.py "
-            "--sentences stimuli/yan_jiangyi.txt "
-            "--manifest assets/sentence_audio/yan_jiangyi/manifest.json "
-            "--repetitions 3 --shuffle"
+            "--repetitions 3 --shuffle --show-rest-cross"
         ),
     )
+    add_display_arguments(parser)
 
     files = parser.add_argument_group("刺激、音频与输出")
     files.add_argument(
         "--sentences",
         type=Path,
-        default=Path("stimuli/sentences.txt"),
+        default=Path("stimuli/yan_jiangyi_v4.txt"),
         help="UTF-8 刺激文件；每个非空行是一个 trial。",
     )
     files.add_argument(
         "--manifest",
         type=Path,
-        default=Path("assets/sentence_audio/zh/manifest.json"),
+        default=Path(
+            "assets/sentence_audio/yan_jiangyi_v4_slow/manifest.json"
+        ),
         help=(
             "与刺激文件逐行对应的 manifest.json；启动前会校验"
             "文字、顺序、音频文件和 SHA-256。"
@@ -201,6 +202,7 @@ def main_locked_in(argv=None) -> None:
         repetitions=args.repetitions,
         shuffle=args.shuffle,
         output_prefix=args.output_prefix,
+        display_mode=args.display_mode,
     )
     paradigm.run()
 
@@ -208,4 +210,3 @@ def main_locked_in(argv=None) -> None:
 def main_zh(argv=None) -> None:
     """Compatibility alias for the locked-in Chinese paradigm."""
     main_locked_in(argv)
-

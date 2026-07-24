@@ -6,6 +6,7 @@ import argparse
 from pathlib import Path
 
 from ..paradigms import ReadingParadigm
+from .common import add_display_arguments
 
 
 def parse_reading_args(argv=None) -> argparse.Namespace:
@@ -14,6 +15,7 @@ def parse_reading_args(argv=None) -> argparse.Namespace:
         description="运行带时间戳的单词阅读范式。",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+    add_display_arguments(parser)
     files = parser.add_argument_group("输入与输出")
     files.add_argument(
         "--words",
@@ -79,6 +81,6 @@ def main_reading(argv=None) -> None:
         word_jitter_std=args.word_jitter_std,
         inter_word_interval=args.inter_word_interval,
         output_prefix=args.output_prefix,
+        display_mode=args.display_mode,
     )
     paradigm.run()
-

@@ -10,15 +10,37 @@ os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
 os.environ.setdefault("PYGAME_HIDE_SUPPORT_PROMPT", "1")
 
 from experiment_paradigm.cli import (
+    parse_args as parse_sentence_args,
     parse_listening_args,
     parse_locked_in_args,
     parse_reading_args,
+    parse_relaxing_news_args,
 )
 from experiment_paradigm.tts import parse_args as parse_tts_args
 from experiment_paradigm.text_units import split_tts_units
 
 
 class CommandLineDefaultsTests(unittest.TestCase):
+    def test_all_paradigms_default_to_borderless_fullscreen(self):
+        parsers = (
+            parse_sentence_args,
+            parse_locked_in_args,
+            parse_reading_args,
+            parse_listening_args,
+            parse_relaxing_news_args,
+        )
+
+        for parser in parsers:
+            with self.subTest(parser=parser.__name__):
+                self.assertEqual(parser([]).display_mode, "borderless")
+
+    def test_exclusive_fullscreen_can_be_selected(self):
+        args = parse_locked_in_args(
+            ["--display-mode", "exclusive"],
+        )
+
+        self.assertEqual(args.display_mode, "exclusive")
+
     def test_reading_defaults_live_in_package_cli(self):
         args = parse_reading_args([])
 
@@ -36,7 +58,17 @@ class CommandLineDefaultsTests(unittest.TestCase):
     def test_locked_in_defaults_live_in_package_cli(self):
         args = parse_locked_in_args([])
 
-        self.assertEqual(args.sentences, Path("stimuli/sentences.txt"))
+        self.assertEqual(
+            args.sentences,
+            Path("stimuli/yan_jiangyi_v4.txt"),
+        )
+        self.assertEqual(
+            args.manifest,
+            Path(
+                "assets/sentence_audio/"
+                "yan_jiangyi_v4_slow/manifest.json"
+            ),
+        )
         self.assertEqual(args.pre_audio_delay_min, 0.4)
         self.assertEqual(args.pre_audio_delay_max, 0.6)
         self.assertEqual(args.silent_delay_min, 1.5)
@@ -71,6 +103,8 @@ class CommandLineDefaultsTests(unittest.TestCase):
         self.assertIn("--shuffle", help_text)
         self.assertIn("--show-rest-cross", help_text)
         self.assertIn("--cue-volume", help_text)
+        self.assertIn("显示设置", help_text)
+        self.assertIn("--display-mode", help_text)
 
     def test_locked_in_repetitions_and_shuffle_can_be_selected(self):
         args = parse_locked_in_args(["--repetitions", "4", "--shuffle"])

@@ -6,6 +6,7 @@ import argparse
 from pathlib import Path
 
 from ..paradigms import SentenceParadigm
+from .common import add_display_arguments
 
 
 def parse_args(
@@ -22,6 +23,7 @@ def parse_args(
         description="运行通用句子范式，使用离线预加载的句子音频。",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+    add_display_arguments(parser)
     files = parser.add_argument_group("刺激、音频与输出")
     files.add_argument(
         "--sentences",
@@ -189,6 +191,6 @@ def main(
         post_visual_gap=args.post_visual_gap,
         audio_screen=args.audio_screen,
         token_mode=args.token_mode,
+        display_mode=args.display_mode,
     )
     paradigm.run()
-

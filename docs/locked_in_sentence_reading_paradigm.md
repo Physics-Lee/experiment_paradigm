@@ -1,5 +1,8 @@
 # 闭锁患者句子朗读范式
 
+当前维护的命令默认使用 `stimuli/yan_jiangyi_v4.txt`，以及
+`assets/sentence_audio/yan_jiangyi_v4_slow/manifest.json`。
+
 ## 单试次流程
 
 ```text

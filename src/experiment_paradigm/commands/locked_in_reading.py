@@ -19,7 +19,7 @@ def parse_locked_in_args(argv=None) -> argparse.Namespace:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         epilog=(
             "示例: python scripts/run_sentence_audio_zh.py "
-            "--repetitions 3 --shuffle --show-rest-cross"
+            "--repetitions 3"
         ),
     )
     add_display_arguments(parser)
@@ -55,10 +55,20 @@ def parse_locked_in_args(argv=None) -> argparse.Namespace:
         default=1,
         help="完整刺激列表的循环次数；每轮中的每个刺激呈现一次。",
     )
-    order.add_argument(
+    shuffle_options = order.add_mutually_exclusive_group()
+    shuffle_options.add_argument(
         "--shuffle",
+        dest="shuffle",
         action="store_true",
-        help="每轮开始前独立随机打乱刺激顺序。",
+        default=True,
+        help="每轮开始前独立随机打乱刺激顺序；默认开启。",
+    )
+    shuffle_options.add_argument(
+        "--no-shuffle",
+        dest="shuffle",
+        action="store_false",
+        default=argparse.SUPPRESS,
+        help="关闭随机打乱，每轮都按刺激文件中的顺序呈现。",
     )
 
     visual = parser.add_argument_group("视觉提示与速度")
@@ -86,10 +96,20 @@ def parse_locked_in_args(argv=None) -> argparse.Namespace:
         default=0.5,
         help="progress 模式中前一字填满后到下一字开始的停顿（秒）。",
     )
-    visual.add_argument(
+    rest_cross_options = visual.add_mutually_exclusive_group()
+    rest_cross_options.add_argument(
         "--show-rest-cross",
+        dest="show_rest_cross",
         action="store_true",
-        help="trial 间休息时在黑屏中央显示灰色十字；默认纯黑屏。",
+        default=True,
+        help="trial 间休息时在黑屏中央显示灰色十字；默认开启。",
+    )
+    rest_cross_options.add_argument(
+        "--no-rest-cross",
+        dest="show_rest_cross",
+        action="store_false",
+        default=argparse.SUPPRESS,
+        help="关闭灰色十字，trial 间休息时使用纯黑屏。",
     )
 
     timing = parser.add_argument_group("试次时序（全部为秒）")

@@ -35,6 +35,15 @@ reading, relaxing news, general sentences, word reading, and audio listening.
   `run-sentence-audio-zh`, `run-locked-in-sentence-reading`, `run-reading`,
   `run-listening`, `run-relaxing-news`, `generate-sentence-audio`, and
   `generate-news-audio`.
+- The primary locked-in workflow defaults to
+  `stimuli/yan_jiangyi_v4.txt` with
+  `assets/sentence_audio/yan_jiangyi_v4_slow/manifest.json`. Each repetition
+  is shuffled by default, and inter-trial rests show the centered gray cross by
+  default. Preserve the explicit opt-outs `--no-shuffle` and
+  `--no-rest-cross` when changing its CLI.
+- The primary relaxation workflow is `scripts/run_relaxing_news.py`; its rest
+  screen retains the current news by default and advances only after the
+  minimum rest and an enabled button click.
 - Use this non-interactive syntax check after Python edits:
   `python -c "import ast, pathlib; [ast.parse(p.read_text(encoding='utf-8')) for p in pathlib.Path('src').rglob('*.py')]"`
 

@@ -152,8 +152,9 @@ runtime duration, audio command onset and offset timestamps, randomized planned
 and actual phase durations, square/cue onset, every character's green onset,
 last-character completion, and trial end.
 
-Use `--repetitions N --shuffle` to run the full stimulus list N times and
-independently reshuffle it before each repetition. Output rows retain the
+Use `--repetitions N` to run the full stimulus list N times. Each repetition
+is independently shuffled by default; use `--no-shuffle` for file order.
+Output rows retain the
 original `stimulus_index` and add `repetition` plus `repetition_trial`, so the
 actual randomized presentation order is recoverable from the timestamps.
 
@@ -169,7 +170,7 @@ run-sentence-audio-zh --play-mode progress `
   --progress-duration 3.0 --progress-pause 0.5
 run-sentence-audio-zh --no-cue-tone
 run-sentence-audio-zh --cue-volume 0.9
-run-sentence-audio-zh --show-rest-cross
+run-sentence-audio-zh --no-rest-cross
 run-locked-in-sentence-reading --baseline-min 1.5 --baseline-max 2.5
 ```
 

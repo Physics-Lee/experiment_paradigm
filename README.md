@@ -30,6 +30,8 @@ python scripts\run_sentence_audio_zh.py
 - 微软语音：`zh-CN-XiaoxiaoNeural`
 - 生成语速：`-50%`
 - 呈现方式：逐字进度条
+- trial 顺序：每个 block 默认独立随机打乱
+- trial 间休息：默认显示黑底灰色十字
 
 v4 包含 5 个指令：
 
@@ -48,16 +50,14 @@ v4 包含 5 个指令：
 
 - 默认 `--repetitions 1`：运行 1 个 block，共 5 个 trial。
 - `--repetitions 3`：运行 3 个 block，共 15 个 trial。
-- 默认按刺激文件顺序呈现。
-- 加 `--shuffle` 后，每个 block 开始前分别随机打乱一次。
+- 默认在每个 block 开始前分别随机打乱一次。
+- 加 `--no-shuffle` 后，每个 block 都按刺激文件顺序呈现。
 
-例如运行 3 个随机 block，并在 trial 间显示灰色十字：
+例如运行 3 个 block（默认随机顺序和灰色十字）：
 
 ```powershell
 python scripts\run_sentence_audio_zh.py `
-  --repetitions 3 `
-  --shuffle `
-  --show-rest-cross
+  --repetitions 3
 ```
 
 ### 每个 block 内的 trial 流程
@@ -74,7 +74,7 @@ trial 按以下流程运行：
 7. 相邻汉字之间默认暂停 0.5 秒。
 8. 最后一个汉字完成后保持最终画面 0.5 秒。
 9. trial 间随机休息 5.0–6.0 秒。
-10. 默认休息画面为纯黑；加入 `--show-rest-cross` 后显示灰色十字。
+10. 默认休息画面显示灰色十字；加入 `--no-rest-cross` 后改为纯黑屏。
 
 闭锁范式会自动进入下一个 trial，不需要鼠标点击。按 `Esc` 或单击鼠标可以
 提前退出。
@@ -82,6 +82,9 @@ trial 按以下流程运行：
 常用调整：
 
 ```powershell
+# 固定按刺激文件顺序，并将休息画面改为纯黑
+python scripts\run_sentence_audio_zh.py --no-shuffle --no-rest-cross
+
 # 每个汉字改为 2 秒
 python scripts\run_sentence_audio_zh.py --progress-duration 2.0
 

@@ -80,8 +80,8 @@ class CommandLineDefaultsTests(unittest.TestCase):
         self.assertEqual(args.progress_pause, 0.5)
         self.assertEqual(args.cue_volume, 0.7)
         self.assertEqual(args.repetitions, 1)
-        self.assertFalse(args.shuffle)
-        self.assertFalse(args.show_rest_cross)
+        self.assertTrue(args.shuffle)
+        self.assertTrue(args.show_rest_cross)
 
     def test_locked_in_progress_mode_can_be_selected(self):
         args = parse_locked_in_args(["--play-mode", "progress"])
@@ -101,21 +101,23 @@ class CommandLineDefaultsTests(unittest.TestCase):
         self.assertIn("循环与顺序", help_text)
         self.assertIn("--repetitions", help_text)
         self.assertIn("--shuffle", help_text)
+        self.assertIn("--no-shuffle", help_text)
         self.assertIn("--show-rest-cross", help_text)
+        self.assertIn("--no-rest-cross", help_text)
         self.assertIn("--cue-volume", help_text)
         self.assertIn("显示设置", help_text)
         self.assertIn("--display-mode", help_text)
 
-    def test_locked_in_repetitions_and_shuffle_can_be_selected(self):
-        args = parse_locked_in_args(["--repetitions", "4", "--shuffle"])
+    def test_locked_in_repetitions_and_shuffle_can_be_disabled(self):
+        args = parse_locked_in_args(["--repetitions", "4", "--no-shuffle"])
 
         self.assertEqual(args.repetitions, 4)
-        self.assertTrue(args.shuffle)
+        self.assertFalse(args.shuffle)
 
-    def test_locked_in_rest_cross_can_be_enabled(self):
-        args = parse_locked_in_args(["--show-rest-cross"])
+    def test_locked_in_rest_cross_can_be_disabled(self):
+        args = parse_locked_in_args(["--no-rest-cross"])
 
-        self.assertTrue(args.show_rest_cross)
+        self.assertFalse(args.show_rest_cross)
 
     def test_tts_help_is_described_and_grouped(self):
         output = io.StringIO()

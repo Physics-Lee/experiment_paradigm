@@ -1,0 +1,167 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-07-27T07:19:57.734082+00:00",
+  "updated_at": "2026-07-27T07:20:26.026770+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\yan_jiangyi_v4.txt",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunxiaNeural",
+    "rate": "-50%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "character",
+    "character_pronunciation_aliases": {
+      "觉": "叫"
+    }
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "我想睡觉",
+      "unit": "character",
+      "duration_ms": 11064,
+      "segments": [
+        {
+          "id": "sentence_001_char_001",
+          "index": 1,
+          "text": "我",
+          "tts_text": "我",
+          "file": "sentence_001_char_001.mp3",
+          "duration_ms": 2664,
+          "sha256": "e23af1316e8645d869761fd7a95b409299a33fa5ea8126235dfba269a6a0302f"
+        },
+        {
+          "id": "sentence_001_char_002",
+          "index": 2,
+          "text": "想",
+          "tts_text": "想",
+          "file": "sentence_001_char_002.mp3",
+          "duration_ms": 3048,
+          "sha256": "8f6f5480af72f61a03dc3957cdb6ed11edaa977b47ed18fcd9ae3128bb996fd2"
+        },
+        {
+          "id": "sentence_001_char_003",
+          "index": 3,
+          "text": "睡",
+          "tts_text": "睡",
+          "file": "sentence_001_char_003.mp3",
+          "duration_ms": 2736,
+          "sha256": "d652bdb42c4bfef4b8c88990551459863991925ecc2904be741486b3740e4074"
+        },
+        {
+          "id": "sentence_001_char_004",
+          "index": 4,
+          "text": "觉",
+          "tts_text": "叫",
+          "file": "sentence_001_char_004.mp3",
+          "duration_ms": 2616,
+          "sha256": "867bac2ec7794de6c4ba82730af44ff7ac1d6d2d0f0c1ec0061cedd7c748a54c"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "上厕所",
+      "unit": "character",
+      "duration_ms": 8064,
+      "segments": [
+        {
+          "id": "sentence_002_char_001",
+          "index": 1,
+          "text": "上",
+          "tts_text": "上",
+          "file": "sentence_002_char_001.mp3",
+          "duration_ms": 2664,
+          "sha256": "8a7beffd52993efad2fcc806c617190ece7fdba5db6df2d1675b4f38b5127945"
+        },
+        {
+          "id": "sentence_002_char_002",
+          "index": 2,
+          "text": "厕",
+          "tts_text": "厕",
+          "file": "sentence_002_char_002.mp3",
+          "duration_ms": 2640,
+          "sha256": "bf53d8b013131441ba30d7fdcedd411381a0c4f79557ede372ce34211faa4a30"
+        },
+        {
+          "id": "sentence_002_char_003",
+          "index": 3,
+          "text": "所",
+          "tts_text": "所",
+          "file": "sentence_002_char_003.mp3",
+          "duration_ms": 2760,
+          "sha256": "1c6b5cec6c21d347cbd3fb4223e2904bb02995ea25e98161285bd4438a5bc268"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "手机",
+      "unit": "character",
+      "duration_ms": 5544,
+      "segments": [
+        {
+          "id": "sentence_003_char_001",
+          "index": 1,
+          "text": "手",
+          "tts_text": "手",
+          "file": "sentence_003_char_001.mp3",
+          "duration_ms": 2928,
+          "sha256": "47b425f59d2ebafab3668956e92e08272c0371c277301d2999de79364cf6a7fa"
+        },
+        {
+          "id": "sentence_003_char_002",
+          "index": 2,
+          "text": "机",
+          "tts_text": "机",
+          "file": "sentence_003_char_002.mp3",
+          "duration_ms": 2616,
+          "sha256": "709af86dcea6ec2f6fd84a7fab8b49d57e40fced4fd78f5085e8b064df305e31"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "疼",
+      "unit": "character",
+      "duration_ms": 2688,
+      "segments": [
+        {
+          "id": "sentence_004_char_001",
+          "index": 1,
+          "text": "疼",
+          "tts_text": "疼",
+          "file": "sentence_004_char_001.mp3",
+          "duration_ms": 2688,
+          "sha256": "a894589719fb3f6b21781285ff449f3d7fb1d2cd5396ac527abb51ec6c966eba"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "渴",
+      "unit": "character",
+      "duration_ms": 2688,
+      "segments": [
+        {
+          "id": "sentence_005_char_001",
+          "index": 1,
+          "text": "渴",
+          "tts_text": "渴",
+          "file": "sentence_005_char_001.mp3",
+          "duration_ms": 2688,
+          "sha256": "a757ebd490cc24c6c50ae0df68f1a6ede25f1f7b0d775042437909a9cfde6ee2"
+        }
+      ]
+    }
+  ]
+}

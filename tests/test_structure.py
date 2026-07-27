@@ -69,6 +69,14 @@ class RepositoryStructureTests(unittest.TestCase):
 
         self.assertEqual(args.news, Path("stimuli/news/2026_07_23.md"))
         self.assertFalse(args.news.is_absolute())
+        self.assertEqual(
+            args.audio_dir,
+            Path(
+                "assets/news_audio/2026_07_23/"
+                "zh-CN-YunyangNeural"
+            ),
+        )
+        self.assertFalse(args.audio_dir.is_absolute())
 
     def test_shared_duration_validation(self):
         validate_duration_range("rest", 5.0, 6.0)

@@ -26,8 +26,9 @@ python scripts\run_sentence_audio_zh.py
 默认输入已经设置为：
 
 - 刺激：`stimuli/yan_jiangyi_v4.txt`
-- 音频：`assets/sentence_audio/yan_jiangyi_v4_slow/manifest.json`
-- 微软语音：`zh-CN-XiaoxiaoNeural`
+- 默认音频目录：
+  `assets/sentence_audio/locked_in_v4/zh-CN-YunxiaNeural`
+- 微软语音：`zh-CN-YunxiaNeural`
 - 生成语速：`-50%`
 - 呈现方式：逐字进度条
 - trial 顺序：每个 block 默认独立随机打乱
@@ -43,6 +44,35 @@ v4 包含 5 个指令：
 
 屏幕仍显示“睡觉”，但生成音频时会将单独的“觉”隐藏映射为“叫”，使它读成
 `shuì jiào`。
+
+任务音频统一按以下目录保存：
+
+```text
+assets/sentence_audio/locked_in_v4/<完整语音名称>/
+├── manifest.json
+└── sentence_###_char_###.mp3
+```
+
+仓库中准备了 6 套相同 v4 刺激、逐字生成、`-50%` 语速的音频：
+
+- `zh-CN-XiaoxiaoNeural`
+- `zh-CN-XiaoyiNeural`
+- `zh-CN-YunjianNeural`
+- `zh-CN-YunxiNeural`
+- `zh-CN-YunxiaNeural`
+- `zh-CN-YunyangNeural`
+
+六个声音的目录结构完全相同；当前任务默认选择 `zh-CN-YunxiaNeural`。
+
+切换声音时只需要指定音频目录，例如：
+
+```powershell
+python scripts\run_sentence_audio_zh.py `
+  --audio-dir assets\sentence_audio\locked_in_v4\zh-CN-XiaoxiaoNeural
+```
+
+`--manifest` 仍可直接指定旧版或特殊音频集的 `manifest.json`，但日常切换声音
+优先使用 `--audio-dir`。
 
 ### 一个 block 的定义
 
@@ -106,10 +136,27 @@ python scripts\run_relaxing_news.py
 默认输入：
 
 - 新闻：`stimuli/news/2026_07_23.md`
-- 音频：`assets/news_audio/2026_07_23/manifest.json`
-- 微软语音：`zh-CN-XiaoxiaoNeural`
+- 默认音频目录：
+  `assets/news_audio/2026_07_23/zh-CN-YunyangNeural`
+- 微软语音：`zh-CN-YunyangNeural`
 - 语速：正常语速 `+0%`
 - 新闻数量：6 条
+
+新闻音频与任务音频使用相同的多语音目录规则：
+
+```text
+assets/news_audio/2026_07_23/<完整语音名称>/
+├── manifest.json
+└── sentence_###.mp3
+```
+
+六个声音的目录处于同一级；当前新闻默认选择
+`zh-CN-YunyangNeural`。例如切换为 Xiaoxiao：
+
+```powershell
+python scripts\run_relaxing_news.py `
+  --audio-dir assets\news_audio\2026_07_23\zh-CN-XiaoxiaoNeural
+```
 
 ### 一个 block 的定义
 
@@ -166,7 +213,7 @@ python scripts\run_relaxing_news.py `
 2. Windows 扬声器已选择正确，系统音量合适。
 3. 关闭通知、聊天软件弹窗和自动更新提示。
 4. 自己先试听一遍目标音频。
-5. 确认使用的是正确刺激和 manifest。
+5. 确认使用的是正确刺激和音频目录。
 6. 确认 `timestamp/` 可写。
 7. 让实验人员知道按 `Esc` 可以紧急退出。
 

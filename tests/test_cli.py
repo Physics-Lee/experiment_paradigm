@@ -1,7 +1,7 @@
 import os
 import io
 import unittest
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 
 
@@ -18,6 +18,9 @@ from experiment_paradigm.cli import (
 )
 from experiment_paradigm.tts import parse_args as parse_tts_args
 from experiment_paradigm.text_units import split_tts_units
+from experiment_paradigm.commands.locked_in_reading import (
+    resolve_locked_in_manifest,
+)
 
 
 class CommandLineDefaultsTests(unittest.TestCase):
@@ -63,11 +66,16 @@ class CommandLineDefaultsTests(unittest.TestCase):
             Path("stimuli/yan_jiangyi_v4.txt"),
         )
         self.assertEqual(
-            args.manifest,
+            args.audio_dir,
             Path(
-                "assets/sentence_audio/"
-                "yan_jiangyi_v4_slow/manifest.json"
+                "assets/sentence_audio/locked_in_v4/"
+                "zh-CN-YunxiaNeural"
             ),
+        )
+        self.assertIsNone(args.manifest)
+        self.assertEqual(
+            resolve_locked_in_manifest(args),
+            args.audio_dir / "manifest.json",
         )
         self.assertEqual(args.pre_audio_delay_min, 0.4)
         self.assertEqual(args.pre_audio_delay_max, 0.6)
@@ -100,6 +108,8 @@ class CommandLineDefaultsTests(unittest.TestCase):
         self.assertIn("统一提示音", help_text)
         self.assertIn("循环与顺序", help_text)
         self.assertIn("--repetitions", help_text)
+        self.assertIn("--audio-dir", help_text)
+        self.assertIn("--manifest", help_text)
         self.assertIn("--shuffle", help_text)
         self.assertIn("--no-shuffle", help_text)
         self.assertIn("--show-rest-cross", help_text)
@@ -118,6 +128,25 @@ class CommandLineDefaultsTests(unittest.TestCase):
         args = parse_locked_in_args(["--no-rest-cross"])
 
         self.assertFalse(args.show_rest_cross)
+
+    def test_locked_in_direct_manifest_override_is_supported(self):
+        manifest = Path("assets/custom/manifest.json")
+        args = parse_locked_in_args(["--manifest", str(manifest)])
+
+        self.assertEqual(resolve_locked_in_manifest(args), manifest)
+
+    def test_locked_in_audio_dir_and_manifest_are_mutually_exclusive(self):
+        error_output = io.StringIO()
+        with self.assertRaises(SystemExit), redirect_stderr(error_output):
+            parse_locked_in_args(
+                [
+                    "--audio-dir",
+                    "assets/audio-set",
+                    "--manifest",
+                    "assets/audio-set/manifest.json",
+                ]
+            )
+        self.assertIn("not allowed with argument", error_output.getvalue())
 
     def test_tts_help_is_described_and_grouped(self):
         output = io.StringIO()

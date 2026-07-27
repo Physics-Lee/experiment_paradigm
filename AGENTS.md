@@ -37,13 +37,19 @@ reading, relaxing news, general sentences, word reading, and audio listening.
   `generate-news-audio`.
 - The primary locked-in workflow defaults to
   `stimuli/yan_jiangyi_v4.txt` with
-  `assets/sentence_audio/yan_jiangyi_v4_slow/manifest.json`. Each repetition
-  is shuffled by default, and inter-trial rests show the centered gray cross by
-  default. Preserve the explicit opt-outs `--no-shuffle` and
-  `--no-rest-cross` when changing its CLI.
-- The primary relaxation workflow is `scripts/run_relaxing_news.py`; its rest
-  screen retains the current news by default and advances only after the
-  minimum rest and an enabled button click.
+  `assets/sentence_audio/locked_in_v4/zh-CN-YunxiaNeural/`. Locked-in audio
+  sets use the stable layout
+  `assets/sentence_audio/locked_in_v4/<full-voice-name>/`, with one
+  `manifest.json` and its MP3 segments in each voice directory. Prefer
+  `--audio-dir` when selecting a set; `--manifest` remains a compatibility
+  override. Each repetition is shuffled by default, and inter-trial rests show
+  the centered gray cross by default. Preserve the explicit opt-outs
+  `--no-shuffle` and `--no-rest-cross` when changing its CLI.
+- The primary relaxation workflow is `scripts/run_relaxing_news.py`, defaulting
+  to `assets/news_audio/2026_07_23/zh-CN-YunyangNeural/`. News audio sets use
+  `assets/news_audio/<date>/<full-voice-name>/`, parallel to the locked-in
+  layout. Its rest screen retains the current news by default and advances only
+  after the minimum rest and an enabled button click.
 - Use this non-interactive syntax check after Python edits:
   `python -c "import ast, pathlib; [ast.parse(p.read_text(encoding='utf-8')) for p in pathlib.Path('src').rglob('*.py')]"`
 

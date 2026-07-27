@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-07-24T08:43:44.734757+00:00",
+  "updated_at": "2026-07-27T07:57:50.470970+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_07_23.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunxiNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "26年7月22日，AMD 在旧金山举办人工智能大会，挑战英伟达对显卡的垄断地位",
+      "unit": "line",
+      "duration_ms": 8184,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "26年7月22日，AMD 在旧金山举办人工智能大会，挑战英伟达对显卡的垄断地位",
+          "tts_text": "26年7月22日，AMD 在旧金山举办人工智能大会，挑战英伟达对显卡的垄断地位",
+          "file": "sentence_001.mp3",
+          "duration_ms": 8184,
+          "sha256": "3920dc7e809804422b6a2846f448b5a4daf2f3924c51589c84128e4baa41665a"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "26年7月21日，OpenAI 声称自己的最新模型GPT-5.6 Sol在基准测试中逃出训练沙盒，对 Hugging Face 发起了真实攻击。后者采用智谱的GLM-5.2进行防御",
+      "unit": "line",
+      "duration_ms": 16056,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "26年7月21日，OpenAI 声称自己的最新模型GPT-5.6 Sol在基准测试中逃出训练沙盒，对 Hugging Face 发起了真实攻击。后者采用智谱的GLM-5.2进行防御",
+          "tts_text": "26年7月21日，OpenAI 声称自己的最新模型GPT-5.6 Sol在基准测试中逃出训练沙盒，对 Hugging Face 发起了真实攻击。后者采用智谱的GLM-5.2进行防御",
+          "file": "sentence_002.mp3",
+          "duration_ms": 16056,
+          "sha256": "0abf56d5866f0e6b3735f0ea69ace584857ba0731df78cc955091c94c02f21cc"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "26年7月21日，《科学美国人》报道：NASA 近日公布了一段令人着迷的火星延时影像。灵神星探测器在前往富金属小行星灵神星的旅程中飞掠火星，借机拍摄下这组画面，清晰展现了火星表面的陨石坑、极地冰盖与广袤沙漠地貌特征。",
+      "unit": "line",
+      "duration_ms": 21744,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "26年7月21日，《科学美国人》报道：NASA 近日公布了一段令人着迷的火星延时影像。灵神星探测器在前往富金属小行星灵神星的旅程中飞掠火星，借机拍摄下这组画面，清晰展现了火星表面的陨石坑、极地冰盖与广袤沙漠地貌特征。",
+          "tts_text": "26年7月21日，《科学美国人》报道：NASA 近日公布了一段令人着迷的火星延时影像。灵神星探测器在前往富金属小行星灵神星的旅程中飞掠火星，借机拍摄下这组画面，清晰展现了火星表面的陨石坑、极地冰盖与广袤沙漠地貌特征。",
+          "file": "sentence_003.mp3",
+          "duration_ms": 21744,
+          "sha256": "99d91f42db20540373b1b5a3eb85873fb3da4f96dbbab2e6088c7d9c22382942"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "26年7月15日，《自然》报道：一项研究展示了在真实量子硬件上，通过编织（braiding）与融合（fusing）任意子（anyons）来实现通用量子逻辑门，为容错量子计算提供了关键进展。",
+      "unit": "line",
+      "duration_ms": 16776,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "26年7月15日，《自然》报道：一项研究展示了在真实量子硬件上，通过编织（braiding）与融合（fusing）任意子（anyons）来实现通用量子逻辑门，为容错量子计算提供了关键进展。",
+          "tts_text": "26年7月15日，《自然》报道：一项研究展示了在真实量子硬件上，通过编织（braiding）与融合（fusing）任意子（anyons）来实现通用量子逻辑门，为容错量子计算提供了关键进展。",
+          "file": "sentence_004.mp3",
+          "duration_ms": 16776,
+          "sha256": "3dcd670a57a68a1c40d478732158c56192c0ef858d9dbc361eb251771b8d47c8"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "26年7月22日，《Elife》报道：PKM-PKC 双基因敲除证实 aPKC 对小鼠记忆至关重要",
+      "unit": "line",
+      "duration_ms": 8784,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "26年7月22日，《Elife》报道：PKM-PKC 双基因敲除证实 aPKC 对小鼠记忆至关重要",
+          "tts_text": "26年7月22日，《Elife》报道：PKM-PKC 双基因敲除证实 aPKC 对小鼠记忆至关重要",
+          "file": "sentence_005.mp3",
+          "duration_ms": 8784,
+          "sha256": "5b84718eba1db70a610cf566ce91e10d06a958b2f0dd567848246061245c86fc"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "26年7月9日，《科学》报道：泛病毒组泛素连接酶发现揭示免疫逃逸机制",
+      "unit": "line",
+      "duration_ms": 7752,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "26年7月9日，《科学》报道：泛病毒组泛素连接酶发现揭示免疫逃逸机制",
+          "tts_text": "26年7月9日，《科学》报道：泛病毒组泛素连接酶发现揭示免疫逃逸机制",
+          "file": "sentence_006.mp3",
+          "duration_ms": 7752,
+          "sha256": "3cbaa0b847ee573234f7c23b01dcb8f2ef8b177e7b54f35481201123da980815"
+        }
+      ]
+    }
+  ]
+}

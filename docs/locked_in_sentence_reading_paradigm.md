@@ -1,7 +1,8 @@
 # 闭锁患者句子朗读范式
 
 当前维护的命令默认使用 `stimuli/yan_jiangyi_v4.txt`，以及
-`assets/sentence_audio/yan_jiangyi_v4_slow/manifest.json`。
+`assets/sentence_audio/locked_in_v4/zh-CN-YunxiaNeural/`。不同语音使用
+`locked_in_v4/<完整语音名称>/` 独立保存，并通过 `--audio-dir` 切换。
 
 ## 单试次流程
 

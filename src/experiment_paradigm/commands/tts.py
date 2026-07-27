@@ -156,14 +156,16 @@ def parse_news_args(argv=None) -> argparse.Namespace:
     files.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("assets/news_audio/2026_07_23"),
+        default=Path(
+            "assets/news_audio/2026_07_23/zh-CN-YunyangNeural"
+        ),
         help="新闻 MP3 文件和 manifest.json 的输出目录。",
     )
 
     speech = parser.add_argument_group("Microsoft AI 语音设置")
     speech.add_argument(
         "--voice",
-        default="zh-CN-XiaoxiaoNeural",
+        default="zh-CN-YunyangNeural",
         help="Microsoft Edge TTS 中文神经语音名称。",
     )
     speech.add_argument(
@@ -201,4 +203,3 @@ def main_news(argv=None) -> None:
         f"Prepared {len(manifest['items'])} news audio files and wrote "
         f"{args.output_dir.resolve() / 'manifest.json'}"
     )
-

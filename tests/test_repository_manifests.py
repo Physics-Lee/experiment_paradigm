@@ -27,7 +27,8 @@ class RepositoryManifestTests(unittest.TestCase):
             sentences_file=str(ROOT / "stimuli/yan_jiangyi_v4.txt"),
             audio_manifest=str(
                 ROOT
-                / "assets/sentence_audio/yan_jiangyi_v4_slow/manifest.json"
+                / "assets/sentence_audio/locked_in_v4/"
+                "zh-CN-YunxiaNeural/manifest.json"
             ),
             cue_tone=False,
         )
@@ -38,7 +39,9 @@ class RepositoryManifestTests(unittest.TestCase):
         relaxing_news = RelaxingNewsParadigm(
             news_file=str(ROOT / "stimuli/news/2026_07_23.md"),
             audio_manifest=str(
-                ROOT / "assets/news_audio/2026_07_23/manifest.json"
+                ROOT
+                / "assets/news_audio/2026_07_23/"
+                "zh-CN-YunyangNeural/manifest.json"
             ),
         )
         self.assertEqual(len(relaxing_news.sentences), 6)

@@ -1,9 +1,11 @@
 import hashlib
+import io
 import json
 import os
 import tempfile
 import unittest
 import wave
+from contextlib import redirect_stderr
 from pathlib import Path
 from unittest.mock import patch
 
@@ -14,6 +16,9 @@ os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
 os.environ.setdefault("PYGAME_HIDE_SUPPORT_PROMPT", "1")
 
 from experiment_paradigm.cli import parse_relaxing_news_args
+from experiment_paradigm.commands.relaxing_news import (
+    resolve_relaxing_news_manifest,
+)
 from experiment_paradigm.news import read_news_items
 from experiment_paradigm.paradigms import RelaxingNewsParadigm
 from experiment_paradigm.tts import parse_news_args
@@ -67,6 +72,18 @@ class NewsStimulusTests(unittest.TestCase):
         self.assertEqual(args.rest_min, 5.0)
         self.assertEqual(args.rest_max, 6.0)
         self.assertEqual(args.rest_screen, "news")
+        self.assertEqual(
+            args.audio_dir,
+            Path(
+                "assets/news_audio/2026_07_23/"
+                "zh-CN-YunyangNeural"
+            ),
+        )
+        self.assertIsNone(args.manifest)
+        self.assertEqual(
+            resolve_relaxing_news_manifest(args),
+            args.audio_dir / "manifest.json",
+        )
 
         cross_args = parse_relaxing_news_args(
             ["--rest-screen", "cross"]
@@ -77,8 +94,34 @@ class NewsStimulusTests(unittest.TestCase):
         args = parse_news_args([])
 
         self.assertEqual(args.tts_unit, "line")
-        self.assertEqual(args.voice, "zh-CN-XiaoxiaoNeural")
+        self.assertEqual(args.voice, "zh-CN-YunyangNeural")
+        self.assertEqual(
+            args.output_dir,
+            Path(
+                "assets/news_audio/2026_07_23/"
+                "zh-CN-YunyangNeural"
+            ),
+        )
         self.assertEqual(args.rate, "+0%")
+
+    def test_news_direct_manifest_override_is_supported(self):
+        manifest = Path("assets/custom-news/manifest.json")
+        args = parse_relaxing_news_args(["--manifest", str(manifest)])
+
+        self.assertEqual(resolve_relaxing_news_manifest(args), manifest)
+
+    def test_news_audio_dir_and_manifest_are_mutually_exclusive(self):
+        error_output = io.StringIO()
+        with self.assertRaises(SystemExit), redirect_stderr(error_output):
+            parse_relaxing_news_args(
+                [
+                    "--audio-dir",
+                    "assets/news-set",
+                    "--manifest",
+                    "assets/news-set/manifest.json",
+                ]
+            )
+        self.assertIn("not allowed with argument", error_output.getvalue())
 
     def test_news_screen_keeps_small_square_red_and_rest_cross_gray(self):
         with tempfile.TemporaryDirectory() as temporary_directory:

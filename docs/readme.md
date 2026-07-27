@@ -66,8 +66,8 @@ The primary locked-in v4 set uses character-by-character Chinese TTS:
 conda activate experiment_paradigm
 generate-sentence-audio `
   --sentences stimuli/yan_jiangyi_v4.txt `
-  --output-dir assets/sentence_audio/yan_jiangyi_v4_slow `
-  --voice zh-CN-XiaoxiaoNeural `
+  --output-dir assets/sentence_audio/locked_in_v4/zh-CN-YunxiaNeural `
+  --voice zh-CN-YunxiaNeural `
   --rate=-50% `
   --tts-unit character
 ```
@@ -171,6 +171,8 @@ run-sentence-audio-zh --play-mode progress `
 run-sentence-audio-zh --no-cue-tone
 run-sentence-audio-zh --cue-volume 0.9
 run-sentence-audio-zh --no-rest-cross
+run-sentence-audio-zh --audio-dir `
+  assets/sentence_audio/locked_in_v4/zh-CN-XiaoxiaoNeural
 run-locked-in-sentence-reading --baseline-min 1.5 --baseline-max 2.5
 ```
 
@@ -205,7 +207,8 @@ header contains `标题`, so table headers, categories, and scores are not read
 aloud.
 
 Generate today's six news recordings once using the normal Microsoft neural
-voice speed:
+voice speed. The default voice is `zh-CN-YunyangNeural`, stored under the
+date directory by full voice name:
 
 ```powershell
 python scripts/generate_news_audio.py

@@ -8,9 +8,10 @@
 ## 默认输入
 
 - 新闻刺激：`stimuli/news/2026_07_23.md`
-- 音频目录：`assets/news_audio/2026_07_23/`
-- 音频清单：`assets/news_audio/2026_07_23/manifest.json`
-- 语音：`zh-CN-XiaoxiaoNeural`
+- 音频目录：`assets/news_audio/2026_07_23/zh-CN-YunyangNeural/`
+- 音频清单：
+  `assets/news_audio/2026_07_23/zh-CN-YunyangNeural/manifest.json`
+- 语音：`zh-CN-YunyangNeural`
 - 语速：`+0%`
 - TTS 单元：整条新闻
 
@@ -79,11 +80,12 @@ python scripts/run_relaxing_news.py `
 ```powershell
 python scripts/generate_news_audio.py `
   --news "stimuli/news/2026_07_24.md" `
-  --output-dir "assets/news_audio/2026_07_24"
+  --output-dir "assets/news_audio/2026_07_24/zh-CN-YunyangNeural" `
+  --voice zh-CN-YunyangNeural
 
 python scripts/run_relaxing_news.py `
   --news "stimuli/news/2026_07_24.md" `
-  --manifest "assets/news_audio/2026_07_24/manifest.json"
+  --audio-dir "assets/news_audio/2026_07_24/zh-CN-YunyangNeural"
 ```
 
 不要让新刺激文件继续使用旧日期的 manifest；启动时会校验文字和顺序，

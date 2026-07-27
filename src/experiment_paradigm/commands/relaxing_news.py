@@ -9,6 +9,18 @@ from ..paradigms import RelaxingNewsParadigm
 from .common import add_display_arguments
 
 
+DEFAULT_RELAXING_NEWS_AUDIO_DIR = Path(
+    "assets/news_audio/2026_07_23/zh-CN-YunyangNeural"
+)
+
+
+def resolve_relaxing_news_manifest(args: argparse.Namespace) -> Path:
+    """Resolve either a news audio directory or a direct manifest override."""
+    if args.manifest is not None:
+        return args.manifest
+    return args.audio_dir / "manifest.json"
+
+
 def parse_relaxing_news_args(argv=None) -> argparse.Namespace:
     """Parse the patient relaxation news-paradigm options."""
     parser = argparse.ArgumentParser(
@@ -33,11 +45,24 @@ def parse_relaxing_news_args(argv=None) -> argparse.Namespace:
             "Markdown 表格。"
         ),
     )
-    files.add_argument(
+    audio_input = files.add_mutually_exclusive_group()
+    audio_input.add_argument(
+        "--audio-dir",
+        type=Path,
+        default=DEFAULT_RELAXING_NEWS_AUDIO_DIR,
+        help=(
+            "新闻音频集目录；目录内必须包含 manifest.json 和其引用的 "
+            "MP3。切换语音时优先使用此参数。"
+        ),
+    )
+    audio_input.add_argument(
         "--manifest",
         type=Path,
-        default=Path("assets/news_audio/2026_07_23/manifest.json"),
-        help="与新闻文字和顺序严格匹配的音频 manifest.json。",
+        default=None,
+        help=(
+            "直接指定 manifest.json，供旧目录或特殊音频集兼容使用；"
+            "不能与 --audio-dir 同时使用。"
+        ),
     )
     files.add_argument(
         "--output-prefix",
@@ -99,9 +124,10 @@ def parse_relaxing_news_args(argv=None) -> argparse.Namespace:
 def main_relaxing_news(argv=None) -> None:
     """Run the patient relaxation news paradigm."""
     args = parse_relaxing_news_args(argv)
+    audio_manifest = resolve_relaxing_news_manifest(args)
     paradigm = RelaxingNewsParadigm(
         news_file=str(args.news),
-        audio_manifest=str(args.manifest),
+        audio_manifest=str(audio_manifest),
         font_size=args.font_size,
         square_size=args.square_size,
         pre_audio_delay=args.pre_audio_delay,

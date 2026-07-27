@@ -9,6 +9,18 @@ from ..paradigms import LockedInSentenceReadingParadigm
 from .common import add_display_arguments, positive_int
 
 
+DEFAULT_LOCKED_IN_AUDIO_DIR = Path(
+    "assets/sentence_audio/locked_in_v4/zh-CN-YunxiaNeural"
+)
+
+
+def resolve_locked_in_manifest(args: argparse.Namespace) -> Path:
+    """Resolve either an audio-set directory or a direct manifest override."""
+    if args.manifest is not None:
+        return args.manifest
+    return args.audio_dir / "manifest.json"
+
+
 def parse_locked_in_args(argv=None) -> argparse.Namespace:
     """Parse the locked-in sentence-reading command-line options."""
     parser = argparse.ArgumentParser(
@@ -31,15 +43,23 @@ def parse_locked_in_args(argv=None) -> argparse.Namespace:
         default=Path("stimuli/yan_jiangyi_v4.txt"),
         help="UTF-8 刺激文件；每个非空行是一个 trial。",
     )
-    files.add_argument(
+    audio_input = files.add_mutually_exclusive_group()
+    audio_input.add_argument(
+        "--audio-dir",
+        type=Path,
+        default=DEFAULT_LOCKED_IN_AUDIO_DIR,
+        help=(
+            "任务音频集目录；目录内必须包含 manifest.json 和其引用的 "
+            "MP3。切换语音时优先使用此参数。"
+        ),
+    )
+    audio_input.add_argument(
         "--manifest",
         type=Path,
-        default=Path(
-            "assets/sentence_audio/yan_jiangyi_v4_slow/manifest.json"
-        ),
+        default=None,
         help=(
-            "与刺激文件逐行对应的 manifest.json；启动前会校验"
-            "文字、顺序、音频文件和 SHA-256。"
+            "直接指定 manifest.json，供旧目录或特殊音频集兼容使用；"
+            "不能与 --audio-dir 同时使用。"
         ),
     )
     files.add_argument(
@@ -198,9 +218,10 @@ def parse_locked_in_args(argv=None) -> argparse.Namespace:
 def main_locked_in(argv=None) -> None:
     """Run the locked-in Chinese sentence-reading paradigm."""
     args = parse_locked_in_args(argv)
+    audio_manifest = resolve_locked_in_manifest(args)
     paradigm = LockedInSentenceReadingParadigm(
         sentences_file=str(args.sentences),
-        audio_manifest=str(args.manifest),
+        audio_manifest=str(audio_manifest),
         char_speed=args.char_speed,
         play_mode=args.play_mode,
         progress_duration=args.progress_duration,

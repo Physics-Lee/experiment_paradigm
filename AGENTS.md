@@ -51,8 +51,12 @@ reading, relaxing news, general sentences, word reading, and audio listening.
 - The primary relaxation workflow is `scripts/run_relaxing_news.py`, defaulting
   to `assets/news_audio/2026_07_23/zh-CN-YunyangNeural/`. News audio sets use
   `assets/news_audio/<date>/<full-voice-name>/`, parallel to the locked-in
-  layout. Its rest screen retains the current news by default and advances only
-  after the minimum rest and an enabled button click.
+  layout. To add a batch, create `stimuli/news/<date>.md`, generate it with
+  `generate-news-audio --news stimuli/news/<date>.md --output-dir
+  assets/news_audio/<date>/<full-voice-name> --voice <full-voice-name>`, then
+  run it with the same `--news` and `--audio-dir`. Its rest screen retains the
+  current news by default and advances only after the minimum rest and an
+  enabled button click.
 - Use this non-interactive syntax check after Python edits:
   `python -c "import ast, pathlib; [ast.parse(p.read_text(encoding='utf-8')) for p in pathlib.Path('src').rglob('*.py')]"`
 

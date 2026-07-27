@@ -216,6 +216,29 @@ python scripts\run_relaxing_news.py `
   --rest-max 6
 ```
 
+## 新增一批新闻
+
+1. 在 `stimuli/news/` 新建一个 UTF-8 Markdown 文件，例如
+   `stimuli/news/2026_07_30.md`。每一行（或新闻表格中的每一条）是一则新闻。
+2. 生成对应语音；日期目录和输入文件日期保持一致：
+
+```powershell
+python scripts\generate_news_audio.py `
+  --news "stimuli/news/2026_07_30.md" `
+  --output-dir "assets/news_audio/2026_07_30/zh-CN-YunyangNeural" `
+  --voice zh-CN-YunyangNeural
+```
+
+3. 试听并播放该批新闻：
+
+```powershell
+python scripts\run_relaxing_news.py `
+  --news "stimuli/news/2026_07_30.md" `
+  --audio-dir "assets/news_audio/2026_07_30/zh-CN-YunyangNeural"
+```
+
+若更换语音，请同时替换生成命令中的 `--voice` 和输出目录的最后一级目录；播放时也选择同一个 `--audio-dir`。完整流程见 `docs/relaxing_news_paradigm.md`。
+
 ## 实验前检查
 
 给患者正式运行前，请检查：

@@ -27,7 +27,7 @@ python scripts\run_sentence_audio_zh.py
 
 - 刺激：`stimuli/yan_jiangyi_v4.txt`
 - 默认音频目录：
-  `assets/sentence_audio/locked_in_v4/zh-CN-YunxiaNeural`
+  `assets/sentence_audio/yan_jiangyi_v4/zh-CN-YunxiaNeural`
 - 微软语音：`zh-CN-YunxiaNeural`
 - 生成语速：`-50%`
 - 呈现方式：逐字进度条
@@ -48,7 +48,7 @@ v4 包含 5 个指令：
 任务音频统一按以下目录保存：
 
 ```text
-assets/sentence_audio/locked_in_v4/<完整语音名称>/
+assets/sentence_audio/yan_jiangyi_v4/<完整语音名称>/
 ├── manifest.json
 └── sentence_###_char_###.mp3
 ```
@@ -63,12 +63,23 @@ assets/sentence_audio/locked_in_v4/<完整语音名称>/
 - `zh-CN-YunyangNeural`
 
 六个声音的目录结构完全相同；当前任务默认选择 `zh-CN-YunxiaNeural`。
+历史 `yan_jiangyi*`、`en` 和 `zh` 任务音频目录已清除；不要重新创建或使用
+这些旧目录。
+
+重新生成默认 Yunxia 任务音频时，直接运行：
+
+```powershell
+python scripts\generate_sentence_audio.py
+```
+
+该命令默认使用 v4 刺激、逐字 TTS 和 `-50%` 语速；如需其他声音，请保留相同
+目录结构，只替换完整语音名称。
 
 切换声音时只需要指定音频目录，例如：
 
 ```powershell
 python scripts\run_sentence_audio_zh.py `
-  --audio-dir assets\sentence_audio\locked_in_v4\zh-CN-XiaoxiaoNeural
+  --audio-dir assets\sentence_audio\yan_jiangyi_v4\zh-CN-XiaoxiaoNeural
 ```
 
 `--manifest` 仍可直接指定旧版或特殊音频集的 `manifest.json`，但日常切换声音

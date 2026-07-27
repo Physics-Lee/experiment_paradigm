@@ -12,12 +12,15 @@ from .common import add_display_arguments
 def parse_args(
     argv=None,
     *,
-    default_sentences="stimuli/sentences_en.txt",
-    default_manifest="assets/sentence_audio/en/manifest.json",
+    default_sentences="stimuli/yan_jiangyi_v4.txt",
+    default_manifest=(
+        "assets/sentence_audio/yan_jiangyi_v4/"
+        "zh-CN-YunxiaNeural/manifest.json"
+    ),
     default_output_prefix="sentence_audio",
     default_prep_mode="square",
     default_prep_time_jitter=0.3,
-    default_token_mode="word",
+    default_token_mode="character",
 ) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="运行通用句子范式，使用离线预加载的句子音频。",
@@ -154,12 +157,15 @@ def parse_args(
 def main(
     argv=None,
     *,
-    default_sentences="stimuli/sentences_en.txt",
-    default_manifest="assets/sentence_audio/en/manifest.json",
+    default_sentences="stimuli/yan_jiangyi_v4.txt",
+    default_manifest=(
+        "assets/sentence_audio/yan_jiangyi_v4/"
+        "zh-CN-YunxiaNeural/manifest.json"
+    ),
     default_output_prefix="sentence_audio",
     default_prep_mode="square",
     default_prep_time_jitter=0.3,
-    default_token_mode="word",
+    default_token_mode="character",
 ) -> None:
     args = parse_args(
         argv,

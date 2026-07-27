@@ -27,7 +27,7 @@ class RepositoryManifestTests(unittest.TestCase):
             sentences_file=str(ROOT / "stimuli/yan_jiangyi_v4.txt"),
             audio_manifest=str(
                 ROOT
-                / "assets/sentence_audio/locked_in_v4/"
+                / "assets/sentence_audio/yan_jiangyi_v4/"
                 "zh-CN-YunxiaNeural/manifest.json"
             ),
             cue_tone=False,

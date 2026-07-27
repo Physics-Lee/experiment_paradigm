@@ -66,7 +66,7 @@ The primary locked-in v4 set uses character-by-character Chinese TTS:
 conda activate experiment_paradigm
 generate-sentence-audio `
   --sentences stimuli/yan_jiangyi_v4.txt `
-  --output-dir assets/sentence_audio/locked_in_v4/zh-CN-YunxiaNeural `
+  --output-dir assets/sentence_audio/yan_jiangyi_v4/zh-CN-YunxiaNeural `
   --voice zh-CN-YunxiaNeural `
   --rate=-50% `
   --tts-unit character
@@ -99,7 +99,7 @@ generator. Use `edge-tts --list-voices` to inspect available voice names and
 ```powershell
 conda activate experiment_paradigm
 
-# English: word-by-word visual progression
+# General sentence-audio flow (current v4/Yunxia audio set)
 run-sentence-audio
 
 # Chinese: locked-in patient sentence-reading flow
@@ -113,7 +113,9 @@ Compatibility wrappers remain under `scripts/`:
 `python scripts/run_sentence_audio_en.py` runs English and
 `python scripts/run_sentence_audio_zh.py` runs Chinese.
 
-The English command retains the general sentence-audio sequence:
+The general command retains the general sentence-audio sequence. It defaults to
+the current v4/Yunxia audio set; use its `--sentences`, `--manifest`, and
+`--token-mode` options when running a separate custom set:
 
 1. matching sentence audio on a fixation screen;
 2. a 0.5-second pre-visual gap;
@@ -172,7 +174,7 @@ run-sentence-audio-zh --no-cue-tone
 run-sentence-audio-zh --cue-volume 0.9
 run-sentence-audio-zh --no-rest-cross
 run-sentence-audio-zh --audio-dir `
-  assets/sentence_audio/locked_in_v4/zh-CN-XiaoxiaoNeural
+  assets/sentence_audio/yan_jiangyi_v4/zh-CN-XiaoxiaoNeural
 run-locked-in-sentence-reading --baseline-min 1.5 --baseline-max 2.5
 ```
 

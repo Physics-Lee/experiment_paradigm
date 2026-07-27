@@ -10,7 +10,7 @@ from .common import add_display_arguments, positive_int
 
 
 DEFAULT_LOCKED_IN_AUDIO_DIR = Path(
-    "assets/sentence_audio/locked_in_v4/zh-CN-YunxiaNeural"
+    "assets/sentence_audio/yan_jiangyi_v4/zh-CN-YunxiaNeural"
 )
 
 

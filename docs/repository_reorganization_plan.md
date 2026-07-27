@@ -271,11 +271,11 @@ stimuli/
 ```text
 assets/
 ├── sentence_audio/
-│   ├── yan_jiangyi_v1_slow/
-│   ├── yan_jiangyi_v2_slow/
-│   └── yan_jiangyi_v3_slow/
+│   └── yan_jiangyi_v4/
+│       └── <full-voice-name>/
 └── news_audio/
     └── 2026_07_23/
+        └── <full-voice-name>/
 ```
 
 每个音频目录包含：

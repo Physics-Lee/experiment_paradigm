@@ -19,7 +19,7 @@ from .stimuli import read_news_items, read_nonempty_lines, split_tts_units
 
 
 SCHEMA_VERSION = 2
-DEFAULT_VOICE = "en-US-JennyNeural"
+DEFAULT_VOICE = "zh-CN-YunxiaNeural"
 CHARACTER_PRONUNCIATION_ALIASES = {
     "觉": "叫",
 }

@@ -51,6 +51,19 @@ class CommandLineDefaultsTests(unittest.TestCase):
         self.assertEqual(args.word_duration, 0.2)
         self.assertEqual(args.output_prefix, "reading")
 
+    def test_general_sentence_defaults_use_current_audio_set(self):
+        args = parse_sentence_args([])
+
+        self.assertEqual(args.sentences, Path("stimuli/yan_jiangyi_v4.txt"))
+        self.assertEqual(
+            args.manifest,
+            Path(
+                "assets/sentence_audio/yan_jiangyi_v4/"
+                "zh-CN-YunxiaNeural/manifest.json"
+            ),
+        )
+        self.assertEqual(args.token_mode, "character")
+
     def test_listening_defaults_live_in_package_cli(self):
         args = parse_listening_args([])
 
@@ -68,7 +81,7 @@ class CommandLineDefaultsTests(unittest.TestCase):
         self.assertEqual(
             args.audio_dir,
             Path(
-                "assets/sentence_audio/locked_in_v4/"
+                "assets/sentence_audio/yan_jiangyi_v4/"
                 "zh-CN-YunxiaNeural"
             ),
         )
@@ -159,6 +172,21 @@ class CommandLineDefaultsTests(unittest.TestCase):
         self.assertIn("生成策略", help_text)
         self.assertIn("--force", help_text)
         self.assertIn("--tts-unit", help_text)
+
+    def test_tts_defaults_target_current_locked_in_audio_set(self):
+        args = parse_tts_args([])
+
+        self.assertEqual(args.sentences, Path("stimuli/yan_jiangyi_v4.txt"))
+        self.assertEqual(
+            args.output_dir,
+            Path(
+                "assets/sentence_audio/yan_jiangyi_v4/"
+                "zh-CN-YunxiaNeural"
+            ),
+        )
+        self.assertEqual(args.voice, "zh-CN-YunxiaNeural")
+        self.assertEqual(args.rate, "-50%")
+        self.assertEqual(args.tts_unit, "character")
 
     def test_tts_auto_unit_splits_chinese_but_not_english(self):
         self.assertEqual(

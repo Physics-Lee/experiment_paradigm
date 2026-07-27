@@ -37,11 +37,11 @@ def parse_args(argv=None) -> argparse.Namespace:
             "使用 --force。\n\n"
             "查询可用语音:\n"
             "  edge-tts --list-voices\n\n"
-            "中文生成示例:\n"
+            "当前任务音频生成示例:\n"
             "  python scripts/generate_sentence_audio.py --sentences "
-            "stimuli/yan_jiangyi.txt --output-dir "
-            "assets/sentence_audio/yan_jiangyi --voice "
-            "zh-CN-XiaoxiaoNeural --rate=-50%\n\n"
+            "stimuli/yan_jiangyi_v4.txt --output-dir "
+            "assets/sentence_audio/yan_jiangyi_v4/zh-CN-YunxiaNeural --voice "
+            "zh-CN-YunxiaNeural --rate=-50% --tts-unit character\n\n"
             "实验运行参数（进度条、延迟、休息、提示音等）:\n"
             "  python scripts/run_sentence_audio_zh.py -h"
         ),
@@ -50,7 +50,7 @@ def parse_args(argv=None) -> argparse.Namespace:
     files.add_argument(
         "--sentences",
         type=Path,
-        default=Path("stimuli/sentences_en.txt"),
+        default=Path("stimuli/yan_jiangyi_v4.txt"),
         help=(
             "UTF-8 刺激文件；每个非空行是一个 trial，可生成"
             "一个或多个音频片段。"
@@ -59,7 +59,9 @@ def parse_args(argv=None) -> argparse.Namespace:
     files.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("assets/sentence_audio/en"),
+        default=Path(
+            "assets/sentence_audio/yan_jiangyi_v4/zh-CN-YunxiaNeural"
+        ),
         help="MP3 文件和 manifest.json 的输出目录。",
     )
 
@@ -67,7 +69,7 @@ def parse_args(argv=None) -> argparse.Namespace:
     speech.add_argument(
         "--tts-unit",
         choices=("auto", "line", "character"),
-        default="auto",
+        default="character",
         help=(
             "auto=纯中文按汉字、其他文本按整行；line=始终按整行；"
             "character=始终按非空白/非标点字符。"
@@ -84,7 +86,7 @@ def parse_args(argv=None) -> argparse.Namespace:
     )
     speech.add_argument(
         "--rate",
-        default="+0%",
+        default="-50%",
         help=(
             "相对语速，不是目标时长。例如 --rate=-50%% "
             "放慢、--rate=+20%% 加快。"

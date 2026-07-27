@@ -37,14 +37,17 @@ reading, relaxing news, general sentences, word reading, and audio listening.
   `generate-news-audio`.
 - The primary locked-in workflow defaults to
   `stimuli/yan_jiangyi_v4.txt` with
-  `assets/sentence_audio/locked_in_v4/zh-CN-YunxiaNeural/`. Locked-in audio
+  `assets/sentence_audio/yan_jiangyi_v4/zh-CN-YunxiaNeural/`. Locked-in audio
   sets use the stable layout
-  `assets/sentence_audio/locked_in_v4/<full-voice-name>/`, with one
+  `assets/sentence_audio/yan_jiangyi_v4/<full-voice-name>/`, with one
   `manifest.json` and its MP3 segments in each voice directory. Prefer
   `--audio-dir` when selecting a set; `--manifest` remains a compatibility
-  override. Each repetition is shuffled by default, and inter-trial rests show
-  the centered gray cross by default. Preserve the explicit opt-outs
-  `--no-shuffle` and `--no-rest-cross` when changing its CLI.
+  override. Historical `yan_jiangyi*`, `en`, and `zh` sentence-audio
+  directories have been removed and must not be recreated. The no-argument
+  `generate-sentence-audio` workflow regenerates the current Yunxia v4 set
+  character by character at `-50%`. Each repetition is shuffled by default,
+  and inter-trial rests show the centered gray cross by default. Preserve the
+  explicit opt-outs `--no-shuffle` and `--no-rest-cross` when changing its CLI.
 - The primary relaxation workflow is `scripts/run_relaxing_news.py`, defaulting
   to `assets/news_audio/2026_07_23/zh-CN-YunyangNeural/`. News audio sets use
   `assets/news_audio/<date>/<full-voice-name>/`, parallel to the locked-in

@@ -55,6 +55,22 @@ class NewsStimulusTests(unittest.TestCase):
                 ["第一条新闻。", "第二条新闻。"],
             )
 
+    def test_markdown_table_extracts_top_story_column(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            path = Path(temporary_directory) / "news.md"
+            path.write_text(
+                "| # | 来源分类 | Top 故事（中文） | 评分 |\n"
+                "|---|---|---|---|\n"
+                "| 1 | 科技 | 第一条新闻。 | — |\n"
+                "| 2 | 科学 | 第二条新闻。 | 42 |\n",
+                encoding="utf-8",
+            )
+
+            self.assertEqual(
+                read_news_items(path),
+                ["第一条新闻。", "第二条新闻。"],
+            )
+
     def test_plain_text_retains_one_nonempty_line_per_news_item(self):
         with tempfile.TemporaryDirectory() as temporary_directory:
             path = Path(temporary_directory) / "news.txt"

@@ -24,10 +24,10 @@ class RepositoryManifestTests(unittest.TestCase):
 
     def test_primary_patient_manifests_match_their_stimulus_lists(self):
         locked_in = LockedInSentenceReadingParadigm(
-            sentences_file=str(ROOT / "stimuli/yan_jiangyi_v4.txt"),
+            sentences_file=str(ROOT / "stimuli/yan_jiangyi_v5.txt"),
             audio_manifest=str(
                 ROOT
-                / "assets/sentence_audio/yan_jiangyi_v4/"
+                / "assets/sentence_audio/yan_jiangyi_v5/"
                 "zh-CN-YunxiaNeural/manifest.json"
             ),
             cue_tone=False,

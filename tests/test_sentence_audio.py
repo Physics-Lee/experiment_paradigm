@@ -287,7 +287,7 @@ class SentenceAudioTests(unittest.TestCase):
             lower_half_height = paradigm.height - paradigm.height // 2
 
             self.assertEqual(paradigm.play_mode, "progress")
-            self.assertEqual(paradigm.progress_duration, 3.0)
+            self.assertEqual(paradigm.progress_duration, 2.0)
             self.assertLess(layout["text_y"], paradigm.height // 2)
             self.assertEqual(
                 layout["square_rect"].centery,
@@ -547,11 +547,11 @@ class SentenceAudioTests(unittest.TestCase):
                 ["手", "机"],
             )
 
-    def test_character_tts_secretly_maps_jue_to_jiao_pronunciation(self):
+    def test_character_tts_applies_hidden_pronunciation_aliases(self):
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
             sentences_path = root / "sentences.txt"
-            sentences_path.write_text("睡觉\n", encoding="utf-8")
+            sentences_path.write_text("睡觉拙\n", encoding="utf-8")
             output_dir = root / "audio"
             args = SimpleNamespace(
                 sentences=sentences_path,
@@ -583,25 +583,25 @@ class SentenceAudioTests(unittest.TestCase):
             ):
                 manifest = asyncio.run(build_audio_set(args))
 
-            self.assertEqual(generated_texts, ["睡", "叫"])
-            self.assertEqual(manifest["items"][0]["text"], "睡觉")
+            self.assertEqual(generated_texts, ["睡", "叫", "卓"])
+            self.assertEqual(manifest["items"][0]["text"], "睡觉拙")
             self.assertEqual(
                 [
                     segment["text"]
                     for segment in manifest["items"][0]["segments"]
                 ],
-                ["睡", "觉"],
+                ["睡", "觉", "拙"],
             )
             self.assertEqual(
                 [
                     segment["tts_text"]
                     for segment in manifest["items"][0]["segments"]
                 ],
-                ["睡", "叫"],
+                ["睡", "叫", "卓"],
             )
             self.assertEqual(
                 manifest["tts"]["character_pronunciation_aliases"],
-                {"觉": "叫"},
+                {"觉": "叫", "拙": "卓"},
             )
 
     def test_wrong_legacy_jue_audio_is_not_reused_after_alias_change(self):

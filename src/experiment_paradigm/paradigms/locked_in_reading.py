@@ -24,7 +24,7 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         audio_manifest,
         char_speed=1.2,
         play_mode="progress",
-        progress_duration=3.0,
+        progress_duration=2.0,
         progress_pause=0.5,
         rest_cross=False,
         baseline_min=1.5,

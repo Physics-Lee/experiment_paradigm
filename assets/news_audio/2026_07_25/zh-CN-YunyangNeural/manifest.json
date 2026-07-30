@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-07-28T07:51:52.422207+00:00",
+  "updated_at": "2026-07-28T07:52:02.814686+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_07_25_Top_Digest_Yixuan_Modified.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "7月24日，Midjourney 收购个性化占星应用 Co-Star，从生成猫咪图、超声扫描一路跨界到占星",
+      "unit": "line",
+      "duration_ms": 8952,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "7月24日，Midjourney 收购个性化占星应用 Co-Star，从生成猫咪图、超声扫描一路跨界到占星",
+          "tts_text": "7月24日，Midjourney 收购个性化占星应用 Co-Star，从生成猫咪图、超声扫描一路跨界到占星",
+          "file": "sentence_001.mp3",
+          "duration_ms": 8952,
+          "sha256": "5914eb33511e18fe212373092a510dbb20811186193d94daf2fb4a6940813402"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "Anthropic 发布 Opus 5，能力\"接近\" Fable 5",
+      "unit": "line",
+      "duration_ms": 4296,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "Anthropic 发布 Opus 5，能力\"接近\" Fable 5",
+          "tts_text": "Anthropic 发布 Opus 5，能力\"接近\" Fable 5",
+          "file": "sentence_002.mp3",
+          "duration_ms": 4296,
+          "sha256": "d1d470336517e566424ca3038555556b1133afedc1e6a038658e18cdd8198c5e"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "欧洲热浪已致数千人死亡，并让土壤干涸见底",
+      "unit": "line",
+      "duration_ms": 4704,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "欧洲热浪已致数千人死亡，并让土壤干涸见底",
+          "tts_text": "欧洲热浪已致数千人死亡，并让土壤干涸见底",
+          "file": "sentence_003.mp3",
+          "duration_ms": 4704,
+          "sha256": "21cc32b3bc1fcc66622730b956d3a6f5551d11be226244b134993dde65ca34f6"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "尼安德特人可能和现代人类同样聪明",
+      "unit": "line",
+      "duration_ms": 3624,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "尼安德特人可能和现代人类同样聪明",
+          "tts_text": "尼安德特人可能和现代人类同样聪明",
+          "file": "sentence_004.mp3",
+          "duration_ms": 3624,
+          "sha256": "67d69baf55a67a9fdc284db7c28b146d7ec3329662447b3bd2a2a593ce6ceaad"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "NASA 最重要的深空观测台之一遭西班牙山火波及",
+      "unit": "line",
+      "duration_ms": 4704,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "NASA 最重要的深空观测台之一遭西班牙山火波及",
+          "tts_text": "NASA 最重要的深空观测台之一遭西班牙山火波及",
+          "file": "sentence_005.mp3",
+          "duration_ms": 4704,
+          "sha256": "3ec97a289ad8e6ce99cf6bcc8a7291bb023c12ace3e4182a038af1eafba5178e"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "APP/Aβ 信号统筹阿尔茨海默病中的反应性星形胶质细胞网络",
+      "unit": "line",
+      "duration_ms": 5496,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "APP/Aβ 信号统筹阿尔茨海默病中的反应性星形胶质细胞网络",
+          "tts_text": "APP/Aβ 信号统筹阿尔茨海默病中的反应性星形胶质细胞网络",
+          "file": "sentence_006.mp3",
+          "duration_ms": 5496,
+          "sha256": "01311f35a03b11fd384a57ecbbc6b8bd2537f6e9421e570e0a2702e77c632d04"
+        }
+      ]
+    }
+  ]
+}

@@ -54,11 +54,11 @@ class CommandLineDefaultsTests(unittest.TestCase):
     def test_general_sentence_defaults_use_current_audio_set(self):
         args = parse_sentence_args([])
 
-        self.assertEqual(args.sentences, Path("stimuli/yan_jiangyi_v4.txt"))
+        self.assertEqual(args.sentences, Path("stimuli/yan_jiangyi_v5.txt"))
         self.assertEqual(
             args.manifest,
             Path(
-                "assets/sentence_audio/yan_jiangyi_v4/"
+                "assets/sentence_audio/yan_jiangyi_v5/"
                 "zh-CN-YunxiaNeural/manifest.json"
             ),
         )
@@ -76,12 +76,12 @@ class CommandLineDefaultsTests(unittest.TestCase):
 
         self.assertEqual(
             args.sentences,
-            Path("stimuli/yan_jiangyi_v4.txt"),
+            Path("stimuli/yan_jiangyi_v5.txt"),
         )
         self.assertEqual(
             args.audio_dir,
             Path(
-                "assets/sentence_audio/yan_jiangyi_v4/"
+                "assets/sentence_audio/yan_jiangyi_v5/"
                 "zh-CN-YunxiaNeural"
             ),
         )
@@ -97,7 +97,7 @@ class CommandLineDefaultsTests(unittest.TestCase):
         self.assertEqual(args.rest_min, 5.0)
         self.assertEqual(args.rest_max, 6.0)
         self.assertEqual(args.play_mode, "progress")
-        self.assertEqual(args.progress_duration, 3.0)
+        self.assertEqual(args.progress_duration, 2.0)
         self.assertEqual(args.progress_pause, 0.5)
         self.assertEqual(args.cue_volume, 0.7)
         self.assertEqual(args.repetitions, 1)
@@ -176,11 +176,11 @@ class CommandLineDefaultsTests(unittest.TestCase):
     def test_tts_defaults_target_current_locked_in_audio_set(self):
         args = parse_tts_args([])
 
-        self.assertEqual(args.sentences, Path("stimuli/yan_jiangyi_v4.txt"))
+        self.assertEqual(args.sentences, Path("stimuli/yan_jiangyi_v5.txt"))
         self.assertEqual(
             args.output_dir,
             Path(
-                "assets/sentence_audio/yan_jiangyi_v4/"
+                "assets/sentence_audio/yan_jiangyi_v5/"
                 "zh-CN-YunxiaNeural"
             ),
         )

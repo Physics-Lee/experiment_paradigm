@@ -15,7 +15,7 @@ conda activate experiment_paradigm
 两个范式默认使用无边框桌面全屏，不主动切换系统分辨率。按 `Esc` 可以退出。
 完成的 trial 会自动保存为 `timestamp/` 下的一对 CSV 和 JSON 文件。
 
-## 实验一：闭锁患者中文指令范式（v4）
+## 实验一：闭锁患者中文指令范式（v5）
 
 ### 直接运行
 
@@ -25,30 +25,24 @@ python scripts\run_sentence_audio_zh.py
 
 默认输入已经设置为：
 
-- 刺激：`stimuli/yan_jiangyi_v4.txt`
+- 刺激：`stimuli/yan_jiangyi_v5.txt`
 - 默认音频目录：
-  `assets/sentence_audio/yan_jiangyi_v4/zh-CN-YunxiaNeural`
+  `assets/sentence_audio/yan_jiangyi_v5/zh-CN-YunxiaNeural`
 - 微软语音：`zh-CN-YunxiaNeural`
 - 生成语速：`-50%`
 - 呈现方式：逐字进度条
 - trial 顺序：每个 block 默认独立随机打乱
 - trial 间休息：默认显示黑底灰色十字
 
-v4 包含 5 个指令：
+v5 的具体指令以 `stimuli/yan_jiangyi_v5.txt` 为准。
 
-1. 我想睡觉
-2. 上厕所
-3. 手机
-4. 疼
-5. 渴
-
-屏幕仍显示“睡觉”，但生成音频时会将单独的“觉”隐藏映射为“叫”，使它读成
-`shuì jiào`。
+屏幕文字不变，但逐字生成音频时会使用隐藏发音映射：`觉 → 叫`（使“睡觉”读成
+`shuì jiào`），以及 `拙 → 卓`。这些映射只影响发送给 TTS 的单字，不改变刺激或屏幕显示。
 
 任务音频统一按以下目录保存：
 
 ```text
-assets/sentence_audio/yan_jiangyi_v4/<完整语音名称>/
+assets/sentence_audio/yan_jiangyi_v5/<完整语音名称>/
 ├── manifest.json
 └── sentence_###_char_###.mp3
 ```
@@ -79,7 +73,7 @@ python scripts\generate_sentence_audio.py
 
 ```powershell
 python scripts\run_sentence_audio_zh.py `
-  --audio-dir assets\sentence_audio\yan_jiangyi_v4\zh-CN-XiaoxiaoNeural
+  --audio-dir assets\sentence_audio\yan_jiangyi_v5\zh-CN-XiaoxiaoNeural
 ```
 
 `--manifest` 仍可直接指定旧版或特殊音频集的 `manifest.json`，但日常切换声音
@@ -111,7 +105,7 @@ trial 按以下流程运行：
 3. 播放该指令的逐字微软语音；文字和红方块保持不变。
 4. 音频结束后继续静默保持 1.5–2.0 秒。
 5. 提示音、方块由红变绿、首字进度同时开始。
-6. 每个汉字的进度条默认运行 3.0 秒。
+6. 每个汉字的进度条默认运行 2.0 秒。
 7. 相邻汉字之间默认暂停 0.5 秒。
 8. 最后一个汉字完成后保持最终画面 0.5 秒。
 9. trial 间随机休息 5.0–6.0 秒。

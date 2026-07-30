@@ -10,7 +10,7 @@ from .common import add_display_arguments, positive_int
 
 
 DEFAULT_LOCKED_IN_AUDIO_DIR = Path(
-    "assets/sentence_audio/yan_jiangyi_v4/zh-CN-YunxiaNeural"
+    "assets/sentence_audio/yan_jiangyi_v5/zh-CN-YunxiaNeural"
 )
 
 
@@ -40,7 +40,7 @@ def parse_locked_in_args(argv=None) -> argparse.Namespace:
     files.add_argument(
         "--sentences",
         type=Path,
-        default=Path("stimuli/yan_jiangyi_v4.txt"),
+        default=Path("stimuli/yan_jiangyi_v5.txt"),
         help="UTF-8 刺激文件；每个非空行是一个 trial。",
     )
     audio_input = files.add_mutually_exclusive_group()
@@ -107,7 +107,7 @@ def parse_locked_in_args(argv=None) -> argparse.Namespace:
     visual.add_argument(
         "--progress-duration",
         type=float,
-        default=3.0,
+        default=2.0,
         help="progress 模式中单个汉字进度条填满的时间（秒）。",
     )
     visual.add_argument(

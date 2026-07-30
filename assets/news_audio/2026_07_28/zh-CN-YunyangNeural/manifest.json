@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-07-28T07:10:50.592782+00:00",
+  "updated_at": "2026-07-28T07:10:59.019924+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_07_28_Top_Digest_Yixuan_Modified.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "7月27日，英伟达与微软联合发起\"开放 AI 安全联盟\"，但 OpenAI、谷歌、Anthropic 均未加入",
+      "unit": "line",
+      "duration_ms": 8880,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "7月27日，英伟达与微软联合发起\"开放 AI 安全联盟\"，但 OpenAI、谷歌、Anthropic 均未加入",
+          "tts_text": "7月27日，英伟达与微软联合发起\"开放 AI 安全联盟\"，但 OpenAI、谷歌、Anthropic 均未加入",
+          "file": "sentence_001.mp3",
+          "duration_ms": 8880,
+          "sha256": "eb6add8871c6e58fcca997cde4d5e3942cd19a0774eccd070af665bd28df0c5d"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "Ilya Sutskever 的 Safe Superintelligence 与英伟达合作，扩大其 AI 研究",
+      "unit": "line",
+      "duration_ms": 6096,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "Ilya Sutskever 的 Safe Superintelligence 与英伟达合作，扩大其 AI 研究",
+          "tts_text": "Ilya Sutskever 的 Safe Superintelligence 与英伟达合作，扩大其 AI 研究",
+          "file": "sentence_002.mp3",
+          "duration_ms": 6096,
+          "sha256": "18786a11b6bb6ea7ea66dd1bb990ec3a9606813e9a6fd048bd140a9b2010b1c6"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "微软发布 MDASH 内置的 MAI-Cyber-1-Flash（微软 AI 安全模型）",
+      "unit": "line",
+      "duration_ms": 5928,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "微软发布 MDASH 内置的 MAI-Cyber-1-Flash（微软 AI 安全模型）",
+          "tts_text": "微软发布 MDASH 内置的 MAI-Cyber-1-Flash（微软 AI 安全模型）",
+          "file": "sentence_003.mp3",
+          "duration_ms": 5928,
+          "sha256": "27633fedc966240aa5968feb61a0f27978520b7804d90ba96d26cebe42081d05"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "法国在破纪录的山火中首次记录到\"火积雨云\"（pyrocumulonimbus）",
+      "unit": "line",
+      "duration_ms": 5784,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "法国在破纪录的山火中首次记录到\"火积雨云\"（pyrocumulonimbus）",
+          "tts_text": "法国在破纪录的山火中首次记录到\"火积雨云\"（pyrocumulonimbus）",
+          "file": "sentence_004.mp3",
+          "duration_ms": 5784,
+          "sha256": "de32c4ccf0512d6ecba7e7b8c79fb045198b2fb88c79d15d348a40aa4d48f4e3"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "基于脑电的深度学习框架，解码不同颜色和方向的视觉想象箭头",
+      "unit": "line",
+      "duration_ms": 5928,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "基于脑电的深度学习框架，解码不同颜色和方向的视觉想象箭头",
+          "tts_text": "基于脑电的深度学习框架，解码不同颜色和方向的视觉想象箭头",
+          "file": "sentence_005.mp3",
+          "duration_ms": 5928,
+          "sha256": "647c7b722c19e9d4c789c6dbf1029a0c0fa981db81a1d823fec2d47ab1ec1c97"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "从社会纽带到突触功能：为何人际关系质量影响阿尔茨海默病的记忆衰退",
+      "unit": "line",
+      "duration_ms": 6504,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "从社会纽带到突触功能：为何人际关系质量影响阿尔茨海默病的记忆衰退",
+          "tts_text": "从社会纽带到突触功能：为何人际关系质量影响阿尔茨海默病的记忆衰退",
+          "file": "sentence_006.mp3",
+          "duration_ms": 6504,
+          "sha256": "093e1b3ad9b69ac5612728c5db842fde600bc53acffdca45101bfc70de3e4a04"
+        }
+      ]
+    }
+  ]
+}

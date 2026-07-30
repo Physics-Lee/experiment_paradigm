@@ -1,0 +1,110 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-07-28T07:38:46.828238+00:00",
+  "updated_at": "2026-07-28T07:38:53.690854+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_07_26_Top_Digest_Yixuan_Modified.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "7月25日，SDCC 漫展公开《银翼杀手 2099》首支预告。",
+      "unit": "line",
+      "duration_ms": 5688,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "7月25日，SDCC 漫展公开《银翼杀手 2099》首支预告。",
+          "tts_text": "7月25日，SDCC 漫展公开《银翼杀手 2099》首支预告。",
+          "file": "sentence_001.mp3",
+          "duration_ms": 5688,
+          "sha256": "53a1f30d9388310102e75072f01691070a009150f436dad3dc380da6e30f4cf8"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "就业到底怎么了？厘清 AI 炒作与现实（斯坦福 SIEPR）",
+      "unit": "line",
+      "duration_ms": 5760,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "就业到底怎么了？厘清 AI 炒作与现实（斯坦福 SIEPR）",
+          "tts_text": "就业到底怎么了？厘清 AI 炒作与现实（斯坦福 SIEPR）",
+          "file": "sentence_002.mp3",
+          "duration_ms": 5760,
+          "sha256": "89afc90efdd7e236f71cf29cb11d5e66ae5ff0cfc44a938998d36a78eb06cf7e"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "在 8 美元的单片机上运行 2890 万参数的 LLM",
+      "unit": "line",
+      "duration_ms": 5616,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "在 8 美元的单片机上运行 2890 万参数的 LLM",
+          "tts_text": "在 8 美元的单片机上运行 2890 万参数的 LLM",
+          "file": "sentence_003.mp3",
+          "duration_ms": 5616,
+          "sha256": "12942f48faa193eacc0a9ab87607347d259945cf29b5ba9b4f5e31a0e500b3be"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "ILLUMINATE 研究：系统刻画 CSF1R-ALSP 罕见白质脑病的临床与影像自然史",
+      "unit": "line",
+      "duration_ms": 7848,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "ILLUMINATE 研究：系统刻画 CSF1R-ALSP 罕见白质脑病的临床与影像自然史",
+          "tts_text": "ILLUMINATE 研究：系统刻画 CSF1R-ALSP 罕见白质脑病的临床与影像自然史",
+          "file": "sentence_004.mp3",
+          "duration_ms": 7848,
+          "sha256": "5e5a903b105b1fa88ff553255edb51aabc860e8073138c27adbc4bcfb9f39a4e"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "奇异的 CRISPR 酶通过切碎癌细胞 DNA 将其杀死",
+      "unit": "line",
+      "duration_ms": 4608,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "奇异的 CRISPR 酶通过切碎癌细胞 DNA 将其杀死",
+          "tts_text": "奇异的 CRISPR 酶通过切碎癌细胞 DNA 将其杀死",
+          "file": "sentence_005.mp3",
+          "duration_ms": 4608,
+          "sha256": "42ad721a0756fca8480dbde3aef1b0291c781989132f19fb826097fe486cc351"
+        }
+      ]
+    }
+  ]
+}

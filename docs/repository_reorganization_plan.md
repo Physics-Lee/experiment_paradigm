@@ -271,7 +271,7 @@ stimuli/
 ```text
 assets/
 ├── sentence_audio/
-│   └── yan_jiangyi_v4/
+│   └── yan_jiangyi_v5/
 │       └── <full-voice-name>/
 └── news_audio/
     └── 2026_07_23/

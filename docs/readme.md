@@ -65,8 +65,8 @@ The primary locked-in v4 set uses character-by-character Chinese TTS:
 ```powershell
 conda activate experiment_paradigm
 generate-sentence-audio `
-  --sentences stimuli/yan_jiangyi_v4.txt `
-  --output-dir assets/sentence_audio/yan_jiangyi_v4/zh-CN-YunxiaNeural `
+  --sentences stimuli/yan_jiangyi_v5.txt `
+  --output-dir assets/sentence_audio/yan_jiangyi_v5/zh-CN-YunxiaNeural `
   --voice zh-CN-YunxiaNeural `
   --rate=-50% `
   --tts-unit character
@@ -137,7 +137,7 @@ Every trial uses:
    the same sentence and red square visible;
 5. one synchronized onset for the green square, first character progress bar,
    and category-neutral cue tone;
-6. character-by-character progress bars, taking 3.0 seconds per character by
+6. character-by-character progress bars, taking 2.0 seconds per character by
    default;
 7. a 0.5-second final-state hold and randomized 5.0–6.0-second black rest,
    optionally showing a centered gray cross, followed directly by the next trial
@@ -169,12 +169,12 @@ run-sentence-audio --pre-visual-gap 0.75 --post-visual-gap 0.75
 run-sentence-audio --no-post-audio
 run-sentence-audio-zh --char-speed 1.0
 run-sentence-audio-zh --play-mode progress `
-  --progress-duration 3.0 --progress-pause 0.5
+  --progress-duration 2.0 --progress-pause 0.5
 run-sentence-audio-zh --no-cue-tone
 run-sentence-audio-zh --cue-volume 0.9
 run-sentence-audio-zh --no-rest-cross
 run-sentence-audio-zh --audio-dir `
-  assets/sentence_audio/yan_jiangyi_v4/zh-CN-XiaoxiaoNeural
+  assets/sentence_audio/yan_jiangyi_v5/zh-CN-XiaoxiaoNeural
 run-locked-in-sentence-reading --baseline-min 1.5 --baseline-max 2.5
 ```
 

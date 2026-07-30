@@ -39,8 +39,8 @@ def parse_args(argv=None) -> argparse.Namespace:
             "  edge-tts --list-voices\n\n"
             "当前任务音频生成示例:\n"
             "  python scripts/generate_sentence_audio.py --sentences "
-            "stimuli/yan_jiangyi_v4.txt --output-dir "
-            "assets/sentence_audio/yan_jiangyi_v4/zh-CN-YunxiaNeural --voice "
+            "stimuli/yan_jiangyi_v5.txt --output-dir "
+            "assets/sentence_audio/yan_jiangyi_v5/zh-CN-YunxiaNeural --voice "
             "zh-CN-YunxiaNeural --rate=-50% --tts-unit character\n\n"
             "实验运行参数（进度条、延迟、休息、提示音等）:\n"
             "  python scripts/run_sentence_audio_zh.py -h"
@@ -50,7 +50,7 @@ def parse_args(argv=None) -> argparse.Namespace:
     files.add_argument(
         "--sentences",
         type=Path,
-        default=Path("stimuli/yan_jiangyi_v4.txt"),
+        default=Path("stimuli/yan_jiangyi_v5.txt"),
         help=(
             "UTF-8 刺激文件；每个非空行是一个 trial，可生成"
             "一个或多个音频片段。"
@@ -60,7 +60,7 @@ def parse_args(argv=None) -> argparse.Namespace:
         "--output-dir",
         type=Path,
         default=Path(
-            "assets/sentence_audio/yan_jiangyi_v4/zh-CN-YunxiaNeural"
+            "assets/sentence_audio/yan_jiangyi_v5/zh-CN-YunxiaNeural"
         ),
         help="MP3 文件和 manifest.json 的输出目录。",
     )
@@ -132,14 +132,14 @@ def parse_news_args(argv=None) -> argparse.Namespace:
     """Parse normal-speed Microsoft TTS options for relaxing news."""
     parser = argparse.ArgumentParser(
         description=(
-            "从纯文本新闻或 Markdown 表格的“标题”列生成放松新闻范式音频。"
+            "从纯文本新闻或 Markdown 表格的“标题”或“故事”列生成放松新闻范式音频。"
         ),
         formatter_class=DetailedHelpFormatter,
         epilog=(
             "说明:\n"
             "  每条新闻整句发送给 Microsoft Edge TTS，不进行逐字切分。\n"
             "  默认 +0% 为正常语速。生成需要联网，播放范式不需要联网。\n"
-            "  Markdown 表格会自动跳过表头，并提取名称含“标题”的列。\n\n"
+            "  Markdown 表格会自动跳过表头，并提取名称含“标题”或“故事”的列。\n\n"
             "示例:\n"
             "  python scripts/generate_news_audio.py"
         ),
@@ -151,7 +151,7 @@ def parse_news_args(argv=None) -> argparse.Namespace:
         type=Path,
         default=Path("stimuli/news/2026_07_23.md"),
         help=(
-            "UTF-8 新闻文件；支持每个非空行一条新闻，或包含“标题”列的 "
+            "UTF-8 新闻文件；支持每个非空行一条新闻，或包含“标题”或“故事”列的 "
             "Markdown 表格。"
         ),
     )

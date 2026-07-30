@@ -1,0 +1,168 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-07-30T01:54:59.308434+00:00",
+  "updated_at": "2026-07-30T02:04:31.909376+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\yan_jiangyi_v5.txt",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunxiaNeural",
+    "rate": "-33%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "character",
+    "character_pronunciation_aliases": {
+      "觉": "叫",
+      "拙": "卓"
+    }
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "我要手机",
+      "unit": "character",
+      "duration_ms": 8112,
+      "segments": [
+        {
+          "id": "sentence_001_char_001",
+          "index": 1,
+          "text": "我",
+          "tts_text": "我",
+          "file": "sentence_001_char_001.mp3",
+          "duration_ms": 2016,
+          "sha256": "2334911b8377fa015bbd27c447bd371ca4e190cbda9c2ca8564edb40b9f343ae"
+        },
+        {
+          "id": "sentence_001_char_002",
+          "index": 2,
+          "text": "要",
+          "tts_text": "要",
+          "file": "sentence_001_char_002.mp3",
+          "duration_ms": 1920,
+          "sha256": "874729d64e67c3ae0a46d127782399584294bed780ce840c4cdf2244d32059f2"
+        },
+        {
+          "id": "sentence_001_char_003",
+          "index": 3,
+          "text": "手",
+          "tts_text": "手",
+          "file": "sentence_001_char_003.mp3",
+          "duration_ms": 2208,
+          "sha256": "9d4de0a3d7d0c23fdf97609a964c4d006f7ea8b2fe94d2ac60bb32cb01d687f2"
+        },
+        {
+          "id": "sentence_001_char_004",
+          "index": 4,
+          "text": "机",
+          "tts_text": "机",
+          "file": "sentence_001_char_004.mp3",
+          "duration_ms": 1968,
+          "sha256": "d10a9e190b9e85b5f45bd676ae9934969db4b4e63fce2a102560f7a5389e50b5"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "晏朴拙",
+      "unit": "character",
+      "duration_ms": 5928,
+      "segments": [
+        {
+          "id": "sentence_002_char_001",
+          "index": 1,
+          "text": "晏",
+          "tts_text": "晏",
+          "file": "sentence_002_char_001.mp3",
+          "duration_ms": 1944,
+          "sha256": "7b428a7c3274d4dcbcefcb5e26892ddca81b78ff352f8c7989ae288e4948c704"
+        },
+        {
+          "id": "sentence_002_char_002",
+          "index": 2,
+          "text": "朴",
+          "tts_text": "朴",
+          "file": "sentence_002_char_002.mp3",
+          "duration_ms": 1944,
+          "sha256": "42f854f736f0b0e52c47a4c5effcfea3a60f2ed0a298312c78299f2a3312d4b1"
+        },
+        {
+          "id": "sentence_002_char_003",
+          "index": 3,
+          "text": "拙",
+          "tts_text": "卓",
+          "file": "sentence_002_char_003.mp3",
+          "duration_ms": 2040,
+          "sha256": "03fe8edd80db1db444b2e98e16c4850ab9654587d30407fbd9c9727f90172675"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "点点",
+      "unit": "character",
+      "duration_ms": 3984,
+      "segments": [
+        {
+          "id": "sentence_003_char_001",
+          "index": 1,
+          "text": "点",
+          "tts_text": "点",
+          "file": "sentence_003_char_001.mp3",
+          "duration_ms": 1992,
+          "sha256": "93722d91248483b8f89d065c81f0114081e6e0d40e53ce7a7838c35741461164"
+        },
+        {
+          "id": "sentence_003_char_002",
+          "index": 2,
+          "text": "点",
+          "tts_text": "点",
+          "file": "sentence_003_char_002.mp3",
+          "duration_ms": 1992,
+          "sha256": "93722d91248483b8f89d065c81f0114081e6e0d40e53ce7a7838c35741461164"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "拉",
+      "unit": "character",
+      "duration_ms": 1920,
+      "segments": [
+        {
+          "id": "sentence_004_char_001",
+          "index": 1,
+          "text": "拉",
+          "tts_text": "拉",
+          "file": "sentence_004_char_001.mp3",
+          "duration_ms": 1920,
+          "sha256": "a6bb00ceb98a8c56ab2f8387e43f2a6702096434b12c96e9ee5dd097931bd507"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "喝",
+      "unit": "character",
+      "duration_ms": 1992,
+      "segments": [
+        {
+          "id": "sentence_005_char_001",
+          "index": 1,
+          "text": "喝",
+          "tts_text": "喝",
+          "file": "sentence_005_char_001.mp3",
+          "duration_ms": 1992,
+          "sha256": "95e10f0dd96fd0d9edde5d9e86da8d6535e5a33dc2a835534a1cc7205f3b6c6d"
+        }
+      ]
+    }
+  ]
+}

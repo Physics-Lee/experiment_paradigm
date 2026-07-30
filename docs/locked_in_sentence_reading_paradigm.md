@@ -1,8 +1,8 @@
 # 闭锁患者句子朗读范式
 
-当前维护的命令默认使用 `stimuli/yan_jiangyi_v4.txt`，以及
-`assets/sentence_audio/yan_jiangyi_v4/zh-CN-YunxiaNeural/`。不同语音使用
-`yan_jiangyi_v4/<完整语音名称>/` 独立保存，并通过 `--audio-dir` 切换。
+当前维护的命令默认使用 `stimuli/yan_jiangyi_v5.txt`，以及
+`assets/sentence_audio/yan_jiangyi_v5/zh-CN-YunxiaNeural/`。不同语音使用
+`yan_jiangyi_v5/<完整语音名称>/` 独立保存，并通过 `--audio-dir` 切换。
 
 ## 单试次流程
 
@@ -14,7 +14,7 @@
 → 静默延迟：1.5～2.0秒，随机
 → 下半屏方块由红变绿：整句开始
 → 第一字的进度条同时开始
-→ 后续汉字的进度条依次填充，默认3.0秒/字
+→ 后续汉字的进度条依次填充，默认2.0秒/字
 → 最后一个字完成后保持0.5秒
 → 休息：5～6秒，默认显示中央灰色十字；可选改为纯黑屏
 → 直接进入下一 trial 的白色文字/红色正方形画面

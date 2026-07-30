@@ -41,7 +41,7 @@ def parse_relaxing_news_args(argv=None) -> argparse.Namespace:
         type=Path,
         default=Path("stimuli/news/2026_07_23.md"),
         help=(
-            "UTF-8 新闻文件；支持每个非空行一条新闻，或包含“标题”列的 "
+            "UTF-8 新闻文件；支持每个非空行一条新闻，或包含“标题”或“故事”列的 "
             "Markdown 表格。"
         ),
     )

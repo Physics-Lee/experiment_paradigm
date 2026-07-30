@@ -1,0 +1,164 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-07-28T07:55:36.581923+00:00",
+  "updated_at": "2026-07-28T07:55:51.755132+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_07_24_Top_Digest_Yixuan_Modified.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "7月23日，OpenAI 向美国全量用户推出 ChatGPT Health，允许接入个人病历与健康数据，并称其模型推理\"优于临床医生\"",
+      "unit": "line",
+      "duration_ms": 11040,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "7月23日，OpenAI 向美国全量用户推出 ChatGPT Health，允许接入个人病历与健康数据，并称其模型推理\"优于临床医生\"",
+          "tts_text": "7月23日，OpenAI 向美国全量用户推出 ChatGPT Health，允许接入个人病历与健康数据，并称其模型推理\"优于临床医生\"",
+          "file": "sentence_001.mp3",
+          "duration_ms": 11040,
+          "sha256": "d77ffebdd0788dfbe41f17914988cb465ec7a27cf432950b326a679e9d768bb1"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "AMD 推出 Helios 机架级 AI 系统，叫板英伟达",
+      "unit": "line",
+      "duration_ms": 4944,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "AMD 推出 Helios 机架级 AI 系统，叫板英伟达",
+          "tts_text": "AMD 推出 Helios 机架级 AI 系统，叫板英伟达",
+          "file": "sentence_002.mp3",
+          "duration_ms": 4944,
+          "sha256": "003514d82e78ff259d7017c9112888eff86f4b6029b7dd14084d514134475e4c"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "亚马逊为 Alexa Plus 推出 AI 更新，可对接博世、iRobot 等智能家居设备并自动路由复杂指令",
+      "unit": "line",
+      "duration_ms": 8952,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "亚马逊为 Alexa Plus 推出 AI 更新，可对接博世、iRobot 等智能家居设备并自动路由复杂指令",
+          "tts_text": "亚马逊为 Alexa Plus 推出 AI 更新，可对接博世、iRobot 等智能家居设备并自动路由复杂指令",
+          "file": "sentence_003.mp3",
+          "duration_ms": 8952,
+          "sha256": "68fccb8a9dc2acd6f38e3104497b1ab17154a19328f1b635970c2fa3abc30521"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "Anthropic 的 Claude 语音模式现已在 Opus 和 Sonnet 上可用",
+      "unit": "line",
+      "duration_ms": 4992,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "Anthropic 的 Claude 语音模式现已在 Opus 和 Sonnet 上可用",
+          "tts_text": "Anthropic 的 Claude 语音模式现已在 Opus 和 Sonnet 上可用",
+          "file": "sentence_004.mp3",
+          "duration_ms": 4992,
+          "sha256": "42123412935ddab817a75d251ae9be1b62a7862e6693924a3d1945559c82ac00"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "AegisAI（前谷歌安全高管创立）获 3600 万美元融资，专攻 AI 驱动的鱼叉式网络钓鱼防御",
+      "unit": "line",
+      "duration_ms": 8448,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "AegisAI（前谷歌安全高管创立）获 3600 万美元融资，专攻 AI 驱动的鱼叉式网络钓鱼防御",
+          "tts_text": "AegisAI（前谷歌安全高管创立）获 3600 万美元融资，专攻 AI 驱动的鱼叉式网络钓鱼防御",
+          "file": "sentence_005.mp3",
+          "duration_ms": 8448,
+          "sha256": "d456c3b3c6ea409b8e18dd5e0b0ae4931783db9e8e6b99a4fd7265173a53ecf3"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "锚蛋白-B 与锚蛋白-G 是维持小鼠外视网膜突触完整性所必需",
+      "unit": "line",
+      "duration_ms": 5904,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "锚蛋白-B 与锚蛋白-G 是维持小鼠外视网膜突触完整性所必需",
+          "tts_text": "锚蛋白-B 与锚蛋白-G 是维持小鼠外视网膜突触完整性所必需",
+          "file": "sentence_006.mp3",
+          "duration_ms": 5904,
+          "sha256": "6c82ad4a19e14b9cbfd9549c5d89a39b76a6664f3304a3140a8ae2d829108215"
+        }
+      ]
+    },
+    {
+      "id": "sentence_007",
+      "index": 7,
+      "text": "研究揭示 CRISIS 调控范式：I 型 CRISPR-Cas 嵌入并对多种先天免疫防御进行转录调控",
+      "unit": "line",
+      "duration_ms": 7896,
+      "segments": [
+        {
+          "id": "sentence_007",
+          "index": 1,
+          "text": "研究揭示 CRISIS 调控范式：I 型 CRISPR-Cas 嵌入并对多种先天免疫防御进行转录调控",
+          "tts_text": "研究揭示 CRISIS 调控范式：I 型 CRISPR-Cas 嵌入并对多种先天免疫防御进行转录调控",
+          "file": "sentence_007.mp3",
+          "duration_ms": 7896,
+          "sha256": "c4345243d209cb802d275b8868ff52e996664174fc2fadfb993c723b3bab81a2"
+        }
+      ]
+    },
+    {
+      "id": "sentence_008",
+      "index": 8,
+      "text": "将结构逆折叠模型与进化约束结合，设计出最小类 CRISPR-Cas12 核酸酶变体 SynTnpBs",
+      "unit": "line",
+      "duration_ms": 8880,
+      "segments": [
+        {
+          "id": "sentence_008",
+          "index": 1,
+          "text": "将结构逆折叠模型与进化约束结合，设计出最小类 CRISPR-Cas12 核酸酶变体 SynTnpBs",
+          "tts_text": "将结构逆折叠模型与进化约束结合，设计出最小类 CRISPR-Cas12 核酸酶变体 SynTnpBs",
+          "file": "sentence_008.mp3",
+          "duration_ms": 8880,
+          "sha256": "3672002489b9020e5afce4f98cb8c2e28f1a2ce83bc01b9b09daef6717a28410"
+        }
+      ]
+    }
+  ]
+}

@@ -12,9 +12,9 @@ from .common import add_display_arguments
 def parse_args(
     argv=None,
     *,
-    default_sentences="stimuli/yan_jiangyi_v4.txt",
+    default_sentences="stimuli/yan_jiangyi_v5.txt",
     default_manifest=(
-        "assets/sentence_audio/yan_jiangyi_v4/"
+        "assets/sentence_audio/yan_jiangyi_v5/"
         "zh-CN-YunxiaNeural/manifest.json"
     ),
     default_output_prefix="sentence_audio",
@@ -157,9 +157,9 @@ def parse_args(
 def main(
     argv=None,
     *,
-    default_sentences="stimuli/yan_jiangyi_v4.txt",
+    default_sentences="stimuli/yan_jiangyi_v5.txt",
     default_manifest=(
-        "assets/sentence_audio/yan_jiangyi_v4/"
+        "assets/sentence_audio/yan_jiangyi_v5/"
         "zh-CN-YunxiaNeural/manifest.json"
     ),
     default_output_prefix="sentence_audio",

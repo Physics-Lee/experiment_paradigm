@@ -4,9 +4,9 @@ This directory contains authoritative experiment inputs.
 
 - Keep text and Markdown files UTF-8 encoded.
 - Line-oriented sentence files use one non-empty stimulus per trial.
-- `yan_jiangyi_v4.txt` is the current primary locked-in stimulus and maps by
+- `yan_jiangyi_v5.txt` is the current primary locked-in stimulus and maps by
   line number to the selected
-  `assets/sentence_audio/yan_jiangyi_v4/<full-voice-name>/` directory.
+  `assets/sentence_audio/yan_jiangyi_v5/<full-voice-name>/` directory.
 - `news/*.md` may use a Markdown table; the runtime extracts the column whose
   header contains `标题`.
 - `words_reading.txt` is the reading-paradigm word list.

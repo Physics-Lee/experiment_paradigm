@@ -22,6 +22,7 @@ SCHEMA_VERSION = 2
 DEFAULT_VOICE = "zh-CN-YunxiaNeural"
 CHARACTER_PRONUNCIATION_ALIASES = {
     "觉": "叫",
+    "拙": "卓",
 }
 
 

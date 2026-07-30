@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-07-28T07:28:16.631039+00:00",
+  "updated_at": "2026-07-28T07:28:27.918039+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_07_27_Top_Digest_Yixuan_Modified.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "7月26日，Apple TV+ 在 SDCC 公开《神经漫游者》首支预告",
+      "unit": "line",
+      "duration_ms": 6096,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "7月26日，Apple TV+ 在 SDCC 公开《神经漫游者》首支预告",
+          "tts_text": "7月26日，Apple TV+ 在 SDCC 公开《神经漫游者》首支预告",
+          "file": "sentence_001.mp3",
+          "duration_ms": 6096,
+          "sha256": "85ba99f0a8d0c7e0201f9fa30d49588d0d29f59d1dcfb12772a0ed13cabef5c5"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "Hugging Face CEO 在\"史无前例的 OpenAI 攻击\"后呼吁\"彻底透明\"",
+      "unit": "line",
+      "duration_ms": 5400,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "Hugging Face CEO 在\"史无前例的 OpenAI 攻击\"后呼吁\"彻底透明\"",
+          "tts_text": "Hugging Face CEO 在\"史无前例的 OpenAI 攻击\"后呼吁\"彻底透明\"",
+          "file": "sentence_002.mp3",
+          "duration_ms": 5400,
+          "sha256": "9a50c141a1207b19c6534b09b4fca079ebe99dda30921103fb6bec9aaa1eb8ac"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "日本传奇球星三浦知良（59岁）打进 2022 年以来首粒进球",
+      "unit": "line",
+      "duration_ms": 5856,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "日本传奇球星三浦知良（59岁）打进 2022 年以来首粒进球",
+          "tts_text": "日本传奇球星三浦知良（59岁）打进 2022 年以来首粒进球",
+          "file": "sentence_003.mp3",
+          "duration_ms": 5856,
+          "sha256": "0d63726dedc99035f8fe399d152f681c29ec71cfa1a2f3deb653d2c340b5abcc"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "开源工具 Cursor Bridge 宣称自己可以让用户 在 Cursor 订阅上无限运行 Claude Code",
+      "unit": "line",
+      "duration_ms": 7344,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "开源工具 Cursor Bridge 宣称自己可以让用户 在 Cursor 订阅上无限运行 Claude Code",
+          "tts_text": "开源工具 Cursor Bridge 宣称自己可以让用户 在 Cursor 订阅上无限运行 Claude Code",
+          "file": "sentence_004.mp3",
+          "duration_ms": 7344,
+          "sha256": "5e4ead412d17b466d2f866b2cf22dccd9ef73ddd379d859d180cb0870b005c45"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "苹果押注\"隐私\"作为智能眼镜的差异化卖点，预计明年 WWDC 发布、2027 年底前上市",
+      "unit": "line",
+      "duration_ms": 8232,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "苹果押注\"隐私\"作为智能眼镜的差异化卖点，预计明年 WWDC 发布、2027 年底前上市",
+          "tts_text": "苹果押注\"隐私\"作为智能眼镜的差异化卖点，预计明年 WWDC 发布、2027 年底前上市",
+          "file": "sentence_005.mp3",
+          "duration_ms": 8232,
+          "sha256": "dfd13a303e74482541da27ee550c8e28417aa0ee99bffc9ca4a25545e14ca138"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "GluN2D 选择性别构调节剂与氯胺酮对囊泡 GABA 释放、LTP 及动力缺乏的双向调控",
+      "unit": "line",
+      "duration_ms": 8040,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "GluN2D 选择性别构调节剂与氯胺酮对囊泡 GABA 释放、LTP 及动力缺乏的双向调控",
+          "tts_text": "GluN2D 选择性别构调节剂与氯胺酮对囊泡 GABA 释放、LTP 及动力缺乏的双向调控",
+          "file": "sentence_006.mp3",
+          "duration_ms": 8040,
+          "sha256": "b88e482e550be776d543ebd44ca4193e73f056c899cd850c6b157f8a30b084c6"
+        }
+      ]
+    }
+  ]
+}

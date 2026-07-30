@@ -36,10 +36,10 @@ reading, relaxing news, general sentences, word reading, and audio listening.
   `run-listening`, `run-relaxing-news`, `generate-sentence-audio`, and
   `generate-news-audio`.
 - The primary locked-in workflow defaults to
-  `stimuli/yan_jiangyi_v4.txt` with
-  `assets/sentence_audio/yan_jiangyi_v4/zh-CN-YunxiaNeural/`. Locked-in audio
+  `stimuli/yan_jiangyi_v5.txt` with
+  `assets/sentence_audio/yan_jiangyi_v5/zh-CN-YunxiaNeural/`. Locked-in audio
   sets use the stable layout
-  `assets/sentence_audio/yan_jiangyi_v4/<full-voice-name>/`, with one
+  `assets/sentence_audio/yan_jiangyi_v5/<full-voice-name>/`, with one
   `manifest.json` and its MP3 segments in each voice directory. Prefer
   `--audio-dir` when selecting a set; `--manifest` remains a compatibility
   override. Historical `yan_jiangyi*`, `en`, and `zh` sentence-audio

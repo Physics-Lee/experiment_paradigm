@@ -116,6 +116,12 @@ def parse_locked_in_args(argv=None) -> argparse.Namespace:
         default=0.5,
         help="progress 模式中前一字填满后到下一字开始的停顿（秒）。",
     )
+    visual.add_argument(
+        "--font-size",
+        type=int,
+        default=80,
+        help="汉字字号上限；自适应仍会在该上限内尽量放大，长句自动缩小。",
+    )
     rest_cross_options = visual.add_mutually_exclusive_group()
     rest_cross_options.add_argument(
         "--show-rest-cross",
@@ -244,6 +250,7 @@ def main_locked_in(argv=None) -> None:
         shuffle=args.shuffle,
         output_prefix=args.output_prefix,
         display_mode=args.display_mode,
+        font_size=args.font_size,
     )
     paradigm.run()
 

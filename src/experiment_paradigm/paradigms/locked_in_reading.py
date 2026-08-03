@@ -44,6 +44,7 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         shuffle=False,
         output_prefix="locked_in_sentence_reading",
         display_mode="borderless",
+        font_size=80,
     ):
         """Initialize the locked-in sentence-reading paradigm."""
         self._validate_duration_range(
@@ -78,6 +79,8 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
             raise ValueError("cue_duration must be positive")
         if not 0 < cue_volume <= 1:
             raise ValueError("cue_volume must be greater than 0 and at most 1")
+        if font_size < 12:
+            raise ValueError("font_size must be at least 12")
         if isinstance(repetitions, bool) or not isinstance(repetitions, int):
             raise ValueError("repetitions must be an integer")
         if repetitions < 1:
@@ -116,6 +119,7 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         self.cue_volume = cue_volume
         self.repetitions = repetitions
         self.shuffle = shuffle
+        self.max_font_size = font_size
         self.cue_sound = self._create_cue_sound() if cue_tone else None
 
     @staticmethod
@@ -168,7 +172,7 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         return load_cjk_font(font_size, announce=False)
 
     def _sentence_layout(self, sentence):
-        """Fit one centered character row into the upper half of the screen."""
+        """Fit one centered character row above a square centered on the midline."""
         characters = self._characters(sentence)
         if not characters:
             raise ValueError("Sentence must contain at least one character")
@@ -177,7 +181,7 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         maximum_width = round(self.width * 0.9)
         maximum_height = round(upper_height * 0.8)
         minimum_size = 12
-        maximum_size = max(minimum_size, maximum_height)
+        maximum_size = max(minimum_size, min(self.max_font_size, maximum_height))
         best = None
 
         while minimum_size <= maximum_size:
@@ -221,10 +225,10 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         font_size, font, spacing, widths, total_width = best
         text_y = (upper_height - font.get_height()) // 2
         start_x = (self.width - total_width) // 2
-        square_size = round((self.height - upper_height) * 0.60)
+        square_size = round((self.height - upper_height) * 0.30)
         square_rect = pygame.Rect(
             (self.width - square_size) // 2,
-            upper_height + ((self.height - upper_height) - square_size) // 2,
+            upper_height - square_size // 2,
             square_size,
             square_size,
         )

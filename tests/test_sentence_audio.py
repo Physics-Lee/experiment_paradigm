@@ -291,11 +291,11 @@ class SentenceAudioTests(unittest.TestCase):
             self.assertLess(layout["text_y"], paradigm.height // 2)
             self.assertEqual(
                 layout["square_rect"].centery,
-                paradigm.height // 2 + lower_half_height // 2,
+                paradigm.height // 2,
             )
             self.assertAlmostEqual(
                 layout["square_size"] / lower_half_height,
-                0.60,
+                0.30,
                 places=2,
             )
 

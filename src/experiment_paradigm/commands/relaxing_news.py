@@ -92,6 +92,15 @@ def parse_relaxing_news_args(argv=None) -> argparse.Namespace:
             "cross=黑底灰色十字。两种模式都显示继续按钮。"
         ),
     )
+    visual.add_argument(
+        "--gesture-hint",
+        action="store_true",
+        default=False,
+        help=(
+            "在红方块下方显示手势提示："
+            "左手握拳-是，摇头-否，左手张开-跳过。"
+        ),
+    )
 
     timing = parser.add_argument_group("时序（全部为秒）")
     timing.add_argument(
@@ -135,6 +144,7 @@ def main_relaxing_news(argv=None) -> None:
         rest_min=args.rest_min,
         rest_max=args.rest_max,
         rest_screen=args.rest_screen,
+        gesture_hint=args.gesture_hint,
         output_prefix=args.output_prefix,
         display_mode=args.display_mode,
     )

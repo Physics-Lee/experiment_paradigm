@@ -42,6 +42,7 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         cue_volume=0.7,
         repetitions=1,
         shuffle=False,
+        continue_button=True,
         output_prefix="locked_in_sentence_reading",
         display_mode="borderless",
         font_size=80,
@@ -119,8 +120,14 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         self.cue_volume = cue_volume
         self.repetitions = repetitions
         self.shuffle = shuffle
+        self.continue_button_enabled = continue_button
         self.max_font_size = font_size
         self.cue_sound = self._create_cue_sound() if cue_tone else None
+        button_font_size = max(18, min(32, round(self.height * 0.035)))
+        self.continue_button_font = load_cjk_font(
+            button_font_size,
+            announce=False,
+        )
 
     @staticmethod
     def _validate_duration_range(name, minimum, maximum):
@@ -313,6 +320,165 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
             thickness=thickness,
         )
 
+    def check_exit_events(self):
+        """Allow button interaction without treating every click as an exit."""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return False
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                return False
+        return True
+
+    def _continue_button_rect(self):
+        """Return the bottom-right continue-button rectangle."""
+        button_width = max(150, min(260, round(self.width * 0.14)))
+        button_height = max(54, min(76, round(self.height * 0.075)))
+        margin_x = max(24, round(self.width * 0.04))
+        margin_y = max(20, round(self.height * 0.04))
+        return pygame.Rect(
+            self.width - margin_x - button_width,
+            self.height - margin_y - button_height,
+            button_width,
+            button_height,
+        )
+
+    def _draw_continue_state(
+        self,
+        button_rect,
+        *,
+        label,
+        enabled,
+        hovered,
+        remaining,
+    ):
+        """Draw the rest background and the interactive continue button."""
+        self._draw_rest_screen()
+
+        if not enabled:
+            fill_color = (58, 58, 58)
+            border_color = (105, 105, 105)
+        elif hovered:
+            fill_color = (92, 132, 184)
+            border_color = (205, 225, 250)
+        else:
+            fill_color = (65, 92, 128)
+            border_color = (155, 180, 212)
+
+        pygame.draw.rect(
+            self.screen,
+            fill_color,
+            button_rect,
+            border_radius=12,
+        )
+        pygame.draw.rect(
+            self.screen,
+            border_color,
+            button_rect,
+            width=3,
+            border_radius=12,
+        )
+        label_surface = self.continue_button_font.render(
+            label,
+            True,
+            self.WHITE if enabled else (150, 150, 150),
+        )
+        self.screen.blit(label_surface, label_surface.get_rect(center=button_rect.center))
+
+        if enabled:
+            status_text = "请点击按钮继续"
+        else:
+            status_text = f"休息 {remaining:.1f} 秒后可点击"
+        status_surface = self.continue_button_font.render(
+            status_text,
+            True,
+            (180, 180, 180),
+        )
+        status_rect = status_surface.get_rect(
+            midbottom=(
+                button_rect.centerx,
+                button_rect.top - max(8, round(self.height * 0.012)),
+            )
+        )
+        self.screen.blit(status_surface, status_rect)
+
+    @staticmethod
+    def _set_button_cursor(hovered):
+        """Use a hand cursor over the enabled button when supported."""
+        cursor = (
+            pygame.SYSTEM_CURSOR_HAND
+            if hovered
+            else pygame.SYSTEM_CURSOR_ARROW
+        )
+        try:
+            pygame.mouse.set_cursor(pygame.Cursor(cursor))
+        except pygame.error:
+            pass
+
+    def _wait_for_continue(self, rest_duration, *, is_last):
+        """Enforce the rest duration, then wait for an explicit button click."""
+        rest_started = self.get_timestamp()
+        rest_started_abs = self.get_absolute_time()
+        button_rect = self._continue_button_rect()
+        label = "结束" if is_last else "下一条"
+        enabled_onset = None
+        enabled_onset_abs = None
+
+        while True:
+            now = self.get_timestamp()
+            elapsed = now - rest_started
+            remaining = max(0.0, rest_duration - elapsed)
+            enabled = remaining <= 0
+            mouse_position = pygame.mouse.get_pos()
+            hovered = enabled and button_rect.collidepoint(mouse_position)
+
+            if enabled and enabled_onset is None:
+                enabled_onset = now
+                enabled_onset_abs = self.get_absolute_time()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self._set_button_cursor(False)
+                    return False, None
+                if (
+                    event.type == pygame.KEYDOWN
+                    and event.key == pygame.K_ESCAPE
+                ):
+                    self._set_button_cursor(False)
+                    return False, None
+                if (
+                    event.type == pygame.MOUSEBUTTONDOWN
+                    and event.button == 1
+                    and enabled
+                    and button_rect.collidepoint(event.pos)
+                ):
+                    clicked_at = self.get_timestamp()
+                    clicked_at_abs = self.get_absolute_time()
+                    self._set_button_cursor(False)
+                    return True, {
+                        "rest_onset": rest_started,
+                        "rest_onset_abs": rest_started_abs,
+                        "continue_button_enabled": enabled_onset,
+                        "continue_button_enabled_abs": enabled_onset_abs,
+                        "continue_button_click": clicked_at,
+                        "continue_button_click_abs": clicked_at_abs,
+                        "actual_rest_duration": clicked_at - rest_started,
+                        "continue_wait_after_minimum": max(
+                            0.0,
+                            clicked_at - rest_started - rest_duration,
+                        ),
+                    }
+
+            self._set_button_cursor(hovered)
+            self._draw_continue_state(
+                button_rect,
+                label=label,
+                enabled=enabled,
+                hovered=hovered,
+                remaining=remaining,
+            )
+            pygame.display.flip()
+            self.clock.tick(60)
+
     def display_sentence(
         self,
         sentence,
@@ -320,6 +486,7 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         stimulus_index=None,
         repetition=1,
         repetition_trial=None,
+        is_last=False,
     ):
         """Run one complete locked-in sentence-reading trial."""
         if stimulus_index is None:
@@ -364,6 +531,19 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
             "planned_rest_duration": rest_duration,
             "actual_rest_duration": None,
             "rest_cross_enabled": self.rest_cross_enabled,
+            "continue_required": self.continue_button_enabled,
+            "continue_button_label": (
+                "结束" if is_last else "下一条"
+            )
+            if self.continue_button_enabled
+            else None,
+            "rest_onset": None,
+            "rest_onset_abs": None,
+            "continue_button_enabled": None,
+            "continue_button_enabled_abs": None,
+            "continue_button_click": None,
+            "continue_button_click_abs": None,
+            "continue_wait_after_minimum": None,
             "cue_tone_enabled": self.cue_tone_enabled,
             "cue_volume": self.cue_volume,
             "cue_tone_onset": None,
@@ -623,13 +803,22 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         if not hold_ok:
             return False
 
-        rest_ok, actual_rest = self._show_for_duration(
-            rest_duration,
-            self._draw_rest_screen,
-        )
-        trial_data["actual_rest_duration"] = actual_rest
-        if not rest_ok:
-            return False
+        if self.continue_button_enabled:
+            rest_ok, rest_events = self._wait_for_continue(
+                rest_duration,
+                is_last=is_last,
+            )
+            if not rest_ok:
+                return False
+            trial_data.update(rest_events)
+        else:
+            rest_ok, actual_rest = self._show_for_duration(
+                rest_duration,
+                self._draw_rest_screen,
+            )
+            trial_data["actual_rest_duration"] = actual_rest
+            if not rest_ok:
+                return False
 
         trial_data["trial_end"] = self.get_timestamp()
         trial_data["trial_end_abs"] = self.get_absolute_time()
@@ -665,7 +854,10 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
             f"{self.repetitions} repetition(s), {len(schedule)} trials"
         )
         print(f"Shuffle each repetition: {self.shuffle}")
-        print("Press ESC or click mouse to quit")
+        if self.continue_button_enabled:
+            print("Press ESC or close window to quit (mouse clicks advance only via the button)")
+        else:
+            print("Press ESC, close window, or click mouse to quit")
         print(f"Character speed: {self.char_speed} s/character")
         print(f"Play mode: {self.play_mode}")
         if self.play_mode == "progress":
@@ -685,6 +877,7 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         )
         print(f"Unified cue tone: {self.cue_tone_enabled}")
         print(f"Gray cross during rest: {self.rest_cross_enabled}")
+        print(f"Continue button between trials: {self.continue_button_enabled}")
 
         try:
             for trial_id, scheduled_trial in enumerate(schedule, start=1):
@@ -700,6 +893,7 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
                     stimulus_index=scheduled_trial["stimulus_index"],
                     repetition=scheduled_trial["repetition"],
                     repetition_trial=scheduled_trial["repetition_trial"],
+                    is_last=trial_id == len(schedule),
                 ):
                     break
         finally:

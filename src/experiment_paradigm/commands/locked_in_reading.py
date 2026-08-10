@@ -138,6 +138,22 @@ def parse_locked_in_args(argv=None) -> argparse.Namespace:
         help="关闭灰色十字，trial 间休息时使用纯黑屏。",
     )
 
+    continue_button_options = visual.add_mutually_exclusive_group()
+    continue_button_options.add_argument(
+        "--continue-button",
+        dest="continue_button",
+        action="store_true",
+        default=True,
+        help="trial 间休息达到最短时长后显示“下一条/结束”按钮，点击才继续；默认开启。",
+    )
+    continue_button_options.add_argument(
+        "--no-continue-button",
+        dest="continue_button",
+        action="store_false",
+        default=argparse.SUPPRESS,
+        help="关闭“下一条”按钮，回到旧的定时休息屏（休息到点自动继续）。",
+    )
+
     timing = parser.add_argument_group("试次时序（全部为秒）")
     timing.add_argument(
         "--baseline-min",
@@ -248,6 +264,7 @@ def main_locked_in(argv=None) -> None:
         cue_volume=args.cue_volume,
         repetitions=args.repetitions,
         shuffle=args.shuffle,
+        continue_button=args.continue_button,
         output_prefix=args.output_prefix,
         display_mode=args.display_mode,
         font_size=args.font_size,

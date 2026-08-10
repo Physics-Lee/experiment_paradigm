@@ -29,6 +29,7 @@ class RelaxingNewsParadigm(SentenceParadigm):
         rest_min=5.0,
         rest_max=6.0,
         rest_screen="news",
+        gesture_hint=False,
         output_prefix="relaxing_news",
         display_mode="borderless",
     ):
@@ -70,6 +71,8 @@ class RelaxingNewsParadigm(SentenceParadigm):
         self.rest_min = rest_min
         self.rest_max = rest_max
         self.rest_screen = rest_screen
+        self.gesture_hint = gesture_hint
+        self.gesture_hint_font = load_cjk_font(60, announce=False)
         button_font_size = max(18, min(32, round(self.height * 0.035)))
         self.continue_button_font = load_cjk_font(
             button_font_size,
@@ -162,6 +165,24 @@ class RelaxingNewsParadigm(SentenceParadigm):
             )
             y_position += surface.get_height() + layout["line_gap"]
         pygame.draw.rect(self.screen, self.RED, layout["square_rect"])
+
+        if self.gesture_hint:
+            hint_text = "左手握拳-是，摇头-否，左手张开-跳过"
+            hint_surface = self.gesture_hint_font.render(
+                hint_text,
+                True,
+                self.WHITE,
+            )
+            self.screen.blit(
+                hint_surface,
+                hint_surface.get_rect(
+                    midtop=(
+                        self.width // 2,
+                        layout["square_rect"].bottom
+                        + max(12, round(self.height * 0.02)),
+                    )
+                ),
+            )
 
     def _draw_rest_screen(self):
         """Draw the centered small gray cross directly between news items."""

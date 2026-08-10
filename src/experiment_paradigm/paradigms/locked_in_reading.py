@@ -24,7 +24,7 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         audio_manifest,
         char_speed=1.2,
         play_mode="progress",
-        progress_duration=2.0,
+        progress_duration=1.2,
         progress_pause=0.5,
         rest_cross=False,
         baseline_min=1.5,
@@ -43,9 +43,10 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         repetitions=1,
         shuffle=False,
         continue_button=True,
+        show_continue_countdown=False,
         output_prefix="locked_in_sentence_reading",
         display_mode="borderless",
-        font_size=80,
+        font_size=200,
     ):
         """Initialize the locked-in sentence-reading paradigm."""
         self._validate_duration_range(
@@ -121,6 +122,7 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         self.repetitions = repetitions
         self.shuffle = shuffle
         self.continue_button_enabled = continue_button
+        self.show_continue_countdown = show_continue_countdown
         self.max_font_size = font_size
         self.cue_sound = self._create_cue_sound() if cue_tone else None
         button_font_size = max(18, min(32, round(self.height * 0.035)))
@@ -384,22 +386,23 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         )
         self.screen.blit(label_surface, label_surface.get_rect(center=button_rect.center))
 
-        if enabled:
-            status_text = "请点击按钮继续"
-        else:
-            status_text = f"休息 {remaining:.1f} 秒后可点击"
-        status_surface = self.continue_button_font.render(
-            status_text,
-            True,
-            (180, 180, 180),
-        )
-        status_rect = status_surface.get_rect(
-            midbottom=(
-                button_rect.centerx,
-                button_rect.top - max(8, round(self.height * 0.012)),
+        if self.show_continue_countdown:
+            if enabled:
+                status_text = "请点击按钮继续"
+            else:
+                status_text = f"休息 {remaining:.1f} 秒后可点击"
+            status_surface = self.continue_button_font.render(
+                status_text,
+                True,
+                (180, 180, 180),
             )
-        )
-        self.screen.blit(status_surface, status_rect)
+            status_rect = status_surface.get_rect(
+                midbottom=(
+                    button_rect.centerx,
+                    button_rect.top - max(8, round(self.height * 0.012)),
+                )
+            )
+            self.screen.blit(status_surface, status_rect)
 
     @staticmethod
     def _set_button_cursor(hovered):

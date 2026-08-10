@@ -107,7 +107,7 @@ def parse_locked_in_args(argv=None) -> argparse.Namespace:
     visual.add_argument(
         "--progress-duration",
         type=float,
-        default=2.0,
+        default=1.2,
         help="progress 模式中单个汉字进度条填满的时间（秒）。",
     )
     visual.add_argument(
@@ -119,7 +119,7 @@ def parse_locked_in_args(argv=None) -> argparse.Namespace:
     visual.add_argument(
         "--font-size",
         type=int,
-        default=80,
+        default=200,
         help="汉字字号上限；自适应仍会在该上限内尽量放大，长句自动缩小。",
     )
     rest_cross_options = visual.add_mutually_exclusive_group()
@@ -152,6 +152,14 @@ def parse_locked_in_args(argv=None) -> argparse.Namespace:
         action="store_false",
         default=argparse.SUPPRESS,
         help="关闭“下一条”按钮，回到旧的定时休息屏（休息到点自动继续）。",
+    )
+
+    visual.add_argument(
+        "--show-continue-countdown",
+        dest="show_continue_countdown",
+        action="store_true",
+        default=False,
+        help="在“下一条”按钮上方显示剩余休息秒数；默认不显示。",
     )
 
     timing = parser.add_argument_group("试次时序（全部为秒）")
@@ -265,6 +273,7 @@ def main_locked_in(argv=None) -> None:
         repetitions=args.repetitions,
         shuffle=args.shuffle,
         continue_button=args.continue_button,
+        show_continue_countdown=args.show_continue_countdown,
         output_prefix=args.output_prefix,
         display_mode=args.display_mode,
         font_size=args.font_size,

@@ -1,0 +1,7 @@
+# Generated experiment output
+timestamp/*.csv
+timestamp/*.json
+
+# Python caches
+__pycache__/
+*.py[cod]

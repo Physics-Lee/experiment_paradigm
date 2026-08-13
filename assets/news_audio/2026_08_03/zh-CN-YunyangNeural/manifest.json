@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-08-03T08:27:33.789798+00:00",
+  "updated_at": "2026-08-03T08:27:48.772068+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_08_03_Top_Digest_Yixuan_Modified.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "1. 8月2日，《The Verge》报道：Fender CEO Edward \"Bud\" Cole 在接受 T3 采访时把乐队成员形容为\"模拟版 AI\"，相关言论在 5 月的 Telecaster 75 周年采访中并未引起注意，近期却突然发酵，令公司本就糟糕的公关处境雪上加霜。该事件再次显示出 AI 话题在创意与音乐产业中的高度敏感性。",
+      "unit": "line",
+      "duration_ms": 24504,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "1. 8月2日，《The Verge》报道：Fender CEO Edward \"Bud\" Cole 在接受 T3 采访时把乐队成员形容为\"模拟版 AI\"，相关言论在 5 月的 Telecaster 75 周年采访中并未引起注意，近期却突然发酵，令公司本就糟糕的公关处境雪上加霜。该事件再次显示出 AI 话题在创意与音乐产业中的高度敏感性。",
+          "tts_text": "1. 8月2日，《The Verge》报道：Fender CEO Edward \"Bud\" Cole 在接受 T3 采访时把乐队成员形容为\"模拟版 AI\"，相关言论在 5 月的 Telecaster 75 周年采访中并未引起注意，近期却突然发酵，令公司本就糟糕的公关处境雪上加霜。该事件再次显示出 AI 话题在创意与音乐产业中的高度敏感性。",
+          "file": "sentence_001.mp3",
+          "duration_ms": 24504,
+          "sha256": "8eae7d343208c2515e0b3092d2e9b8de0b04449ad0ba1a9e3cc4a0d1d8c15efe"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "2. 8月2日，《TechCrunch》报道：围绕 Sam Altman 与 AI 行业\"减速派（decel）\"的辩论正在升温。这场讨论把\"AI 应该加速还是放缓发展\"的根本分歧推到了台前。",
+      "unit": "line",
+      "duration_ms": 13368,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "2. 8月2日，《TechCrunch》报道：围绕 Sam Altman 与 AI 行业\"减速派（decel）\"的辩论正在升温。这场讨论把\"AI 应该加速还是放缓发展\"的根本分歧推到了台前。",
+          "tts_text": "2. 8月2日，《TechCrunch》报道：围绕 Sam Altman 与 AI 行业\"减速派（decel）\"的辩论正在升温。这场讨论把\"AI 应该加速还是放缓发展\"的根本分歧推到了台前。",
+          "file": "sentence_002.mp3",
+          "duration_ms": 13368,
+          "sha256": "ab1b0c9f57739b8ef89820ffe7cf7d033edb3b949f4995bce61fc6fcf74ec29b"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "3. 8月2日，《The Verge》报道：付费给艺术家，是否足以让他们拥抱 AI？文章以 Pippa/Seedance 为例探讨了向创作者支付版税这一路径，折射出 AI 厂商与创作者之间围绕版权与分成仍存在的深层矛盾。",
+      "unit": "line",
+      "duration_ms": 17448,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "3. 8月2日，《The Verge》报道：付费给艺术家，是否足以让他们拥抱 AI？文章以 Pippa/Seedance 为例探讨了向创作者支付版税这一路径，折射出 AI 厂商与创作者之间围绕版权与分成仍存在的深层矛盾。",
+          "tts_text": "3. 8月2日，《The Verge》报道：付费给艺术家，是否足以让他们拥抱 AI？文章以 Pippa/Seedance 为例探讨了向创作者支付版税这一路径，折射出 AI 厂商与创作者之间围绕版权与分成仍存在的深层矛盾。",
+          "file": "sentence_003.mp3",
+          "duration_ms": 17448,
+          "sha256": "f411b659d38d0d70ad5471220aa6fe9a239413f60788d51ae9d4e73ada2fd9ad"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "4. 7月29日，《科学美国人》报道：拯救 NASA 斯威夫特（Swift）空间望远镜的在轨任务正陷入危机（连续多日居首，未更新）。用于提升其衰减轨道的私人航天器出现可能导致任务终止的故障，考验商业航天器为在轨资产延寿的可行性。",
+      "unit": "line",
+      "duration_ms": 20040,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "4. 7月29日，《科学美国人》报道：拯救 NASA 斯威夫特（Swift）空间望远镜的在轨任务正陷入危机（连续多日居首，未更新）。用于提升其衰减轨道的私人航天器出现可能导致任务终止的故障，考验商业航天器为在轨资产延寿的可行性。",
+          "tts_text": "4. 7月29日，《科学美国人》报道：拯救 NASA 斯威夫特（Swift）空间望远镜的在轨任务正陷入危机（连续多日居首，未更新）。用于提升其衰减轨道的私人航天器出现可能导致任务终止的故障，考验商业航天器为在轨资产延寿的可行性。",
+          "file": "sentence_004.mp3",
+          "duration_ms": 20040,
+          "sha256": "15f0d1d66b080dda62e821620f5df5709f2f65f5080ca5017bc98e6b4047c575"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "5. 7月29日，《科学美国人》报道：备受数学界推崇的\"爱因斯坦瓷砖（einstein tile）\"在物理学中找到了新归宿（多日居榜单前列，未更新）。这一发现把纯数学的奇异铺砌结构与物理研究联系了起来。",
+      "unit": "line",
+      "duration_ms": 16176,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "5. 7月29日，《科学美国人》报道：备受数学界推崇的\"爱因斯坦瓷砖（einstein tile）\"在物理学中找到了新归宿（多日居榜单前列，未更新）。这一发现把纯数学的奇异铺砌结构与物理研究联系了起来。",
+          "tts_text": "5. 7月29日，《科学美国人》报道：备受数学界推崇的\"爱因斯坦瓷砖（einstein tile）\"在物理学中找到了新归宿（多日居榜单前列，未更新）。这一发现把纯数学的奇异铺砌结构与物理研究联系了起来。",
+          "file": "sentence_005.mp3",
+          "duration_ms": 16176,
+          "sha256": "cc578d2f0890c8845905623dab7bbad4db4b2117ac7c87132aa190caf6cf8c9b"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "6. 7月31日，《科学美国人》报道：AI 帮助针对同一个密码学问题给出了两份证明（多日居榜单前列）。这表明 AI 在数学推理与形式化证明方面已可作为研究助手，产出可被验证的新结果。",
+      "unit": "line",
+      "duration_ms": 16080,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "6. 7月31日，《科学美国人》报道：AI 帮助针对同一个密码学问题给出了两份证明（多日居榜单前列）。这表明 AI 在数学推理与形式化证明方面已可作为研究助手，产出可被验证的新结果。",
+          "tts_text": "6. 7月31日，《科学美国人》报道：AI 帮助针对同一个密码学问题给出了两份证明（多日居榜单前列）。这表明 AI 在数学推理与形式化证明方面已可作为研究助手，产出可被验证的新结果。",
+          "file": "sentence_006.mp3",
+          "duration_ms": 16080,
+          "sha256": "4a9b2bb2d9e5083f41c0d4632fddffb6881b1d483bbf37e7dd6f96bcf595894f"
+        }
+      ]
+    }
+  ]
+}

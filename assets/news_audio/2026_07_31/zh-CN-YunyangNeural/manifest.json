@@ -1,0 +1,164 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-08-03T08:26:36.374157+00:00",
+  "updated_at": "2026-08-03T08:26:55.148708+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_07_31_Top_Digest_Yixuan_Modified.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "1. 7月30日，《The Verge》报道：Google DeepMind 发布 Gemini Robotics 2，新版模型可控制人形机器人的\"全身运动\"——从脚到指尖。相比上一代仅控制上半身，这一升级让通用人形机器人向完成全身复杂动作迈出关键一步。",
+      "unit": "line",
+      "duration_ms": 18720,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "1. 7月30日，《The Verge》报道：Google DeepMind 发布 Gemini Robotics 2，新版模型可控制人形机器人的\"全身运动\"——从脚到指尖。相比上一代仅控制上半身，这一升级让通用人形机器人向完成全身复杂动作迈出关键一步。",
+          "tts_text": "1. 7月30日，《The Verge》报道：Google DeepMind 发布 Gemini Robotics 2，新版模型可控制人形机器人的\"全身运动\"——从脚到指尖。相比上一代仅控制上半身，这一升级让通用人形机器人向完成全身复杂动作迈出关键一步。",
+          "file": "sentence_001.mp3",
+          "duration_ms": 18720,
+          "sha256": "0ee3e49e96ed7dacb32007c0aa09c705cba1b263f71084fb8007c805218957cc"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "2. 7月30日，《TechCrunch》报道：Meta 表示 AI 正让构建新应用变得更容易，并预告还会有更多应用涌现。这意味着 AI 辅助开发正在规模化地缩短\"从想法到产品\"的路径。",
+      "unit": "line",
+      "duration_ms": 14832,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "2. 7月30日，《TechCrunch》报道：Meta 表示 AI 正让构建新应用变得更容易，并预告还会有更多应用涌现。这意味着 AI 辅助开发正在规模化地缩短\"从想法到产品\"的路径。",
+          "tts_text": "2. 7月30日，《TechCrunch》报道：Meta 表示 AI 正让构建新应用变得更容易，并预告还会有更多应用涌现。这意味着 AI 辅助开发正在规模化地缩短\"从想法到产品\"的路径。",
+          "file": "sentence_002.mp3",
+          "duration_ms": 14832,
+          "sha256": "83220209b87b0ec1bb8e94a5c9ab05cd712e69d6d070d8b67149e1f9628a30f6"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "3. 7月30日，《TechCrunch》报道：AI 对冲基金 Situational Awareness 据报已出售其公开投资组合，但仍保留 Anthropic 股份。这一举动凸显出市场对 AI 一级市场股权的长期押注与短期仓位调整并存。",
+      "unit": "line",
+      "duration_ms": 17064,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "3. 7月30日，《TechCrunch》报道：AI 对冲基金 Situational Awareness 据报已出售其公开投资组合，但仍保留 Anthropic 股份。这一举动凸显出市场对 AI 一级市场股权的长期押注与短期仓位调整并存。",
+          "tts_text": "3. 7月30日，《TechCrunch》报道：AI 对冲基金 Situational Awareness 据报已出售其公开投资组合，但仍保留 Anthropic 股份。这一举动凸显出市场对 AI 一级市场股权的长期押注与短期仓位调整并存。",
+          "file": "sentence_003.mp3",
+          "duration_ms": 17064,
+          "sha256": "6cc85755db95494a6893648f2454b4683b163a721f3e3a34b5ca668e9b2722d4"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "4. 7月30日，《TechCrunch》报道：法官裁定特朗普政府仍缺乏足够证据支撑对 Anthropic 的\"供应链风险\"标签。该案反映出国家安全审查与 AI 企业之间的张力仍在持续拉锯。",
+      "unit": "line",
+      "duration_ms": 14496,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "4. 7月30日，《TechCrunch》报道：法官裁定特朗普政府仍缺乏足够证据支撑对 Anthropic 的\"供应链风险\"标签。该案反映出国家安全审查与 AI 企业之间的张力仍在持续拉锯。",
+          "tts_text": "4. 7月30日，《TechCrunch》报道：法官裁定特朗普政府仍缺乏足够证据支撑对 Anthropic 的\"供应链风险\"标签。该案反映出国家安全审查与 AI 企业之间的张力仍在持续拉锯。",
+          "file": "sentence_004.mp3",
+          "duration_ms": 14496,
+          "sha256": "bd1a505da944239f524a256083680784c1384db2d01303a3bf0d6dbef5d61cc4"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "5. 7月30日，《TechCrunch》报道：投资者依然热衷 AI，但前提是你是云托管方。这一分化说明，在当前阶段，提供算力与基础设施的环节比上层应用更容易获得资本青睐。",
+      "unit": "line",
+      "duration_ms": 15168,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "5. 7月30日，《TechCrunch》报道：投资者依然热衷 AI，但前提是你是云托管方。这一分化说明，在当前阶段，提供算力与基础设施的环节比上层应用更容易获得资本青睐。",
+          "tts_text": "5. 7月30日，《TechCrunch》报道：投资者依然热衷 AI，但前提是你是云托管方。这一分化说明，在当前阶段，提供算力与基础设施的环节比上层应用更容易获得资本青睐。",
+          "file": "sentence_005.mp3",
+          "duration_ms": 15168,
+          "sha256": "6fec8c2519c5af228f058ea804b938b28c5747b267e70fb88898ae722e36052b"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "6. 7月30日，《科学美国人》报道：智利木乃伊揭示了一种此前未知的天花谱系。古 DNA 研究为理解天花这一已被消灭疾病的演化历史提供了新线索。",
+      "unit": "line",
+      "duration_ms": 13224,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "6. 7月30日，《科学美国人》报道：智利木乃伊揭示了一种此前未知的天花谱系。古 DNA 研究为理解天花这一已被消灭疾病的演化历史提供了新线索。",
+          "tts_text": "6. 7月30日，《科学美国人》报道：智利木乃伊揭示了一种此前未知的天花谱系。古 DNA 研究为理解天花这一已被消灭疾病的演化历史提供了新线索。",
+          "file": "sentence_006.mp3",
+          "duration_ms": 13224,
+          "sha256": "79ce3fcdf2497057d2b9d961d0deddbb74562d6eae8d71260c2ea4dd5751d288"
+        }
+      ]
+    },
+    {
+      "id": "sentence_007",
+      "index": 7,
+      "text": "7. 7月30日，《科学美国人》报道：2029 年小行星\"毁神星\"（Apophis）近距离飞掠地球期间，将有探测器群对其进行联合观测。这次罕见的近距飞掠被视为深入研究近地小行星的重要机会。",
+      "unit": "line",
+      "duration_ms": 16272,
+      "segments": [
+        {
+          "id": "sentence_007",
+          "index": 1,
+          "text": "7. 7月30日，《科学美国人》报道：2029 年小行星\"毁神星\"（Apophis）近距离飞掠地球期间，将有探测器群对其进行联合观测。这次罕见的近距飞掠被视为深入研究近地小行星的重要机会。",
+          "tts_text": "7. 7月30日，《科学美国人》报道：2029 年小行星\"毁神星\"（Apophis）近距离飞掠地球期间，将有探测器群对其进行联合观测。这次罕见的近距飞掠被视为深入研究近地小行星的重要机会。",
+          "file": "sentence_007.mp3",
+          "duration_ms": 16272,
+          "sha256": "f45dba8b7369896ec9703681a18790d13eebf819a79e36f0fea5d4d4b83a3724"
+        }
+      ]
+    },
+    {
+      "id": "sentence_008",
+      "index": 8,
+      "text": "8. 7月30日，《科学美国人》报道：当今所有活着的人，体内可能都携带着来自人类祖先某个\"幽灵谱系（ghost lineage）\"的 DNA。该发现有助于重塑对人类演化和古老基因渗入的认识。",
+      "unit": "line",
+      "duration_ms": 15408,
+      "segments": [
+        {
+          "id": "sentence_008",
+          "index": 1,
+          "text": "8. 7月30日，《科学美国人》报道：当今所有活着的人，体内可能都携带着来自人类祖先某个\"幽灵谱系（ghost lineage）\"的 DNA。该发现有助于重塑对人类演化和古老基因渗入的认识。",
+          "tts_text": "8. 7月30日，《科学美国人》报道：当今所有活着的人，体内可能都携带着来自人类祖先某个\"幽灵谱系（ghost lineage）\"的 DNA。该发现有助于重塑对人类演化和古老基因渗入的认识。",
+          "file": "sentence_008.mp3",
+          "duration_ms": 15408,
+          "sha256": "f796879a30c7a1890977dc05a14e9319601740c11000c3a9089639be4843ecfa"
+        }
+      ]
+    }
+  ]
+}

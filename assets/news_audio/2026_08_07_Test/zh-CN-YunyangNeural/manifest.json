@@ -1,0 +1,308 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-08-07T07:17:04.833093+00:00",
+  "updated_at": "2026-08-07T07:17:32.414968+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_08_07_Test.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "根号三大于1.7",
+      "unit": "line",
+      "duration_ms": 2184,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "根号三大于1.7",
+          "tts_text": "根号三大于1.7",
+          "file": "sentence_001.mp3",
+          "duration_ms": 2184,
+          "sha256": "3344cf7fc5ce3cf8652aa6393dde42b738615d5ff65b675daa21485bc3221ee1"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "根号二小于1.4",
+      "unit": "line",
+      "duration_ms": 2304,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "根号二小于1.4",
+          "tts_text": "根号二小于1.4",
+          "file": "sentence_002.mp3",
+          "duration_ms": 2304,
+          "sha256": "9d9ed53f9a2e7f0f55015efc901c609af4203de082a7bfabf1dcc9afa6d5d17b"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "5、13、15都是质数",
+      "unit": "line",
+      "duration_ms": 3240,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "5、13、15都是质数",
+          "tts_text": "5、13、15都是质数",
+          "file": "sentence_003.mp3",
+          "duration_ms": 3240,
+          "sha256": "2481e83d97c53d6ab927124278d4a685769a3af40589aebda02a2a2b64378fbd"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "0.4 * 0.5 = 0.2",
+      "unit": "line",
+      "duration_ms": 2880,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "0.4 * 0.5 = 0.2",
+          "tts_text": "0.4 * 0.5 = 0.2",
+          "file": "sentence_004.mp3",
+          "duration_ms": 2880,
+          "sha256": "71ebb52d677fbe9460fcc0471820d479bb96f8e69e8dbd950147312a6d88b4c1"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "0.5 * 0.8 = 0.04",
+      "unit": "line",
+      "duration_ms": 3168,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "0.5 * 0.8 = 0.04",
+          "tts_text": "0.5 * 0.8 = 0.04",
+          "file": "sentence_005.mp3",
+          "duration_ms": 3168,
+          "sha256": "53efa9b9af602f752d8797c0ec9c735044964ae8f8d982044613368acf218de7"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "a = b，b = c，则a一定等于c",
+      "unit": "line",
+      "duration_ms": 3864,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "a = b，b = c，则a一定等于c",
+          "tts_text": "a = b，b = c，则a一定等于c",
+          "file": "sentence_006.mp3",
+          "duration_ms": 3864,
+          "sha256": "5982bb90e1a837af606e927865fbfa06d9e29a3ae285fa35b37ef9357a4d6c0b"
+        }
+      ]
+    },
+    {
+      "id": "sentence_007",
+      "index": 7,
+      "text": "5，5，8 这三个数字的众数是5",
+      "unit": "line",
+      "duration_ms": 3768,
+      "segments": [
+        {
+          "id": "sentence_007",
+          "index": 1,
+          "text": "5，5，8 这三个数字的众数是5",
+          "tts_text": "5，5，8 这三个数字的众数是5",
+          "file": "sentence_007.mp3",
+          "duration_ms": 3768,
+          "sha256": "31e226a71681f81a11bca57c64838a65719ccb627d7e4b90e250c8050b27dd1a"
+        }
+      ]
+    },
+    {
+      "id": "sentence_008",
+      "index": 8,
+      "text": "7，10，208 这三个数字的中位数是208",
+      "unit": "line",
+      "duration_ms": 5064,
+      "segments": [
+        {
+          "id": "sentence_008",
+          "index": 1,
+          "text": "7，10，208 这三个数字的中位数是208",
+          "tts_text": "7，10，208 这三个数字的中位数是208",
+          "file": "sentence_008.mp3",
+          "duration_ms": 5064,
+          "sha256": "cea931e067612709cad883899c5dc06296d5472da84821fb30ecfd15447d5acf"
+        }
+      ]
+    },
+    {
+      "id": "sentence_009",
+      "index": 9,
+      "text": "设A, B, C为三条直线，A平行B，B平行C，则A一定平行于C",
+      "unit": "line",
+      "duration_ms": 7488,
+      "segments": [
+        {
+          "id": "sentence_009",
+          "index": 1,
+          "text": "设A, B, C为三条直线，A平行B，B平行C，则A一定平行于C",
+          "tts_text": "设A, B, C为三条直线，A平行B，B平行C，则A一定平行于C",
+          "file": "sentence_009.mp3",
+          "duration_ms": 7488,
+          "sha256": "1f6d43903bf39dca665509771b16c8a4e1cb713309e97e62a21d3c0c57a77f15"
+        }
+      ]
+    },
+    {
+      "id": "sentence_010",
+      "index": 10,
+      "text": "现在有红、黑、蓝、黄四个颜色的小球，从中随机取3个，一共有6种情况",
+      "unit": "line",
+      "duration_ms": 7776,
+      "segments": [
+        {
+          "id": "sentence_010",
+          "index": 1,
+          "text": "现在有红、黑、蓝、黄四个颜色的小球，从中随机取3个，一共有6种情况",
+          "tts_text": "现在有红、黑、蓝、黄四个颜色的小球，从中随机取3个，一共有6种情况",
+          "file": "sentence_010.mp3",
+          "duration_ms": 7776,
+          "sha256": "fe0889767adcc8dedb97fad31d780f6452d526c39bbdf46d63f70abf07ff47d7"
+        }
+      ]
+    },
+    {
+      "id": "sentence_011",
+      "index": 11,
+      "text": "现在有红、黑、蓝、黄、白五个颜色的小球，从中随机取3个，一共有10种情况",
+      "unit": "line",
+      "duration_ms": 8328,
+      "segments": [
+        {
+          "id": "sentence_011",
+          "index": 1,
+          "text": "现在有红、黑、蓝、黄、白五个颜色的小球，从中随机取3个，一共有10种情况",
+          "tts_text": "现在有红、黑、蓝、黄、白五个颜色的小球，从中随机取3个，一共有10种情况",
+          "file": "sentence_011.mp3",
+          "duration_ms": 8328,
+          "sha256": "3e98bfe1426940400bc087a4adcaaf3a3d05fa610a474ac1fee5c1c5a3f16f48"
+        }
+      ]
+    },
+    {
+      "id": "sentence_012",
+      "index": 12,
+      "text": "中国人口最多的省是浙江省",
+      "unit": "line",
+      "duration_ms": 3000,
+      "segments": [
+        {
+          "id": "sentence_012",
+          "index": 1,
+          "text": "中国人口最多的省是浙江省",
+          "tts_text": "中国人口最多的省是浙江省",
+          "file": "sentence_012.mp3",
+          "duration_ms": 3000,
+          "sha256": "be66361a5f22f3a4d0d21dfe6b1a066a2384b545be8bd0a90e4fd82e7b23cff4"
+        }
+      ]
+    },
+    {
+      "id": "sentence_013",
+      "index": 13,
+      "text": "中国人口最多的省是江苏省",
+      "unit": "line",
+      "duration_ms": 3024,
+      "segments": [
+        {
+          "id": "sentence_013",
+          "index": 1,
+          "text": "中国人口最多的省是江苏省",
+          "tts_text": "中国人口最多的省是江苏省",
+          "file": "sentence_013.mp3",
+          "duration_ms": 3024,
+          "sha256": "8745224069fb578d09c4957517350e5ebf1776706172cb9231689da07fb1a716"
+        }
+      ]
+    },
+    {
+      "id": "sentence_014",
+      "index": 14,
+      "text": "中国人口超过一亿的省有两个",
+      "unit": "line",
+      "duration_ms": 3192,
+      "segments": [
+        {
+          "id": "sentence_014",
+          "index": 1,
+          "text": "中国人口超过一亿的省有两个",
+          "tts_text": "中国人口超过一亿的省有两个",
+          "file": "sentence_014.mp3",
+          "duration_ms": 3192,
+          "sha256": "de4867e5264070f3064abc2d0bc580d5dbf8295c3e342178cd29fb59ebfbabc2"
+        }
+      ]
+    },
+    {
+      "id": "sentence_015",
+      "index": 15,
+      "text": "北京奥运会在2008年举办",
+      "unit": "line",
+      "duration_ms": 2808,
+      "segments": [
+        {
+          "id": "sentence_015",
+          "index": 1,
+          "text": "北京奥运会在2008年举办",
+          "tts_text": "北京奥运会在2008年举办",
+          "file": "sentence_015.mp3",
+          "duration_ms": 2808,
+          "sha256": "f1cc9a56cb9b5ff5b10327c171a801c73a5c17f882233bb627b92b7cb79d87c2"
+        }
+      ]
+    },
+    {
+      "id": "sentence_016",
+      "index": 16,
+      "text": "2022年世界杯的冠军是阿根廷队",
+      "unit": "line",
+      "duration_ms": 3456,
+      "segments": [
+        {
+          "id": "sentence_016",
+          "index": 1,
+          "text": "2022年世界杯的冠军是阿根廷队",
+          "tts_text": "2022年世界杯的冠军是阿根廷队",
+          "file": "sentence_016.mp3",
+          "duration_ms": 3456,
+          "sha256": "466d717105d192fd421e774dd6517dc662a020e39a6a33303ffc6cb9d375d8b2"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-08-03T08:27:14.167544+00:00",
+  "updated_at": "2026-08-03T08:27:32.838763+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_08_02_Top_Digest_Yixuan_Modified.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "1. 8月1日，《TechCrunch》报道：法官驳回了 xAI 的请求，允许明尼苏达州禁止\"脱衣（nudify）\"应用的法案继续推进。这被视为地方监管在对抗 AI 深度伪造色情内容上的一次关键胜利。",
+      "unit": "line",
+      "duration_ms": 15480,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "1. 8月1日，《TechCrunch》报道：法官驳回了 xAI 的请求，允许明尼苏达州禁止\"脱衣（nudify）\"应用的法案继续推进。这被视为地方监管在对抗 AI 深度伪造色情内容上的一次关键胜利。",
+          "tts_text": "1. 8月1日，《TechCrunch》报道：法官驳回了 xAI 的请求，允许明尼苏达州禁止\"脱衣（nudify）\"应用的法案继续推进。这被视为地方监管在对抗 AI 深度伪造色情内容上的一次关键胜利。",
+          "file": "sentence_001.mp3",
+          "duration_ms": 15480,
+          "sha256": "006c5ebfa9172a19b357f9031d2c49d4b5ef537b5521c35247b57b5e4c311f16"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "2. 8月1日，《TechCrunch》报道：YouTuber Hank Green 坦言自己使用 AI 的方式\"并不健康\"。作为有影响力的内容创作者，他的自述把\"AI 工具对个人工作习惯与心理状态的影响\"带入了公共讨论。",
+      "unit": "line",
+      "duration_ms": 15480,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "2. 8月1日，《TechCrunch》报道：YouTuber Hank Green 坦言自己使用 AI 的方式\"并不健康\"。作为有影响力的内容创作者，他的自述把\"AI 工具对个人工作习惯与心理状态的影响\"带入了公共讨论。",
+          "tts_text": "2. 8月1日，《TechCrunch》报道：YouTuber Hank Green 坦言自己使用 AI 的方式\"并不健康\"。作为有影响力的内容创作者，他的自述把\"AI 工具对个人工作习惯与心理状态的影响\"带入了公共讨论。",
+          "file": "sentence_002.mp3",
+          "duration_ms": 15480,
+          "sha256": "1f7450b64e064f94668fb2adab2b62bda8eb0f4b2de165388ca3ccf55c7ec7f9"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "3. 8月1日，《MIT Sloan》报道：研究发现，只要你问对问题，AI 给出的财务建议出人意料地好。该结论为 AI 在个人理财领域的应用提供了相对正面的实证支持。",
+      "unit": "line",
+      "duration_ms": 13704,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "3. 8月1日，《MIT Sloan》报道：研究发现，只要你问对问题，AI 给出的财务建议出人意料地好。该结论为 AI 在个人理财领域的应用提供了相对正面的实证支持。",
+          "tts_text": "3. 8月1日，《MIT Sloan》报道：研究发现，只要你问对问题，AI 给出的财务建议出人意料地好。该结论为 AI 在个人理财领域的应用提供了相对正面的实证支持。",
+          "file": "sentence_003.mp3",
+          "duration_ms": 13704,
+          "sha256": "d9b9330a03f295e5c11d5221bc580343b05e1b997a16720d4d1fdfb9cbd55d39"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "4. 8月1日，《The Verge》报道：一首登上 Billboard Hot 100 的热门歌曲被质疑是 AI 生成的\"口水歌（AI slop）\"。事件折射出 AI 音乐已足以进入主流榜单，并引发对其真实性与版权的质疑。",
+      "unit": "line",
+      "duration_ms": 15744,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "4. 8月1日，《The Verge》报道：一首登上 Billboard Hot 100 的热门歌曲被质疑是 AI 生成的\"口水歌（AI slop）\"。事件折射出 AI 音乐已足以进入主流榜单，并引发对其真实性与版权的质疑。",
+          "tts_text": "4. 8月1日，《The Verge》报道：一首登上 Billboard Hot 100 的热门歌曲被质疑是 AI 生成的\"口水歌（AI slop）\"。事件折射出 AI 音乐已足以进入主流榜单，并引发对其真实性与版权的质疑。",
+          "file": "sentence_004.mp3",
+          "duration_ms": 15744,
+          "sha256": "36e1a2999bbe1f9d4771114e75738fc8b2215e44bac07e11d9bd87363105a6b5"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "5. 8月1日，《Ars Technica》报道：因噪音投诉，法官下令 Waymo 停止在圣莫尼卡的夜间充电作业。这起个案反映出自动驾驶车队规模化运营与城市居住环境之间的摩擦正在浮现。",
+      "unit": "line",
+      "duration_ms": 15288,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "5. 8月1日，《Ars Technica》报道：因噪音投诉，法官下令 Waymo 停止在圣莫尼卡的夜间充电作业。这起个案反映出自动驾驶车队规模化运营与城市居住环境之间的摩擦正在浮现。",
+          "tts_text": "5. 8月1日，《Ars Technica》报道：因噪音投诉，法官下令 Waymo 停止在圣莫尼卡的夜间充电作业。这起个案反映出自动驾驶车队规模化运营与城市居住环境之间的摩擦正在浮现。",
+          "file": "sentence_005.mp3",
+          "duration_ms": 15288,
+          "sha256": "b59690a85e7dd84552f444a7aee15c37c76b2c2c493601f24c15923ae3835824"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "6. 7月29日，《科学美国人》报道：拯救 NASA 斯威夫特（Swift）空间望远镜的在轨任务正陷入危机（连续多日居首，未更新）。用于提升其衰减轨道的私人航天器出现可能导致任务终止的故障，考验商业航天器为在轨资产延寿的可行性。",
+      "unit": "line",
+      "duration_ms": 20016,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "6. 7月29日，《科学美国人》报道：拯救 NASA 斯威夫特（Swift）空间望远镜的在轨任务正陷入危机（连续多日居首，未更新）。用于提升其衰减轨道的私人航天器出现可能导致任务终止的故障，考验商业航天器为在轨资产延寿的可行性。",
+          "tts_text": "6. 7月29日，《科学美国人》报道：拯救 NASA 斯威夫特（Swift）空间望远镜的在轨任务正陷入危机（连续多日居首，未更新）。用于提升其衰减轨道的私人航天器出现可能导致任务终止的故障，考验商业航天器为在轨资产延寿的可行性。",
+          "file": "sentence_006.mp3",
+          "duration_ms": 20016,
+          "sha256": "19a75e09e18847420fbf3aa73010a59d1f18c623a1b904a068557579cb9ebcd1"
+        }
+      ]
+    },
+    {
+      "id": "sentence_007",
+      "index": 7,
+      "text": "7. 7月29日，《科学美国人》报道：备受数学界推崇的\"爱因斯坦瓷砖（einstein tile）\"在物理学中找到了新归宿（多日居榜单前列，未更新）。这一发现把纯数学的奇异铺砌结构与物理研究联系了起来。",
+      "unit": "line",
+      "duration_ms": 16128,
+      "segments": [
+        {
+          "id": "sentence_007",
+          "index": 1,
+          "text": "7. 7月29日，《科学美国人》报道：备受数学界推崇的\"爱因斯坦瓷砖（einstein tile）\"在物理学中找到了新归宿（多日居榜单前列，未更新）。这一发现把纯数学的奇异铺砌结构与物理研究联系了起来。",
+          "tts_text": "7. 7月29日，《科学美国人》报道：备受数学界推崇的\"爱因斯坦瓷砖（einstein tile）\"在物理学中找到了新归宿（多日居榜单前列，未更新）。这一发现把纯数学的奇异铺砌结构与物理研究联系了起来。",
+          "file": "sentence_007.mp3",
+          "duration_ms": 16128,
+          "sha256": "319f6bec664232fec33ce77277f0dc6d2a9445a5a51ced57ac4f05dd5bfe210a"
+        }
+      ]
+    },
+    {
+      "id": "sentence_008",
+      "index": 8,
+      "text": "8. 7月31日，《科学美国人》报道：AI 帮助针对同一个密码学问题给出了两份证明。这表明 AI 在数学推理与形式化证明方面已可作为研究助手，产出可被验证的新结果。",
+      "unit": "line",
+      "duration_ms": 14880,
+      "segments": [
+        {
+          "id": "sentence_008",
+          "index": 1,
+          "text": "8. 7月31日，《科学美国人》报道：AI 帮助针对同一个密码学问题给出了两份证明。这表明 AI 在数学推理与形式化证明方面已可作为研究助手，产出可被验证的新结果。",
+          "tts_text": "8. 7月31日，《科学美国人》报道：AI 帮助针对同一个密码学问题给出了两份证明。这表明 AI 在数学推理与形式化证明方面已可作为研究助手，产出可被验证的新结果。",
+          "file": "sentence_008.mp3",
+          "duration_ms": 14880,
+          "sha256": "f9ace0b2bd1610f4c9ad40160d3aa51d2851c5cd7e6facb55068f1948d6a1811"
+        }
+      ]
+    }
+  ]
+}

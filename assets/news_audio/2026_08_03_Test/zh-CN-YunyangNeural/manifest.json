@@ -1,0 +1,236 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-08-03T09:02:42.144152+00:00",
+  "updated_at": "2026-08-03T09:03:00.993324+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_08_03_Test.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "二乘七等于十四，2*7 = 14",
+      "unit": "line",
+      "duration_ms": 3720,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "二乘七等于十四，2*7 = 14",
+          "tts_text": "二乘七等于十四，2*7 = 14",
+          "file": "sentence_001.mp3",
+          "duration_ms": 3720,
+          "sha256": "52b4de9bd7ca99b80d5b25536e28f647820e5c6cb24670ce8e5a32da02f557e3"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "二分之一加三分之一等于六分之五，1/2 + 1/3 = 5/6",
+      "unit": "line",
+      "duration_ms": 6528,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "二分之一加三分之一等于六分之五，1/2 + 1/3 = 5/6",
+          "tts_text": "二分之一加三分之一等于六分之五，1/2 + 1/3 = 5/6",
+          "file": "sentence_002.mp3",
+          "duration_ms": 6528,
+          "sha256": "250f0e82c233f545c1ebb859f869fe8865a9c124a6a9f07b27547f63ba09050a"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "二的二次方等于四，2^2 = 4",
+      "unit": "line",
+      "duration_ms": 3576,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "二的二次方等于四，2^2 = 4",
+          "tts_text": "二的二次方等于四，2^2 = 4",
+          "file": "sentence_003.mp3",
+          "duration_ms": 3576,
+          "sha256": "18e6f988aef415cc18ca64f80497c5afe7cdbe3b87c07263fdec888daa87bf79"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "二的三次方大于三的二次方，2^3 > 3^2",
+      "unit": "line",
+      "duration_ms": 5280,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "二的三次方大于三的二次方，2^3 > 3^2",
+          "tts_text": "二的三次方大于三的二次方，2^3 > 3^2",
+          "file": "sentence_004.mp3",
+          "duration_ms": 5280,
+          "sha256": "78df4bdcfe6a319ace5a79248d908d7b0cfd0cf4d6c67ace842f9ffb15ecaae1"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "在二维坐标系中，(1,1)关于x轴对称点是(1,-1)",
+      "unit": "line",
+      "duration_ms": 6528,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "在二维坐标系中，(1,1)关于x轴对称点是(1,-1)",
+          "tts_text": "在二维坐标系中，(1,1)关于x轴对称点是(1,-1)",
+          "file": "sentence_005.mp3",
+          "duration_ms": 6528,
+          "sha256": "6c97790ed3906269970733f4e93725a7ff1c700ee64e91bb37e704432221d1b0"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "世界上国土面积最大的国家是俄罗斯",
+      "unit": "line",
+      "duration_ms": 3576,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "世界上国土面积最大的国家是俄罗斯",
+          "tts_text": "世界上国土面积最大的国家是俄罗斯",
+          "file": "sentence_006.mp3",
+          "duration_ms": 3576,
+          "sha256": "a387441940bd726546473aca8159561de8fe32ea196c4d708f3d49fcfbbe870f"
+        }
+      ]
+    },
+    {
+      "id": "sentence_007",
+      "index": 7,
+      "text": "地球上海洋的面积比陆地大",
+      "unit": "line",
+      "duration_ms": 2904,
+      "segments": [
+        {
+          "id": "sentence_007",
+          "index": 1,
+          "text": "地球上海洋的面积比陆地大",
+          "tts_text": "地球上海洋的面积比陆地大",
+          "file": "sentence_007.mp3",
+          "duration_ms": 2904,
+          "sha256": "936a6ac3fa014f1d8d2e679219414b32b54e8bb21fd02ee26eacc4d9a8786dce"
+        }
+      ]
+    },
+    {
+      "id": "sentence_008",
+      "index": 8,
+      "text": "哥白尼撰写了《天体运行论》",
+      "unit": "line",
+      "duration_ms": 2616,
+      "segments": [
+        {
+          "id": "sentence_008",
+          "index": 1,
+          "text": "哥白尼撰写了《天体运行论》",
+          "tts_text": "哥白尼撰写了《天体运行论》",
+          "file": "sentence_008.mp3",
+          "duration_ms": 2616,
+          "sha256": "d8d2f05e02fadb07294519c0e0afaf0f8909992ba3bba7e35e6bc4a1b22a8075"
+        }
+      ]
+    },
+    {
+      "id": "sentence_009",
+      "index": 9,
+      "text": "伽利略撰写了《自然哲学的数学原理》",
+      "unit": "line",
+      "duration_ms": 3432,
+      "segments": [
+        {
+          "id": "sentence_009",
+          "index": 1,
+          "text": "伽利略撰写了《自然哲学的数学原理》",
+          "tts_text": "伽利略撰写了《自然哲学的数学原理》",
+          "file": "sentence_009.mp3",
+          "duration_ms": 3432,
+          "sha256": "94589aef85e624b6a5e7209686d4fa59e24b5e0ce62ec265667b8f658fa008d4"
+        }
+      ]
+    },
+    {
+      "id": "sentence_010",
+      "index": 10,
+      "text": "爱因斯坦提出了相对论",
+      "unit": "line",
+      "duration_ms": 2424,
+      "segments": [
+        {
+          "id": "sentence_010",
+          "index": 1,
+          "text": "爱因斯坦提出了相对论",
+          "tts_text": "爱因斯坦提出了相对论",
+          "file": "sentence_010.mp3",
+          "duration_ms": 2424,
+          "sha256": "92388ef81fd77d97a5552dad085930e1cbe931f1143ac2935d6ec3d8fd6967d2"
+        }
+      ]
+    },
+    {
+      "id": "sentence_011",
+      "index": 11,
+      "text": "遗传信息的流动方向：DNA -> RNA -> 蛋白质。",
+      "unit": "line",
+      "duration_ms": 4152,
+      "segments": [
+        {
+          "id": "sentence_011",
+          "index": 1,
+          "text": "遗传信息的流动方向：DNA -> RNA -> 蛋白质。",
+          "tts_text": "遗传信息的流动方向：DNA -> RNA -> 蛋白质。",
+          "file": "sentence_011.mp3",
+          "duration_ms": 4152,
+          "sha256": "f4e5824aae7d286c417ec29e0218db41a52f0cd4399e03415ebe2e3f1c9cd1f7"
+        }
+      ]
+    },
+    {
+      "id": "sentence_012",
+      "index": 12,
+      "text": "氢原子是最轻的原子",
+      "unit": "line",
+      "duration_ms": 2520,
+      "segments": [
+        {
+          "id": "sentence_012",
+          "index": 1,
+          "text": "氢原子是最轻的原子",
+          "tts_text": "氢原子是最轻的原子",
+          "file": "sentence_012.mp3",
+          "duration_ms": 2520,
+          "sha256": "dccfd50aef7dc03c9b596348c441728890987068ad7f04e9ebbe8221e999e899"
+        }
+      ]
+    }
+  ]
+}

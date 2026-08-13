@@ -1,0 +1,254 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-08-04T06:38:51.731664+00:00",
+  "updated_at": "2026-08-04T06:39:13.231769+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_08_04_Test.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "氢原子是最轻的原子",
+      "unit": "line",
+      "duration_ms": 2520,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "氢原子是最轻的原子",
+          "tts_text": "氢原子是最轻的原子",
+          "file": "sentence_001.mp3",
+          "duration_ms": 2520,
+          "sha256": "dccfd50aef7dc03c9b596348c441728890987068ad7f04e9ebbe8221e999e899"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "我们昨天是否做过这道题：哥白尼撰写了《天体运行论》",
+      "unit": "line",
+      "duration_ms": 4584,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "我们昨天是否做过这道题：哥白尼撰写了《天体运行论》",
+          "tts_text": "我们昨天是否做过这道题：哥白尼撰写了《天体运行论》",
+          "file": "sentence_002.mp3",
+          "duration_ms": 4584,
+          "sha256": "87ac8abcee6b13ea608116d74dccf935123d1a916ab5d59fc08dd398a6555e0e"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "我们昨天是否做过这道题：伽利略撰写了《自然哲学的数学原理》",
+      "unit": "line",
+      "duration_ms": 5304,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "我们昨天是否做过这道题：伽利略撰写了《自然哲学的数学原理》",
+          "tts_text": "我们昨天是否做过这道题：伽利略撰写了《自然哲学的数学原理》",
+          "file": "sentence_003.mp3",
+          "duration_ms": 5304,
+          "sha256": "1cf89bb620130608cfd57685dc0e898c2ded778fb096184d0510f2f23989ca9b"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "五分之一减去六分之一等于三十分之一，1/5 - 1/6 = 1/30",
+      "unit": "line",
+      "duration_ms": 6792,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "五分之一减去六分之一等于三十分之一，1/5 - 1/6 = 1/30",
+          "tts_text": "五分之一减去六分之一等于三十分之一，1/5 - 1/6 = 1/30",
+          "file": "sentence_004.mp3",
+          "duration_ms": 6792,
+          "sha256": "e785f2fef9be0a984775e0eecab4a41ba29973d2bdd82a686547607e7c6970a0"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "二的五次方大于三的三次方，2^5 > 3^3",
+      "unit": "line",
+      "duration_ms": 5304,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "二的五次方大于三的三次方，2^5 > 3^3",
+          "tts_text": "二的五次方大于三的三次方，2^5 > 3^3",
+          "file": "sentence_005.mp3",
+          "duration_ms": 5304,
+          "sha256": "29bd8d1106082a5db7f1f1df2d4cd3245a655fa27f94261fc8d464685a1f581a"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "在二维坐标系中，(1,1)和(2,2)的直线距离是根号2",
+      "unit": "line",
+      "duration_ms": 6912,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "在二维坐标系中，(1,1)和(2,2)的直线距离是根号2",
+          "tts_text": "在二维坐标系中，(1,1)和(2,2)的直线距离是根号2",
+          "file": "sentence_006.mp3",
+          "duration_ms": 6912,
+          "sha256": "43e30da089c3ed33c9be5263dd8ac1e47bed14133b9ef3fdad86225822fa9dcc"
+        }
+      ]
+    },
+    {
+      "id": "sentence_007",
+      "index": 7,
+      "text": "物体在不受力的情况下会保持静止或者匀速直线运动",
+      "unit": "line",
+      "duration_ms": 5136,
+      "segments": [
+        {
+          "id": "sentence_007",
+          "index": 1,
+          "text": "物体在不受力的情况下会保持静止或者匀速直线运动",
+          "tts_text": "物体在不受力的情况下会保持静止或者匀速直线运动",
+          "file": "sentence_007.mp3",
+          "duration_ms": 5136,
+          "sha256": "b57e31571ddfbf079f1eb2a8b4ea32f52ba0cefd19344c545f2352b477f99caa"
+        }
+      ]
+    },
+    {
+      "id": "sentence_008",
+      "index": 8,
+      "text": "氢氧化钠是酸性的",
+      "unit": "line",
+      "duration_ms": 2280,
+      "segments": [
+        {
+          "id": "sentence_008",
+          "index": 1,
+          "text": "氢氧化钠是酸性的",
+          "tts_text": "氢氧化钠是酸性的",
+          "file": "sentence_008.mp3",
+          "duration_ms": 2280,
+          "sha256": "ba74a328676e4237326bfc64694c801f7fcadd37b6fe18d011181c6822aa5ca2"
+        }
+      ]
+    },
+    {
+      "id": "sentence_009",
+      "index": 9,
+      "text": "达尔文提出了自然选择学说",
+      "unit": "line",
+      "duration_ms": 2736,
+      "segments": [
+        {
+          "id": "sentence_009",
+          "index": 1,
+          "text": "达尔文提出了自然选择学说",
+          "tts_text": "达尔文提出了自然选择学说",
+          "file": "sentence_009.mp3",
+          "duration_ms": 2736,
+          "sha256": "85d3d7c17a4b136dc4714dcd9bcfaaf8d1bab56c0707a63a6e998fd79c33a806"
+        }
+      ]
+    },
+    {
+      "id": "sentence_010",
+      "index": 10,
+      "text": "孟德尔进行了豌豆实验，确定了遗传因子的存在",
+      "unit": "line",
+      "duration_ms": 4416,
+      "segments": [
+        {
+          "id": "sentence_010",
+          "index": 1,
+          "text": "孟德尔进行了豌豆实验，确定了遗传因子的存在",
+          "tts_text": "孟德尔进行了豌豆实验，确定了遗传因子的存在",
+          "file": "sentence_010.mp3",
+          "duration_ms": 4416,
+          "sha256": "2f0d1c8d7e38ff3e06e29023e33f8c6b37c674270c4681eb401015450ece3074"
+        }
+      ]
+    },
+    {
+      "id": "sentence_011",
+      "index": 11,
+      "text": "DNA是双螺旋结构",
+      "unit": "line",
+      "duration_ms": 2400,
+      "segments": [
+        {
+          "id": "sentence_011",
+          "index": 1,
+          "text": "DNA是双螺旋结构",
+          "tts_text": "DNA是双螺旋结构",
+          "file": "sentence_011.mp3",
+          "duration_ms": 2400,
+          "sha256": "d1ae8b270155321fc1ab7446fe03b7a40461081805701165fb30f638ae7c2bf8"
+        }
+      ]
+    },
+    {
+      "id": "sentence_012",
+      "index": 12,
+      "text": "世界上国土面积第二大的国家是加拿大",
+      "unit": "line",
+      "duration_ms": 3768,
+      "segments": [
+        {
+          "id": "sentence_012",
+          "index": 1,
+          "text": "世界上国土面积第二大的国家是加拿大",
+          "tts_text": "世界上国土面积第二大的国家是加拿大",
+          "file": "sentence_012.mp3",
+          "duration_ms": 3768,
+          "sha256": "ea7a3fa8daed06781aae549ec7671c5f1e66b562624ef3901a27cb65531b4b53"
+        }
+      ]
+    },
+    {
+      "id": "sentence_013",
+      "index": 13,
+      "text": "世界上最高的山峰是珠穆朗玛峰",
+      "unit": "line",
+      "duration_ms": 3456,
+      "segments": [
+        {
+          "id": "sentence_013",
+          "index": 1,
+          "text": "世界上最高的山峰是珠穆朗玛峰",
+          "tts_text": "世界上最高的山峰是珠穆朗玛峰",
+          "file": "sentence_013.mp3",
+          "duration_ms": 3456,
+          "sha256": "f8a6c0fd6a88fe6acd0c86f69187485906970d590fe86ebdcffb6671f5d218f3"
+        }
+      ]
+    }
+  ]
+}

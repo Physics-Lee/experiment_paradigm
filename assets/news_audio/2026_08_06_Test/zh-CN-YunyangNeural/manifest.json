@@ -1,0 +1,272 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-08-06T08:22:28.374313+00:00",
+  "updated_at": "2026-08-06T08:22:49.228691+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_08_06_Test.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "四的二次方大于三的三次方，4^2 > 3^3",
+      "unit": "line",
+      "duration_ms": 5280,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "四的二次方大于三的三次方，4^2 > 3^3",
+          "tts_text": "四的二次方大于三的三次方，4^2 > 3^3",
+          "file": "sentence_001.mp3",
+          "duration_ms": 5280,
+          "sha256": "9e1b8822a4dd2fe7fc4e6e4757a9649d7022c23abbf8db3b22dc2a4b9ce5b03b"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "5，5，8，这三个数字的平均数是7。",
+      "unit": "line",
+      "duration_ms": 4320,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "5，5，8，这三个数字的平均数是7。",
+          "tts_text": "5，5，8，这三个数字的平均数是7。",
+          "file": "sentence_002.mp3",
+          "duration_ms": 4320,
+          "sha256": "29e7be4a09a3e25a6e95d3734ec2fffeda82a16588cb8c1e4285bde01622c24c"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "2x+8=14的解是x=3",
+      "unit": "line",
+      "duration_ms": 4056,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "2x+8=14的解是x=3",
+          "tts_text": "2x+8=14的解是x=3",
+          "file": "sentence_003.mp3",
+          "duration_ms": 4056,
+          "sha256": "ee51d2be2fc7bf0e8c175cdb0d2f78acfcde1a618d018ed0f98b7ba4a9a9b165"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "x^2 - 2x + 1 = 4 的解是 x = 3 和 x = -1",
+      "unit": "line",
+      "duration_ms": 6240,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "x^2 - 2x + 1 = 4 的解是 x = 3 和 x = -1",
+          "tts_text": "x^2 - 2x + 1 = 4 的解是 x = 3 和 x = -1",
+          "file": "sentence_004.mp3",
+          "duration_ms": 6240,
+          "sha256": "9f14bccb5d56ee6f660b6ef7fe40c6b8caa2a611f42b1d2cf648dbafef6ccd59"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "y=x^2 的导数是 y=2x",
+      "unit": "line",
+      "duration_ms": 3888,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "y=x^2 的导数是 y=2x",
+          "tts_text": "y=x^2 的导数是 y=2x",
+          "file": "sentence_005.mp3",
+          "duration_ms": 3888,
+          "sha256": "b9dcc3c9681facc264b70b1605e5de1dfdc906e03b44a560ab5fa7547e42bce0"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "y=2x 的导数是 y=4",
+      "unit": "line",
+      "duration_ms": 3360,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "y=2x 的导数是 y=4",
+          "tts_text": "y=2x 的导数是 y=4",
+          "file": "sentence_006.mp3",
+          "duration_ms": 3360,
+          "sha256": "6fca2da787480029c4c8196b5c8107c4526d7bdf809a480c76188f06f956235d"
+        }
+      ]
+    },
+    {
+      "id": "sentence_007",
+      "index": 7,
+      "text": "牛顿第二定律指的是 F = m * a。",
+      "unit": "line",
+      "duration_ms": 3936,
+      "segments": [
+        {
+          "id": "sentence_007",
+          "index": 1,
+          "text": "牛顿第二定律指的是 F = m * a。",
+          "tts_text": "牛顿第二定律指的是 F = m * a。",
+          "file": "sentence_007.mp3",
+          "duration_ms": 3936,
+          "sha256": "3e58845b03c32c3d7ea1e0798e0ca9d00225a134225ec27b871d94d1338b1fe2"
+        }
+      ]
+    },
+    {
+      "id": "sentence_008",
+      "index": 8,
+      "text": "盐酸是氯化氢水溶液的俗称",
+      "unit": "line",
+      "duration_ms": 3024,
+      "segments": [
+        {
+          "id": "sentence_008",
+          "index": 1,
+          "text": "盐酸是氯化氢水溶液的俗称",
+          "tts_text": "盐酸是氯化氢水溶液的俗称",
+          "file": "sentence_008.mp3",
+          "duration_ms": 3024,
+          "sha256": "3fb26ba1ec2312d075343fa0d2a8ebe32f4ae2e9b75a99083b85091c27299e0f"
+        }
+      ]
+    },
+    {
+      "id": "sentence_009",
+      "index": 9,
+      "text": "中国面积最大的省或自治区是内蒙古",
+      "unit": "line",
+      "duration_ms": 3816,
+      "segments": [
+        {
+          "id": "sentence_009",
+          "index": 1,
+          "text": "中国面积最大的省或自治区是内蒙古",
+          "tts_text": "中国面积最大的省或自治区是内蒙古",
+          "file": "sentence_009.mp3",
+          "duration_ms": 3816,
+          "sha256": "57560cfa6f575f409a5d0f9b11405a686a915772309d32afee2a5d890cccabf7"
+        }
+      ]
+    },
+    {
+      "id": "sentence_010",
+      "index": 10,
+      "text": "蛋白质是生物大分子，是由成千上万的氨基酸组成的长链。",
+      "unit": "line",
+      "duration_ms": 5112,
+      "segments": [
+        {
+          "id": "sentence_010",
+          "index": 1,
+          "text": "蛋白质是生物大分子，是由成千上万的氨基酸组成的长链。",
+          "tts_text": "蛋白质是生物大分子，是由成千上万的氨基酸组成的长链。",
+          "file": "sentence_010.mp3",
+          "duration_ms": 5112,
+          "sha256": "7db391be23da06daaaf7c5c309d871d7a3be2dec0d4ba8e3556dffe8fd433c7c"
+        }
+      ]
+    },
+    {
+      "id": "sentence_011",
+      "index": 11,
+      "text": "我们现在在广东省广州市",
+      "unit": "line",
+      "duration_ms": 2688,
+      "segments": [
+        {
+          "id": "sentence_011",
+          "index": 1,
+          "text": "我们现在在广东省广州市",
+          "tts_text": "我们现在在广东省广州市",
+          "file": "sentence_011.mp3",
+          "duration_ms": 2688,
+          "sha256": "1b0df7393e12856807aa54d853d351d83f6adc69a7fcdf8d23d60c4433d1fd96"
+        }
+      ]
+    },
+    {
+      "id": "sentence_012",
+      "index": 12,
+      "text": "我们昨天做实验了嘛？",
+      "unit": "line",
+      "duration_ms": 2184,
+      "segments": [
+        {
+          "id": "sentence_012",
+          "index": 1,
+          "text": "我们昨天做实验了嘛？",
+          "tts_text": "我们昨天做实验了嘛？",
+          "file": "sentence_012.mp3",
+          "duration_ms": 2184,
+          "sha256": "0a172f2928b04dc7b980b21bfe8af1f1a207d8fbd4d3ad6622471ec7c8b116d9"
+        }
+      ]
+    },
+    {
+      "id": "sentence_013",
+      "index": 13,
+      "text": "今天是周三",
+      "unit": "line",
+      "duration_ms": 1776,
+      "segments": [
+        {
+          "id": "sentence_013",
+          "index": 1,
+          "text": "今天是周三",
+          "tts_text": "今天是周三",
+          "file": "sentence_013.mp3",
+          "duration_ms": 1776,
+          "sha256": "f68e0c3929a961d7ffe49cf958e815a2e3289855ff2f924374bca2ce303cb63c"
+        }
+      ]
+    },
+    {
+      "id": "sentence_014",
+      "index": 14,
+      "text": "今天是2026年6月",
+      "unit": "line",
+      "duration_ms": 2376,
+      "segments": [
+        {
+          "id": "sentence_014",
+          "index": 1,
+          "text": "今天是2026年6月",
+          "tts_text": "今天是2026年6月",
+          "file": "sentence_014.mp3",
+          "duration_ms": 2376,
+          "sha256": "8ed14221414e1e14fc2c521375428f8b3fd6c898b62862e1eeba88726f4c7752"
+        }
+      ]
+    }
+  ]
+}

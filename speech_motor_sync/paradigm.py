@@ -41,6 +41,7 @@ WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 GRAY = (128, 128, 128)
+LIGHT_BROWN = (210, 180, 140)  # per-character progress bar (matches locked-in)
 
 # Default numeral set paired one-to-one with gestures/01.png..10.png.
 DEFAULT_CHARACTERS = list("一二三四五六七八九十")
@@ -273,11 +274,16 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
         stimuli_file=None,
         characters=None,
         gestures_dir="gestures",
+        audio=True,
+        audio_dir="audio/slow",
         baseline_min=1.5,
         baseline_max=2.5,
-        prep_min=1.5,
-        prep_max=2.0,
-        response_duration=2.0,
+        pre_audio_delay_min=0.4,
+        pre_audio_delay_max=0.6,
+        silent_delay_min=1.5,
+        silent_delay_max=2.0,
+        progress_duration=2.0,
+        final_hold=0.5,
         rest_min=5.0,
         rest_max=6.0,
         rest_cross=True,
@@ -296,10 +302,17 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
     ):
         """Initialize the speech + movement synchronization paradigm."""
         validate_duration_range("baseline", baseline_min, baseline_max)
-        validate_duration_range("prep", prep_min, prep_max)
+        validate_duration_range(
+            "pre-audio delay", pre_audio_delay_min, pre_audio_delay_max
+        )
+        validate_duration_range(
+            "silent delay", silent_delay_min, silent_delay_max
+        )
         validate_duration_range("rest", rest_min, rest_max)
-        if response_duration < 0:
-            raise ValueError("response_duration must be non-negative")
+        if progress_duration < 0:
+            raise ValueError("progress_duration must be non-negative")
+        if final_hold < 0:
+            raise ValueError("final_hold must be non-negative")
         if cue_frequency <= 0:
             raise ValueError("cue_frequency must be positive")
         if cue_duration <= 0:
@@ -329,11 +342,16 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
 
         self.characters = characters
         self.gestures_dir = Path(gestures_dir)
+        self.audio_enabled = audio
+        self.audio_dir = Path(audio_dir)
         self.baseline_min = baseline_min
         self.baseline_max = baseline_max
-        self.prep_min = prep_min
-        self.prep_max = prep_max
-        self.response_duration = response_duration
+        self.pre_audio_delay_min = pre_audio_delay_min
+        self.pre_audio_delay_max = pre_audio_delay_max
+        self.silent_delay_min = silent_delay_min
+        self.silent_delay_max = silent_delay_max
+        self.progress_duration = progress_duration
+        self.final_hold = final_hold
         self.rest_min = rest_min
         self.rest_max = rest_max
         self.rest_cross_enabled = rest_cross
@@ -351,14 +369,17 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
         self._char_cache: dict[str, tuple[pygame.Surface, int]] = {}
         self.gestures = self._load_gestures(len(self.characters))
 
-        if self.cue_tone_enabled:
+        self.numeral_audio: dict[int, dict] = {}
+        if self.audio_enabled or self.cue_tone_enabled:
             if not pygame.mixer.get_init():
                 pygame.mixer.init(
                     frequency=44100, size=-16, channels=2, buffer=512
                 )
-            self.cue_sound = self._create_cue_sound()
-        else:
-            self.cue_sound = None
+        if self.audio_enabled:
+            self.numeral_audio = self._load_numeral_audio(len(self.characters))
+        self.cue_sound = (
+            self._create_cue_sound() if self.cue_tone_enabled else None
+        )
 
         button_font_size = max(18, min(32, round(self.height * 0.035)))
         self.continue_button_font = load_cjk_font(
@@ -529,6 +550,60 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
                 print(f"Gesture {index:02d}: loaded {path.name}")
         return items
 
+    # -- numeral audio ----------------------------------------------------
+    def _load_numeral_audio(self, count):
+        """Preload one spoken-numeral MP3 per stimulus index."""
+        items = {}
+        for index in range(1, count + 1):
+            path = None
+            for name in (
+                f"{index:02d}.mp3",
+                f"{index}.mp3",
+                f"{index:02d}.wav",
+                f"{index}.wav",
+            ):
+                candidate = self.audio_dir / name
+                if candidate.is_file():
+                    path = candidate
+                    break
+            if path is None:
+                raise FileNotFoundError(
+                    f"Audio not found for stimulus {index} in "
+                    f"{self.audio_dir} (expected e.g. {index:02d}.mp3). "
+                    "Run make_audio.py or pass --no-audio."
+                )
+            try:
+                sound = pygame.mixer.Sound(str(path))
+            except pygame.error as error:
+                raise ValueError(
+                    f"Could not decode audio: {path}"
+                ) from error
+            items[index] = {"sound": sound, "file": path.name}
+            print(f"Audio {index:02d}: loaded {path.name}")
+        return items
+
+    def _play_numeral_audio(self, sound, trial_data, draw_frame):
+        """Play one numeral sound to completion, timestamping onset/offset."""
+        draw_frame()
+        pygame.display.flip()
+        onset = self.get_timestamp()
+        onset_abs = self.get_absolute_time()
+        channel = sound.play()
+        if channel is None:
+            raise RuntimeError("No mixer channel available for numeral audio")
+        while channel.get_busy():
+            if not self.check_exit_events():
+                channel.stop()
+                return False
+            draw_frame()
+            pygame.display.flip()
+            self.clock.tick(60)
+        trial_data["audio_onset"] = onset
+        trial_data["audio_onset_abs"] = onset_abs
+        trial_data["audio_offset"] = self.get_timestamp()
+        trial_data["audio_offset_abs"] = self.get_absolute_time()
+        return True
+
     # -- cue tone ---------------------------------------------------------
     def _create_cue_sound(self):
         """Create the short, category-neutral go-cue tone."""
@@ -566,15 +641,30 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
         return pygame.mixer.Sound(buffer=bytes(pcm))
 
     # -- drawing ----------------------------------------------------------
-    def _draw_trial_state(self, char_surface, gesture_surface, bar_color):
-        """Draw numeral (left), gesture (right), and the go-cue bar (bottom)."""
+    def _draw_trial_state(
+        self, char_surface, gesture_surface, bar_color, progress_fraction=None
+    ):
+        """Draw numeral (left), gesture (right), and the go-cue bar (bottom).
+
+        When ``progress_fraction`` is not None, a locked-in-style LIGHT_BROWN
+        progress bar is drawn behind the numeral, filled to that fraction
+        (0.0 .. 1.0) of the numeral's width.
+        """
         self.screen.fill(BLACK)
-        self.screen.blit(
-            char_surface,
-            char_surface.get_rect(
-                center=(self.left_center_x, self.content_center_y)
-            ),
+
+        char_rect = char_surface.get_rect(
+            center=(self.left_center_x, self.content_center_y)
         )
+        if progress_fraction is not None:
+            fill_width = round(char_rect.width * max(0.0, min(1.0, progress_fraction)))
+            if fill_width > 0:
+                pygame.draw.rect(
+                    self.screen,
+                    LIGHT_BROWN,
+                    (char_rect.x, char_rect.y, fill_width, char_rect.height),
+                )
+
+        self.screen.blit(char_surface, char_rect)
         self.screen.blit(
             gesture_surface,
             gesture_surface.get_rect(
@@ -789,7 +879,12 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
             if is_first
             else 0.0
         )
-        prep_duration = random.uniform(self.prep_min, self.prep_max)
+        pre_audio_delay = random.uniform(
+            self.pre_audio_delay_min, self.pre_audio_delay_max
+        )
+        silent_delay = random.uniform(
+            self.silent_delay_min, self.silent_delay_max
+        )
         rest_duration = random.uniform(self.rest_min, self.rest_max)
 
         trial_data = {
@@ -806,18 +901,28 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
             "planned_baseline_duration": baseline_duration,
             "actual_baseline_duration": None,
             "baseline_applied": is_first,
-            "planned_prep_duration": prep_duration,
-            "actual_prep_duration": None,
-            "prep_onset": None,
-            "prep_onset_abs": None,
-            "prep_offset": None,
-            "prep_offset_abs": None,
-            "response_duration_planned": self.response_duration,
-            "actual_response_duration": None,
+            "planned_pre_audio_delay": pre_audio_delay,
+            "actual_pre_audio_delay": None,
+            "pre_audio_delay_onset": None,
+            "pre_audio_delay_onset_abs": None,
+            "audio_enabled": self.audio_enabled,
+            "audio_file": None,
+            "audio_onset": None,
+            "audio_onset_abs": None,
+            "audio_offset": None,
+            "audio_offset_abs": None,
+            "planned_silent_delay": silent_delay,
+            "actual_silent_delay": None,
+            "silent_delay_onset": None,
+            "silent_delay_onset_abs": None,
+            "progress_duration_planned": self.progress_duration,
+            "actual_progress_duration": None,
             "go_onset": None,
             "go_onset_abs": None,
-            "response_offset": None,
-            "response_offset_abs": None,
+            "progress_offset": None,
+            "progress_offset_abs": None,
+            "final_hold_planned": self.final_hold,
+            "actual_final_hold": None,
             "planned_rest_duration": rest_duration,
             "actual_rest_duration": None,
             "rest_cross_enabled": self.rest_cross_enabled,
@@ -858,22 +963,47 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
         else:
             trial_data["actual_baseline_duration"] = 0.0
 
-        # 2. Preparation: numeral + gesture + RED bar.
-        trial_data["prep_onset"] = self.get_timestamp()
-        trial_data["prep_onset_abs"] = self.get_absolute_time()
-        prep_ok, actual_prep = self._show_for_duration(
-            prep_duration,
+        # 2. Pre-audio delay: numeral + gesture + RED bar.
+        trial_data["pre_audio_delay_onset"] = self.get_timestamp()
+        trial_data["pre_audio_delay_onset_abs"] = self.get_absolute_time()
+        pre_ok, actual_pre = self._show_for_duration(
+            pre_audio_delay,
             lambda: self._draw_trial_state(
                 char_surface, gesture_surface, RED
             ),
         )
-        trial_data["actual_prep_duration"] = actual_prep
-        trial_data["prep_offset"] = self.get_timestamp()
-        trial_data["prep_offset_abs"] = self.get_absolute_time()
-        if not prep_ok:
+        trial_data["actual_pre_audio_delay"] = actual_pre
+        if not pre_ok:
             return False
 
-        # 3. Go cue: bar turns GREEN (+ optional tone). Speech + movement
+        # 3. Target audio: play the spoken numeral (RED bar still visible),
+        #    mirroring the locked-in paradigm.
+        if self.audio_enabled:
+            audio_item = self.numeral_audio[stimulus_index]
+            trial_data["audio_file"] = audio_item["file"]
+            if not self._play_numeral_audio(
+                audio_item["sound"],
+                trial_data,
+                lambda: self._draw_trial_state(
+                    char_surface, gesture_surface, RED
+                ),
+            ):
+                return False
+
+        # 4. Silent delay: numeral + gesture + RED bar before the go cue.
+        trial_data["silent_delay_onset"] = self.get_timestamp()
+        trial_data["silent_delay_onset_abs"] = self.get_absolute_time()
+        delay_ok, actual_delay = self._show_for_duration(
+            silent_delay,
+            lambda: self._draw_trial_state(
+                char_surface, gesture_surface, RED
+            ),
+        )
+        trial_data["actual_silent_delay"] = actual_delay
+        if not delay_ok:
+            return False
+
+        # 5. Go cue: bar turns GREEN (+ optional tone). Speech + movement
         #    onset is read off this timestamp by downstream analysis.
         self._draw_trial_state(char_surface, gesture_surface, GREEN)
         cue_channel = None
@@ -891,20 +1021,43 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
             trial_data["cue_tone_onset"] = go_onset
             trial_data["cue_tone_onset_abs"] = go_onset_abs
 
-        # 4. Response window: hold stimulus + GREEN bar.
-        response_ok, actual_response = self._show_for_duration(
-            self.response_duration,
-            lambda: self._draw_trial_state(
-                char_surface, gesture_surface, GREEN
-            ),
+        # 6. Response window: a locked-in-style LIGHT_BROWN progress bar fills
+        #    behind the numeral over progress_duration while the bottom bar
+        #    stays green. Speech + movement happen during this fill.
+        progress_started = self.get_timestamp()
+        progress_ok = True
+        while self.get_timestamp() - progress_started < self.progress_duration:
+            if not self.check_exit_events():
+                progress_ok = False
+                break
+            elapsed = self.get_timestamp() - progress_started
+            fraction = min(1.0, elapsed / self.progress_duration)
+            self._draw_trial_state(
+                char_surface, gesture_surface, GREEN, progress_fraction=fraction
+            )
+            pygame.display.flip()
+            self.clock.tick(60)
+        trial_data["actual_progress_duration"] = (
+            self.get_timestamp() - progress_started
         )
-        trial_data["actual_response_duration"] = actual_response
-        trial_data["response_offset"] = self.get_timestamp()
-        trial_data["response_offset_abs"] = self.get_absolute_time()
-        if not response_ok:
+        trial_data["progress_offset"] = self.get_timestamp()
+        trial_data["progress_offset_abs"] = self.get_absolute_time()
+        if not progress_ok:
             return False
 
-        # 5. Rest: explicit continue button or timed black/fixation screen.
+        # 7. Final hold: keep the completed progress bar + green bar briefly
+        #    before the rest screen (fixation cross) appears.
+        hold_ok, actual_hold = self._show_for_duration(
+            self.final_hold,
+            lambda: self._draw_trial_state(
+                char_surface, gesture_surface, GREEN, progress_fraction=1.0
+            ),
+        )
+        trial_data["actual_final_hold"] = actual_hold
+        if not hold_ok:
+            return False
+
+        # 8. Rest: explicit continue button or timed black/fixation screen.
         if self.continue_button_enabled:
             rest_ok, rest_events = self._wait_for_continue(
                 rest_duration, is_last=is_last
@@ -942,10 +1095,17 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
         else:
             print("Press ESC or close window to quit")
         print(
-            "Prep: "
-            f"{self.prep_min}-{self.prep_max} s; "
-            f"response: {self.response_duration} s; "
+            "Pre-audio delay: "
+            f"{self.pre_audio_delay_min}-{self.pre_audio_delay_max} s; "
+            "silent delay: "
+            f"{self.silent_delay_min}-{self.silent_delay_max} s; "
+            f"progress: {self.progress_duration} s; "
+            f"final hold: {self.final_hold} s; "
             f"rest: {self.rest_min}-{self.rest_max} s"
+        )
+        print(
+            f"Numeral audio: {self.audio_enabled}"
+            + (f" ({self.audio_dir})" if self.audio_enabled else "")
         )
         print(f"Go-cue tone: {self.cue_tone_enabled}")
         print(f"Gray cross during rest: {self.rest_cross_enabled}")

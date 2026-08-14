@@ -62,10 +62,10 @@ def parse_args(argv=None) -> argparse.Namespace:
     files.add_argument(
         "--audio-dir",
         type=Path,
-        default=SCRIPT_DIR / "audio" / "slow",
+        default=SCRIPT_DIR / "audio" / "normal",
         help=(
             "数字音频目录（与闭锁范式同款 zh-CN-YunxiaNeural TTS）；"
-            "默认 audio/slow（-50%% 慢速）。要正常语速用 audio/normal。"
+            "默认 audio/normal（正常语速）。要慢速用 audio/slow（-50%%）。"
         ),
     )
     files.add_argument(
@@ -147,12 +147,20 @@ def parse_args(argv=None) -> argparse.Namespace:
         default=argparse.SUPPRESS,
         help="关闭“下一条”按钮，回到定时休息屏（休息到点自动继续）。",
     )
-    visual.add_argument(
+    countdown_options = visual.add_mutually_exclusive_group()
+    countdown_options.add_argument(
         "--show-continue-countdown",
         dest="show_continue_countdown",
         action="store_true",
-        default=False,
-        help="在“下一条”按钮上方显示剩余休息秒数；默认不显示。",
+        default=True,
+        help="在“下一条/结束”按钮上方显示剩余休息秒数倒计时；默认开启。",
+    )
+    countdown_options.add_argument(
+        "--hide-continue-countdown",
+        dest="show_continue_countdown",
+        action="store_false",
+        default=argparse.SUPPRESS,
+        help="隐藏“下一条/结束”按钮上方的倒计时。",
     )
 
     timing = parser.add_argument_group("试次时序（全部为秒）")
@@ -195,7 +203,7 @@ def parse_args(argv=None) -> argparse.Namespace:
     timing.add_argument(
         "--progress-duration",
         type=float,
-        default=2.0,
+        default=1.2,
         help="go cue 变绿后，数字背后的浅棕色进度条填满的时长（即说话/动作反应窗）。",
     )
     timing.add_argument(

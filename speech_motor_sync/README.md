@@ -16,7 +16,7 @@
 5. **Go cue**：长方形由**红变绿**（可伴随统一“滴”声）→ 受试者**同步说出该数字并
    做出对应手势**。
 6. **反应窗（进度条）**：数字背后出现一道和闭锁范式一样的**浅棕色进度条**，在
-   `progress_duration`（默认 2.0s，`--progress-duration` 可调）内填满；底部条保持绿色，供采集/分析。
+   `progress_duration`（默认 1.2s，`--progress-duration` 可调）内填满；底部条保持绿色，供采集/分析。
 7. **终末保持**：进度条填满后保持终末画面 `final_hold`（默认 0.5s），再进入休息屏。
 8. trial 间休息（默认“下一条/结束”按钮，休息满最短时长后点亮，或灰色十字）。
 
@@ -78,10 +78,10 @@ python make_gestures.py
 | `audio/slow/` | `-50%`（慢，与闭锁默认一致） | 2.4–2.9 s |
 | `audio/normal/` | `+0%`（正常） | 1.25–1.5 s |
 
-默认播放 `audio/slow`（慢速）。切正常语速：
+默认播放 `audio/normal`（正常语速）。切慢速：
 
 ```bash
-python run.py --audio-dir audio/normal
+python run.py --audio-dir audio/slow
 ```
 
 关闭音频（仅视觉）：
@@ -108,8 +108,8 @@ python make_audio.py --force    # 强制重新生成
 | 试次时序（秒） | `--baseline-min/max` `--pre-audio-delay-min/max` `--silent-delay-min/max` `--progress-duration` `--final-hold` `--rest-min/max` |
 | 统一提示音 | `--no-cue-tone` `--cue-frequency` `--cue-duration` `--cue-volume` |
 
-默认时序：基线 1.5~2.5s（仅首 trial）、音频前延迟 0.4~0.6s、静默延迟 1.5~2.0s、进度条 2.0s、终末保持 0.5s、休息 5~6s；
-提示音 1000Hz/0.08s/音量 0.7；每轮默认随机打乱、循环 1 次。
+默认时序：基线 1.5~2.5s（仅首 trial）、音频前延迟 0.4~0.6s、静默延迟 1.5~2.0s、进度条 1.2s、终末保持 0.5s、休息 5~6s；
+提示音 1000Hz/0.08s/音量 0.7；每轮默认随机打乱、循环 1 次；音频默认正常语速。
 
 ## 输出字段（每 trial，CSV + JSON）
 

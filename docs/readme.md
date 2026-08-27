@@ -110,8 +110,10 @@ run-locked-in-sentence-reading
 ```
 
 Compatibility wrappers remain under `scripts/`:
-`python scripts/run_sentence_audio_en.py` runs English and
-`python scripts/run_sentence_audio_zh.py` runs Chinese.
+`python scripts/run_read_aloud.py` runs the general sentence
+paradigm (audio optional) and
+`python scripts/run_locked_in_read_aloud.py` runs the
+locked-in patient flow.
 
 The general command retains the general sentence-audio sequence. It defaults to
 the current v4/Yunxia audio set; use its `--sentences`, `--manifest`, and

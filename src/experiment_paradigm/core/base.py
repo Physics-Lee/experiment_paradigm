@@ -18,10 +18,11 @@ class BaseParadigm:
         caption="Paradigm",
         output_prefix="experiment",
         display_mode="borderless",
+        font_size=80,
     ):
         """
         Initialize the base paradigm with common pygame setup.
-        
+
         Parameters:
         -----------
         caption : str
@@ -32,6 +33,8 @@ class BaseParadigm:
             ``borderless`` uses a desktop-sized frameless window without
             changing the system display mode. ``exclusive`` uses Pygame's
             exclusive fullscreen mode.
+        font_size : int
+            Base font size in pixels for paradigm text.
         """
         if display_mode not in ("borderless", "exclusive"):
             raise ValueError(
@@ -68,7 +71,7 @@ class BaseParadigm:
         self.LIGHT_BROWN = (210, 180, 140)  # Light brown for progress bar
         
         # Font settings
-        self.font_size = 80
+        self.font_size = font_size
         self.font = self._load_font()
         
         # Square settings
@@ -183,16 +186,17 @@ class BaseParadigm:
         return True
     
     def show_interval(self, interval_duration):
-        """Show inter-trial interval: black screen (0.5s) + fixation cross (remaining time)."""
-        # First 0.5s: black screen
-        self.screen.fill(self.BLACK)
-        pygame.display.flip()
-        black_start = time.time()
-        while time.time() - black_start < 0.5:
-            if not self.check_exit_events():
-                return False
-            self.clock.tick(60)
-        
+        """Show inter-trial interval: up to 0.5s black screen, then fixation cross."""
+        black_duration = min(0.5, interval_duration)
+        if black_duration > 0:
+            self.screen.fill(self.BLACK)
+            pygame.display.flip()
+            black_start = time.time()
+            while time.time() - black_start < black_duration:
+                if not self.check_exit_events():
+                    return False
+                self.clock.tick(60)
+
         # Remaining time: white cross in center
         if interval_duration > 0.5:
             cross_start = time.time()

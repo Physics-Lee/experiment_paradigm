@@ -19,7 +19,9 @@ def parse_args(
     ),
     default_output_prefix="sentence_audio",
     default_prep_mode="square",
-    default_prep_time_jitter=0.3,
+    default_play_mode="progress",
+    default_font_size=100,
+    default_prep_time_jitter=0.2,
     default_token_mode="character",
 ) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -48,6 +50,12 @@ def parse_args(
 
     visual = parser.add_argument_group("文字分词与视觉提示")
     visual.add_argument(
+        "--font-size",
+        type=int,
+        default=default_font_size,
+        help="句子文字字号。",
+    )
+    visual.add_argument(
         "--token-mode",
         choices=("word", "character"),
         default=default_token_mode,
@@ -62,7 +70,7 @@ def parse_args(
     visual.add_argument(
         "--play-mode",
         choices=("green", "progress"),
-        default="green",
+        default=default_play_mode,
         help="green=累积变绿；progress=背景进度条。",
     )
     visual.add_argument(
@@ -86,7 +94,7 @@ def parse_args(
     visual.add_argument(
         "--progress-pause",
         type=float,
-        default=0.5,
+        default=0.0,
         help="progress 模式中相邻 token 进度条之间的停顿（秒）。",
     )
 
@@ -94,7 +102,7 @@ def parse_args(
     timing.add_argument(
         "--prep-time",
         type=float,
-        default=1.5,
+        default=2.0,
         help="准备阶段的中心时长。",
     )
     timing.add_argument(
@@ -118,8 +126,14 @@ def parse_args(
     timing.add_argument(
         "--inter-sentence-interval",
         type=float,
-        default=2.0,
-        help="相邻句子 trial 之间的间隔。",
+        default=0.0,
+        help="相邻句子 trial 之间的间隔；超过 0.5 秒的部分显示注视十字。",
+    )
+    timing.add_argument(
+        "--final-hold",
+        type=float,
+        default=0.0,
+        help="最后一个 token 完成后保持最终画面的时间（秒）。",
     )
 
     audio = parser.add_argument_group("音频播放")
@@ -151,6 +165,31 @@ def parse_args(
         action="store_true",
         help="关闭视觉阶段之后的句子音频。",
     )
+
+    cue = parser.add_argument_group("统一提示音")
+    cue.add_argument(
+        "--no-cue-tone",
+        action="store_true",
+        help="关闭与绿方块/视觉动画同步的统一“滴”声。",
+    )
+    cue.add_argument(
+        "--cue-frequency",
+        type=int,
+        default=1000,
+        help="统一提示音的频率（Hz）。",
+    )
+    cue.add_argument(
+        "--cue-duration",
+        type=float,
+        default=0.08,
+        help="统一提示音的时长（秒）。",
+    )
+    cue.add_argument(
+        "--cue-volume",
+        type=float,
+        default=0.7,
+        help="统一提示音的音量，取值范围 (0, 1]。",
+    )
     return parser.parse_args(argv)
 
 
@@ -164,7 +203,9 @@ def main(
     ),
     default_output_prefix="sentence_audio",
     default_prep_mode="square",
-    default_prep_time_jitter=0.3,
+    default_play_mode="progress",
+    default_font_size=100,
+    default_prep_time_jitter=0.2,
     default_token_mode="character",
 ) -> None:
     args = parse_args(
@@ -173,6 +214,8 @@ def main(
         default_manifest=default_manifest,
         default_output_prefix=default_output_prefix,
         default_prep_mode=default_prep_mode,
+        default_play_mode=default_play_mode,
+        default_font_size=default_font_size,
         default_prep_time_jitter=default_prep_time_jitter,
         default_token_mode=default_token_mode,
     )
@@ -189,6 +232,7 @@ def main(
         progress_duration=args.progress_duration,
         progress_pause=args.progress_pause,
         inter_sentence_interval=args.inter_sentence_interval,
+        final_hold=args.final_hold,
         output_prefix=args.output_prefix,
         audio_manifest=str(args.manifest),
         play_audio_before=not args.no_pre_audio,
@@ -196,7 +240,12 @@ def main(
         pre_visual_gap=args.pre_visual_gap,
         post_visual_gap=args.post_visual_gap,
         audio_screen=args.audio_screen,
+        cue_tone=not args.no_cue_tone,
+        cue_frequency=args.cue_frequency,
+        cue_duration=args.cue_duration,
+        cue_volume=args.cue_volume,
         token_mode=args.token_mode,
+        font_size=args.font_size,
         display_mode=args.display_mode,
     )
     paradigm.run()

@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pygame
 
-from ..core import BaseParadigm
+from ..core import BaseParadigm, create_cue_sound
 from ..core.audio import SentenceAudioMixin
 from ..stimuli import read_nonempty_lines
 
@@ -18,16 +18,21 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
         self,
         sentences_file,
         char_speed=1.2,
-        prep_time=1.5,
-        prep_time_jitter=0.1,
+        prep_time=2.0,
+        prep_time_jitter=0.2,
         jitter_mean=0.5,
         jitter_std=0.1,
         prep_mode="square",
         dot_interval=0.5,
-        play_mode="green",
+        play_mode="progress",
         progress_duration=1.2,
-        progress_pause=0.5,
-        inter_sentence_interval=2.0,
+        progress_pause=0.0,
+        cue_tone=True,
+        cue_frequency=1000,
+        cue_duration=0.08,
+        cue_volume=0.7,
+        inter_sentence_interval=0.0,
+        final_hold=0.0,
         output_prefix="sentence",
         audio_manifest=None,
         play_audio_before=None,
@@ -37,6 +42,7 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
         audio_screen="fixation",
         token_mode="word",
         sentences=None,
+        font_size=100,
         display_mode="borderless",
     ):
         """Initialize the sentence paradigm display."""
@@ -63,6 +69,18 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
             raise ValueError("audio_screen must be 'fixation' or 'black'")
         if token_mode not in ("word", "character"):
             raise ValueError("token_mode must be 'word' or 'character'")
+        if font_size < 12:
+            raise ValueError("font_size must be at least 12")
+        if cue_frequency <= 0:
+            raise ValueError("cue_frequency must be positive")
+        if cue_duration <= 0:
+            raise ValueError("cue_duration must be positive")
+        if not 0 < cue_volume <= 1:
+            raise ValueError(
+                "cue_volume must be greater than 0 and at most 1"
+            )
+        if final_hold < 0:
+            raise ValueError("final_hold must be non-negative")
         if (audio_before_enabled or audio_after_enabled) and not audio_manifest:
             raise ValueError(
                 "audio_manifest is required when sentence audio playback is enabled"
@@ -84,6 +102,7 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
             caption="Sentence Paradigm",
             output_prefix=output_prefix,
             display_mode=display_mode,
+            font_size=font_size,
         )
 
         self.sentences_file = sentences_file
@@ -98,6 +117,7 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
         self.progress_duration = progress_duration
         self.progress_pause = progress_pause
         self.inter_sentence_interval = inter_sentence_interval
+        self.final_hold = final_hold
         
         # Optional sentence audio settings. Supplying a manifest enables both
         # audio phases by default while preserving legacy no-audio behavior.
@@ -110,14 +130,30 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
         self.token_mode = token_mode
         self.sentence_audio = []
 
+        if (
+            self.play_audio_before
+            or self.play_audio_after
+            or cue_tone
+        ) and not pygame.mixer.get_init():
+            pygame.mixer.init(
+                frequency=44100,
+                size=-16,
+                channels=2,
+                buffer=512,
+            )
+
+        # Unified cue tone played when the square turns green.
+        self.cue_tone_enabled = cue_tone
+        self.cue_frequency = cue_frequency
+        self.cue_duration = cue_duration
+        self.cue_volume = cue_volume
+        self.cue_sound = (
+            create_cue_sound(cue_frequency, cue_duration, cue_volume)
+            if cue_tone
+            else None
+        )
+
         if self.play_audio_before or self.play_audio_after:
-            if not pygame.mixer.get_init():
-                pygame.mixer.init(
-                    frequency=44100,
-                    size=-16,
-                    channels=2,
-                    buffer=512,
-                )
             self.sentence_audio = self._preload_sentence_audio(
                 resolved_manifest,
                 validated_audio,
@@ -125,7 +161,10 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
         
         # Spacing settings
         self.char_spacing = 15
-        
+
+        # Square settings: twice the legacy side length, centered on screen.
+        self.square_size = 80
+
         # Dots settings
         self.dot_radius = 8
         self.dot_spacing = 40
@@ -197,7 +236,6 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
             if not gap_ok:
                 return False
         
-        sentence_y = self.height // 2 - 40
         if self.token_mode == "character":
             words = list(sentence)
             word_spacing = self.char_spacing
@@ -205,6 +243,11 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
             words = sentence.split()
             word_spacing = self.char_spacing * 2
         word_widths = [self.font.render(word, True, self.WHITE).get_width() for word in words]
+
+        # Center the sentence vertically in the upper half of the screen so
+        # it stays clear of the screen-centered square below.
+        text_height = self.font.render(words[0], True, self.WHITE).get_height()
+        sentence_y = self.height // 4 - text_height // 2 + 20
         
         # Phase 1: Preparation phase
         trial_data['prep_onset'] = self.get_timestamp()
@@ -231,7 +274,7 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
                     self.screen.blit(word_surface, (current_x, sentence_y - 20))
                     current_x += word_widths[i] + word_spacing
                 
-                self.draw_red_square(sentence_y)
+                self.draw_centered_red_square()
                 pygame.display.flip()
                 self.clock.tick(60)
         
@@ -272,9 +315,26 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
         trial_data['prep_offset'] = self.get_timestamp()
         trial_data['prep_offset_abs'] = self.get_absolute_time()
         
-        # Phase 2: Word display animation
+        # Phase 2: Word display animation. The square turns green with the
+        # first frame of this phase, so the unified cue tone shares its onset.
+        cue_channel = None
+        if self.cue_sound is not None and self.prep_mode == 'square':
+            cue_channel = self.cue_sound.play()
+            if cue_channel is None:
+                raise RuntimeError("No mixer channel available for cue tone")
+
         trial_data['first_word_onset'] = self.get_timestamp()
         trial_data['first_word_onset_abs'] = self.get_absolute_time()
+        if self.prep_mode == 'square':
+            trial_data['square_green_onset'] = trial_data['first_word_onset']
+            trial_data['square_green_onset_abs'] = (
+                trial_data['first_word_onset_abs']
+            )
+        if cue_channel is not None:
+            trial_data['cue_tone_onset'] = trial_data['first_word_onset']
+            trial_data['cue_tone_onset_abs'] = (
+                trial_data['first_word_onset_abs']
+            )
         
         if self.play_mode == 'green':
             green_count = 0
@@ -308,7 +368,7 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
                     current_x += word_widths[i] + word_spacing
                 
                 if self.prep_mode == 'square':
-                    self.draw_green_square(sentence_y)
+                    self.draw_centered_green_square()
                 
                 pygame.display.flip()
                 self.clock.tick(60)
@@ -370,7 +430,7 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
                         current_x += word_widths[i] + word_spacing
                     
                     if self.prep_mode == 'square':
-                        self.draw_green_square(sentence_y)
+                        self.draw_centered_green_square()
                     
                     pygame.display.flip()
                     self.clock.tick(60)
@@ -390,7 +450,7 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
         
         # Hold final state
         hold_start = time.time()
-        while time.time() - hold_start < 0.5:
+        while time.time() - hold_start < self.final_hold:
             if not self.check_exit_events():
                 return False
             self.clock.tick(60)
@@ -427,6 +487,7 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
         print(f"Character speed: {self.char_speed} s/char")
         print(f"Preparation time: {self.prep_time} s")
         print(f"Token mode: {self.token_mode}")
+        print(f"Unified cue tone: {self.cue_tone_enabled}")
         if self.play_audio_before or self.play_audio_after:
             print(
                 "Sentence audio: "

@@ -1,4 +1,4 @@
-"""Compatibility entry point for the English sentence-audio paradigm."""
+"""Entry point for the read-aloud sentence paradigm."""
 
 from pathlib import Path
 import sys

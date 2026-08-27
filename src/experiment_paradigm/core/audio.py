@@ -2,11 +2,50 @@
 
 import hashlib
 import json
+import math
+import struct
 from pathlib import Path
 
 import pygame
 
 from ..stimuli import split_tts_units
+
+
+def create_cue_sound(frequency, duration, volume):
+    """Create the short, category-neutral cue tone for square-green onsets."""
+    mixer_config = pygame.mixer.get_init()
+    if mixer_config is None:
+        raise RuntimeError("Pygame mixer is not initialized")
+
+    sample_rate, sample_format, channels = mixer_config
+    if abs(sample_format) != 16:
+        raise RuntimeError(
+            "Cue tone generation requires a 16-bit mixer format"
+        )
+
+    frame_count = max(1, round(sample_rate * duration))
+    fade_frames = max(1, min(frame_count // 2, round(sample_rate * 0.005)))
+    pcm = bytearray()
+    for frame_index in range(frame_count):
+        fade_in = min(1.0, frame_index / fade_frames)
+        fade_out = min(1.0, (frame_count - frame_index - 1) / fade_frames)
+        envelope = min(fade_in, fade_out)
+        sample = int(
+            32767
+            * volume
+            * envelope
+            * math.sin(
+                2
+                * math.pi
+                * frequency
+                * frame_index
+                / sample_rate
+            )
+        )
+        encoded_sample = struct.pack("<h", sample)
+        pcm.extend(encoded_sample * channels)
+
+    return pygame.mixer.Sound(buffer=bytes(pcm))
 
 
 class SentenceAudioMixin:

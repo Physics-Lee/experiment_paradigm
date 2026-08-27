@@ -43,7 +43,7 @@ def parse_args(argv=None) -> argparse.Namespace:
             "assets/sentence_audio/yan_jiangyi_v5/zh-CN-YunxiaNeural --voice "
             "zh-CN-YunxiaNeural --rate=-50% --tts-unit character\n\n"
             "实验运行参数（进度条、延迟、休息、提示音等）:\n"
-            "  python scripts/run_sentence_audio_zh.py -h"
+            "  python scripts/run_locked_in_read_aloud.py -h"
         ),
     )
     files = parser.add_argument_group("输入与输出")

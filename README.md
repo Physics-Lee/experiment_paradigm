@@ -20,7 +20,7 @@ conda activate experiment_paradigm
 ### 直接运行
 
 ```powershell
-python scripts\run_sentence_audio_zh.py
+python scripts\run_locked_in_read_aloud.py
 ```
 
 默认输入已经设置为：
@@ -72,7 +72,7 @@ python scripts\generate_sentence_audio.py
 切换声音时只需要指定音频目录，例如：
 
 ```powershell
-python scripts\run_sentence_audio_zh.py `
+python scripts\run_locked_in_read_aloud.py `
   --audio-dir assets\sentence_audio\yan_jiangyi_v5\zh-CN-XiaoxiaoNeural
 ```
 
@@ -91,7 +91,7 @@ python scripts\run_sentence_audio_zh.py `
 例如运行 3 个 block（默认随机顺序和灰色十字）：
 
 ```powershell
-python scripts\run_sentence_audio_zh.py `
+python scripts\run_locked_in_read_aloud.py `
   --repetitions 3
 ```
 
@@ -118,16 +118,16 @@ trial 按以下流程运行：
 
 ```powershell
 # 固定按刺激文件顺序，并将休息画面改为纯黑
-python scripts\run_sentence_audio_zh.py --no-shuffle --no-rest-cross
+python scripts\run_locked_in_read_aloud.py --no-shuffle --no-rest-cross
 
 # 每个汉字改为 2 秒
-python scripts\run_sentence_audio_zh.py --progress-duration 2.0
+python scripts\run_locked_in_read_aloud.py --progress-duration 2.0
 
 # 关闭同步提示音
-python scripts\run_sentence_audio_zh.py --no-cue-tone
+python scripts\run_locked_in_read_aloud.py --no-cue-tone
 
 # 使用独占全屏
-python scripts\run_sentence_audio_zh.py --display-mode exclusive
+python scripts\run_locked_in_read_aloud.py --display-mode exclusive
 ```
 
 ## 实验二：新闻放松朗读范式
@@ -248,7 +248,7 @@ python scripts\run_relaxing_news.py `
 查看全部参数：
 
 ```powershell
-python scripts\run_sentence_audio_zh.py -h
+python scripts\run_locked_in_read_aloud.py -h
 python scripts\run_relaxing_news.py -h
 ```
 

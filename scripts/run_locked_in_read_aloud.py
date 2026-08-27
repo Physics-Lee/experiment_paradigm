@@ -1,4 +1,4 @@
-"""Compatibility entry point for the Chinese sentence-audio paradigm."""
+"""Entry point for the locked-in patient read-aloud paradigm."""
 
 from pathlib import Path
 import sys

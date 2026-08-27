@@ -30,7 +30,7 @@ def parse_locked_in_args(argv=None) -> argparse.Namespace:
         ),
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         epilog=(
-            "示例: python scripts/run_sentence_audio_zh.py "
+            "示例: python scripts/run_locked_in_read_aloud.py "
             "--repetitions 3"
         ),
     )

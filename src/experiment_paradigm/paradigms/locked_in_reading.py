@@ -1,8 +1,6 @@
 """Locked-in patient character-paced sentence-reading paradigm."""
 
-import math
 import random
-import struct
 
 import pygame
 
@@ -95,6 +93,10 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
             play_mode=play_mode,
             progress_duration=progress_duration,
             progress_pause=progress_pause,
+            cue_tone=cue_tone,
+            cue_frequency=cue_frequency,
+            cue_duration=cue_duration,
+            cue_volume=cue_volume,
             inter_sentence_interval=0,
             output_prefix=output_prefix,
             audio_manifest=audio_manifest,
@@ -115,16 +117,11 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
         self.rest_min = rest_min
         self.rest_max = rest_max
         self.rest_cross_enabled = rest_cross
-        self.cue_tone_enabled = cue_tone
-        self.cue_frequency = cue_frequency
-        self.cue_duration = cue_duration
-        self.cue_volume = cue_volume
         self.repetitions = repetitions
         self.shuffle = shuffle
         self.continue_button_enabled = continue_button
         self.show_continue_countdown = show_continue_countdown
         self.max_font_size = font_size
-        self.cue_sound = self._create_cue_sound() if cue_tone else None
         button_font_size = max(18, min(32, round(self.height * 0.035)))
         self.continue_button_font = load_cjk_font(
             button_font_size,
@@ -134,42 +131,6 @@ class LockedInSentenceReadingParadigm(SentenceParadigm):
     @staticmethod
     def _validate_duration_range(name, minimum, maximum):
         validate_duration_range(name, minimum, maximum)
-
-    def _create_cue_sound(self):
-        """Create the same short, category-neutral cue tone for every trial."""
-        mixer_config = pygame.mixer.get_init()
-        if mixer_config is None:
-            raise RuntimeError("Pygame mixer is not initialized")
-
-        sample_rate, sample_format, channels = mixer_config
-        if abs(sample_format) != 16:
-            raise RuntimeError(
-                "Cue tone generation requires a 16-bit mixer format"
-            )
-
-        frame_count = max(1, round(sample_rate * self.cue_duration))
-        fade_frames = max(1, min(frame_count // 2, round(sample_rate * 0.005)))
-        pcm = bytearray()
-        for frame_index in range(frame_count):
-            fade_in = min(1.0, frame_index / fade_frames)
-            fade_out = min(1.0, (frame_count - frame_index - 1) / fade_frames)
-            envelope = min(fade_in, fade_out)
-            sample = int(
-                32767
-                * self.cue_volume
-                * envelope
-                * math.sin(
-                    2
-                    * math.pi
-                    * self.cue_frequency
-                    * frame_index
-                    / sample_rate
-                )
-            )
-            encoded_sample = struct.pack("<h", sample)
-            pcm.extend(encoded_sample * channels)
-
-        return pygame.mixer.Sound(buffer=bytes(pcm))
 
     @staticmethod
     def _characters(sentence):

@@ -74,7 +74,7 @@ def parse_relaxing_news_args(argv=None) -> argparse.Namespace:
     visual.add_argument(
         "--font-size",
         type=int,
-        default=40,
+        default=100,
         help="新闻文字的最大字号；过长新闻会自动继续缩小并换行。",
     )
     visual.add_argument(

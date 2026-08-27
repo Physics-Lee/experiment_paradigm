@@ -31,7 +31,7 @@ def parse_args(argv=None) -> argparse.Namespace:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         epilog=(
             "示例: python run.py --repetitions 3\n"
-            "      python run.py --no-cue-tone --progress-duration 2.5"
+            "      python run.py --no-cue-tone --speech-progress-duration 2.5"
         ),
     )
 
@@ -112,6 +112,17 @@ def parse_args(argv=None) -> argparse.Namespace:
 
     visual = parser.add_argument_group("视觉与提示")
     visual.add_argument(
+        "--task-mode",
+        choices=("sync", "speak_first", "gesture_first"),
+        default="sync",
+        help=(
+            "sync=同步（底部一根红→绿长条，朗读+手势同时）；"
+            "speak_first=先朗读再比手势（汉字/图片下方各一个小正方形，"
+            "左侧先变绿出进度条，结束后右侧变绿出进度条）；"
+            "gesture_first=先比手势再朗读（右侧先变绿，随后左侧）。"
+        ),
+    )
+    visual.add_argument(
         "--font-size",
         type=int,
         default=300,
@@ -179,38 +190,59 @@ def parse_args(argv=None) -> argparse.Namespace:
     timing.add_argument(
         "--pre-audio-delay-min",
         type=float,
-        default=0.4,
+        default=0.9,
         help="汉字+手势+红条出现到音频开始的随机延迟下限。",
     )
     timing.add_argument(
         "--pre-audio-delay-max",
         type=float,
-        default=0.6,
+        default=1.1,
         help="汉字+手势+红条出现到音频开始的随机延迟上限。",
     )
     timing.add_argument(
         "--silent-delay-min",
         type=float,
-        default=1.5,
+        default=1.9,
         help="音频结束到 go cue（条变绿/进度条开始）的随机延迟下限。",
     )
     timing.add_argument(
         "--silent-delay-max",
         type=float,
-        default=2.0,
+        default=2.1,
         help="音频结束到 go cue（条变绿/进度条开始）的随机延迟上限。",
     )
     timing.add_argument(
-        "--progress-duration",
+        "--speech-progress-duration",
         type=float,
         default=1.2,
-        help="go cue 变绿后，数字背后的浅棕色进度条填满的时长（即说话/动作反应窗）。",
+        help=(
+            "朗读进度条（汉字背后那道）填满的时长；"
+            "同步模式下这也是唯一的进度条。"
+        ),
+    )
+    timing.add_argument(
+        "--gesture-progress-duration",
+        type=float,
+        default=3.0,
+        help=(
+            "手势进度条（序列模式下图片下方那道）填满的时长；"
+            "同步模式没有这条，参数不生效。"
+        ),
     )
     timing.add_argument(
         "--final-hold",
         type=float,
         default=0.5,
         help="进度条填满后保持终末画面（绿条+满进度条）的时长，之后才进入十字休息屏。",
+    )
+    timing.add_argument(
+        "--inter-phase-interval",
+        type=float,
+        default=1.0,
+        help=(
+            "序列模式（speak_first/gesture_first）中，第一个任务进度条结束"
+            "到第二个 go cue 的间隔时长。"
+        ),
     )
     timing.add_argument(
         "--rest-min",
@@ -258,6 +290,7 @@ def main(argv=None) -> None:
     paradigm = SpeechMotorSyncParadigm(
         stimuli_file=str(args.stimuli),
         gestures_dir=str(args.gestures_dir),
+        task_mode=args.task_mode,
         audio=args.audio,
         audio_dir=str(args.audio_dir),
         baseline_min=args.baseline_min,
@@ -266,8 +299,10 @@ def main(argv=None) -> None:
         pre_audio_delay_max=args.pre_audio_delay_max,
         silent_delay_min=args.silent_delay_min,
         silent_delay_max=args.silent_delay_max,
-        progress_duration=args.progress_duration,
+        speech_progress_duration=args.speech_progress_duration,
+        gesture_progress_duration=args.gesture_progress_duration,
         final_hold=args.final_hold,
+        inter_phase_interval=args.inter_phase_interval,
         rest_min=args.rest_min,
         rest_max=args.rest_max,
         rest_cross=args.show_rest_cross,

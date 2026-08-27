@@ -22,7 +22,7 @@ class RelaxingNewsParadigm(SentenceParadigm):
         self,
         news_file,
         audio_manifest,
-        font_size=40,
+        font_size=100,
         square_size=100,
         pre_audio_delay=0.5,
         post_audio_hold=1.0,

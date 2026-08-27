@@ -23,6 +23,7 @@ Thumbs.db
 # Generated experiment output
 timestamp/*.csv
 timestamp/*.json
+results/
 
 # Generated plans, reports, and reference exports
 /docs/generated/

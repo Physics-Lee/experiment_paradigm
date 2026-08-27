@@ -46,6 +46,12 @@ LIGHT_BROWN = (210, 180, 140)  # per-character progress bar (matches locked-in)
 # Default numeral set paired one-to-one with gestures/01.png..10.png.
 DEFAULT_CHARACTERS = list("一二三四五六七八九十")
 
+# Task modes: how speech (numeral) and gesture (image) responses are cued.
+#   sync          -- one bottom red->green bar; speech + gesture simultaneous.
+#   speak_first   -- two small squares; left (speech) cued first, then right.
+#   gesture_first -- two small squares; right (gesture) cued first, then left.
+TASK_MODES = ("sync", "speak_first", "gesture_first")
+
 # --------------------------------------------------------------------------
 # Fonts
 # --------------------------------------------------------------------------
@@ -274,16 +280,19 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
         stimuli_file=None,
         characters=None,
         gestures_dir="gestures",
+        task_mode="sync",
         audio=True,
         audio_dir="audio/normal",
         baseline_min=1.5,
         baseline_max=2.5,
-        pre_audio_delay_min=0.4,
-        pre_audio_delay_max=0.6,
-        silent_delay_min=1.5,
-        silent_delay_max=2.0,
-        progress_duration=1.2,
+        pre_audio_delay_min=0.9,
+        pre_audio_delay_max=1.1,
+        silent_delay_min=1.9,
+        silent_delay_max=2.1,
+        speech_progress_duration=1.2,
+        gesture_progress_duration=3.0,
         final_hold=0.5,
+        inter_phase_interval=1.0,
         rest_min=5.0,
         rest_max=6.0,
         rest_cross=True,
@@ -301,6 +310,10 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
         display_mode="borderless",
     ):
         """Initialize the speech + movement synchronization paradigm."""
+        if task_mode not in TASK_MODES:
+            raise ValueError(
+                f"task_mode must be one of {TASK_MODES}, got {task_mode!r}"
+            )
         validate_duration_range("baseline", baseline_min, baseline_max)
         validate_duration_range(
             "pre-audio delay", pre_audio_delay_min, pre_audio_delay_max
@@ -309,10 +322,14 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
             "silent delay", silent_delay_min, silent_delay_max
         )
         validate_duration_range("rest", rest_min, rest_max)
-        if progress_duration < 0:
-            raise ValueError("progress_duration must be non-negative")
+        if speech_progress_duration < 0:
+            raise ValueError("speech_progress_duration must be non-negative")
+        if gesture_progress_duration < 0:
+            raise ValueError("gesture_progress_duration must be non-negative")
         if final_hold < 0:
             raise ValueError("final_hold must be non-negative")
+        if inter_phase_interval < 0:
+            raise ValueError("inter_phase_interval must be non-negative")
         if cue_frequency <= 0:
             raise ValueError("cue_frequency must be positive")
         if cue_duration <= 0:
@@ -342,6 +359,7 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
 
         self.characters = characters
         self.gestures_dir = Path(gestures_dir)
+        self.task_mode = task_mode
         self.audio_enabled = audio
         self.audio_dir = Path(audio_dir)
         self.baseline_min = baseline_min
@@ -350,8 +368,10 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
         self.pre_audio_delay_max = pre_audio_delay_max
         self.silent_delay_min = silent_delay_min
         self.silent_delay_max = silent_delay_max
-        self.progress_duration = progress_duration
+        self.speech_progress_duration = speech_progress_duration
+        self.gesture_progress_duration = gesture_progress_duration
         self.final_hold = final_hold
+        self.inter_phase_interval = inter_phase_interval
         self.rest_min = rest_min
         self.rest_max = rest_max
         self.rest_cross_enabled = rest_cross
@@ -400,7 +420,7 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
 
     # -- layout -----------------------------------------------------------
     def _compute_layout(self):
-        """Precompute the on-screen regions for text, gesture, and go-cue bar."""
+        """Precompute on-screen regions for text, gesture, and go cues."""
         self.bar_height = max(60, round(self.height * 0.07))
         bar_margin_x = round(self.width * 0.10)
         bar_margin_bottom = round(self.height * 0.05)
@@ -412,13 +432,52 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
         )
         self.bar_radius = max(6, round(self.bar_height * 0.18))
 
+        self.left_center_x = round(self.width * 0.28)
+        self.right_center_x = round(self.width * 0.72)
         content_top = round(self.height * 0.08)
-        content_bottom = self.bar_rect.top - round(self.height * 0.04)
+
+        # Sequential-mode geometry: two large go-cue squares below the
+        # numeral and below the gesture image (side x2 = 4x area), plus a
+        # progress strip under the gesture image. The speech progress bar
+        # stays behind the numeral, locked-in style.
+        square = max(112, round(self.height * 0.13))
+        self.square_size = square
+        square_cy = (
+            self.height
+            - max(24, round(self.height * 0.035))
+            - square // 2
+        )
+        self.left_square_rect = pygame.Rect(0, 0, square, square)
+        self.left_square_rect.center = (self.left_center_x, square_cy)
+        self.right_square_rect = pygame.Rect(0, 0, square, square)
+        self.right_square_rect.center = (self.right_center_x, square_cy)
+        strip_height = max(20, round(self.height * 0.028))
+        strip_width = round(self.width * 0.34)
+        strip_cy = (
+            square_cy
+            - square // 2
+            - max(12, round(self.height * 0.02))
+            - strip_height // 2
+        )
+        self.gesture_strip_rect = pygame.Rect(
+            self.right_center_x - strip_width // 2,
+            strip_cy - strip_height // 2,
+            strip_width,
+            strip_height,
+        )
+
+        # The content region stops above the sync bar, or above the squares
+        # and gesture strip in the sequential modes.
+        if self.task_mode == "sync":
+            content_bottom = self.bar_rect.top - round(self.height * 0.04)
+        else:
+            content_bottom = (
+                self.gesture_strip_rect.top
+                - max(12, round(self.height * 0.02))
+            )
         self.content_center_y = (content_top + content_bottom) // 2
         content_height = max(120, content_bottom - content_top)
 
-        self.left_center_x = round(self.width * 0.28)
-        self.right_center_x = round(self.width * 0.72)
         self.left_box = (round(self.width * 0.40), content_height)
         self.gesture_box = (round(self.width * 0.40), content_height)
 
@@ -675,6 +734,94 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
             self.screen, bar_color, self.bar_rect, border_radius=self.bar_radius
         )
 
+    def _draw_sequential_state(
+        self,
+        char_surface,
+        gesture_surface,
+        left_square_color,
+        right_square_color,
+        speech_fraction=None,
+        gesture_fraction=None,
+    ):
+        """Draw the sequential-mode trial state.
+
+        Two small go-cue squares sit below the numeral (left) and below the
+        gesture image (right). The speech progress bar fills behind the
+        numeral (locked-in style); the gesture progress bar fills a strip
+        under the gesture image. Pass ``None`` to omit a bar entirely.
+        """
+        self.screen.fill(BLACK)
+
+        char_rect = char_surface.get_rect(
+            center=(self.left_center_x, self.content_center_y)
+        )
+        if speech_fraction is not None:
+            fill_width = round(
+                char_rect.width * max(0.0, min(1.0, speech_fraction))
+            )
+            if fill_width > 0:
+                pygame.draw.rect(
+                    self.screen,
+                    LIGHT_BROWN,
+                    (char_rect.x, char_rect.y, fill_width, char_rect.height),
+                )
+        self.screen.blit(char_surface, char_rect)
+
+        self.screen.blit(
+            gesture_surface,
+            gesture_surface.get_rect(
+                center=(self.right_center_x, self.content_center_y)
+            ),
+        )
+        if gesture_fraction is not None:
+            fill_width = round(
+                self.gesture_strip_rect.width
+                * max(0.0, min(1.0, gesture_fraction))
+            )
+            if fill_width > 0:
+                pygame.draw.rect(
+                    self.screen,
+                    LIGHT_BROWN,
+                    (
+                        self.gesture_strip_rect.x,
+                        self.gesture_strip_rect.y,
+                        fill_width,
+                        self.gesture_strip_rect.height,
+                    ),
+                )
+
+        pygame.draw.rect(
+            self.screen, left_square_color, self.left_square_rect
+        )
+        pygame.draw.rect(
+            self.screen, right_square_color, self.right_square_rect
+        )
+
+    def _play_cue(self):
+        """Fire the go-cue tone once, returning the channel (or None)."""
+        if self.cue_sound is None:
+            return None
+        channel = self.cue_sound.play()
+        if channel is None:
+            raise RuntimeError("No mixer channel available for cue tone")
+        return channel
+
+    def _fill_progress(self, draw_state, duration):
+        """Animate one progress fill over ``duration`` seconds.
+
+        ``draw_state(fraction)`` renders the frame at fill fraction 0..1.
+        Returns ``(completed, actual_duration)``.
+        """
+        started = self.get_timestamp()
+        while self.get_timestamp() - started < duration:
+            if not self.check_exit_events():
+                return False, self.get_timestamp() - started
+            fraction = min(1.0, (self.get_timestamp() - started) / duration)
+            draw_state(fraction)
+            pygame.display.flip()
+            self.clock.tick(60)
+        return True, self.get_timestamp() - started
+
     def _draw_rest_screen(self):
         """Draw the optional gray fixation cross used between trials."""
         self.screen.fill(BLACK)
@@ -915,12 +1062,31 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
             "actual_silent_delay": None,
             "silent_delay_onset": None,
             "silent_delay_onset_abs": None,
-            "progress_duration_planned": self.progress_duration,
+            "progress_duration_planned": None,
             "actual_progress_duration": None,
             "go_onset": None,
             "go_onset_abs": None,
             "progress_offset": None,
             "progress_offset_abs": None,
+            "task_mode": self.task_mode,
+            "phase1": None,
+            "phase2": None,
+            "go2_onset": None,
+            "go2_onset_abs": None,
+            "cue2_tone_onset": None,
+            "cue2_tone_onset_abs": None,
+            "actual_phase1_progress_duration": None,
+            "phase1_progress_duration_planned": None,
+            "phase1_progress_offset": None,
+            "phase1_progress_offset_abs": None,
+            "planned_inter_phase_interval": None,
+            "actual_inter_phase_interval": None,
+            "inter_phase_onset": None,
+            "inter_phase_onset_abs": None,
+            "actual_phase2_progress_duration": None,
+            "phase2_progress_duration_planned": None,
+            "phase2_progress_offset": None,
+            "phase2_progress_offset_abs": None,
             "final_hold_planned": self.final_hold,
             "actual_final_hold": None,
             "planned_rest_duration": rest_duration,
@@ -948,6 +1114,11 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
             "bar_y": self.bar_rect.y,
             "bar_width": self.bar_rect.width,
             "bar_height": self.bar_rect.height,
+            "square_size": self.square_size,
+            "left_square_x": self.left_square_rect.x,
+            "left_square_y": self.left_square_rect.y,
+            "right_square_x": self.right_square_rect.x,
+            "right_square_y": self.right_square_rect.y,
             "display_width": self.width,
             "display_height": self.height,
         }
@@ -963,95 +1134,226 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
         else:
             trial_data["actual_baseline_duration"] = 0.0
 
-        # 2. Pre-audio delay: numeral + gesture + RED bar.
+        # Idle (pre-go) frame: red cue(s), no progress bars.
+        if self.task_mode == "sync":
+            def idle_draw():
+                self._draw_trial_state(char_surface, gesture_surface, RED)
+        else:
+            def idle_draw():
+                self._draw_sequential_state(
+                    char_surface, gesture_surface, RED, RED
+                )
+
+        # 2. Pre-audio delay: numeral + gesture + RED cue(s).
         trial_data["pre_audio_delay_onset"] = self.get_timestamp()
         trial_data["pre_audio_delay_onset_abs"] = self.get_absolute_time()
         pre_ok, actual_pre = self._show_for_duration(
-            pre_audio_delay,
-            lambda: self._draw_trial_state(
-                char_surface, gesture_surface, RED
-            ),
+            pre_audio_delay, idle_draw
         )
         trial_data["actual_pre_audio_delay"] = actual_pre
         if not pre_ok:
             return False
 
-        # 3. Target audio: play the spoken numeral (RED bar still visible),
+        # 3. Target audio: play the spoken numeral (RED cue(s) still visible),
         #    mirroring the locked-in paradigm.
         if self.audio_enabled:
             audio_item = self.numeral_audio[stimulus_index]
             trial_data["audio_file"] = audio_item["file"]
             if not self._play_numeral_audio(
-                audio_item["sound"],
-                trial_data,
-                lambda: self._draw_trial_state(
-                    char_surface, gesture_surface, RED
-                ),
+                audio_item["sound"], trial_data, idle_draw
             ):
                 return False
 
-        # 4. Silent delay: numeral + gesture + RED bar before the go cue.
+        # 4. Silent delay: numeral + gesture + RED cue(s) before the go cue.
         trial_data["silent_delay_onset"] = self.get_timestamp()
         trial_data["silent_delay_onset_abs"] = self.get_absolute_time()
         delay_ok, actual_delay = self._show_for_duration(
-            silent_delay,
-            lambda: self._draw_trial_state(
-                char_surface, gesture_surface, RED
-            ),
+            silent_delay, idle_draw
         )
         trial_data["actual_silent_delay"] = actual_delay
         if not delay_ok:
             return False
 
-        # 5. Go cue: bar turns GREEN (+ optional tone). Speech + movement
-        #    onset is read off this timestamp by downstream analysis.
-        self._draw_trial_state(char_surface, gesture_surface, GREEN)
-        cue_channel = None
-        if self.cue_sound is not None:
-            cue_channel = self.cue_sound.play()
-            if cue_channel is None:
-                raise RuntimeError("No mixer channel available for cue tone")
-        pygame.display.flip()
-
-        go_onset = self.get_timestamp()
-        go_onset_abs = self.get_absolute_time()
-        trial_data["go_onset"] = go_onset
-        trial_data["go_onset_abs"] = go_onset_abs
-        if cue_channel is not None:
-            trial_data["cue_tone_onset"] = go_onset
-            trial_data["cue_tone_onset_abs"] = go_onset_abs
-
-        # 6. Response window: a locked-in-style LIGHT_BROWN progress bar fills
-        #    behind the numeral over progress_duration while the bottom bar
-        #    stays green. Speech + movement happen during this fill.
-        progress_started = self.get_timestamp()
-        progress_ok = True
-        while self.get_timestamp() - progress_started < self.progress_duration:
-            if not self.check_exit_events():
-                progress_ok = False
-                break
-            elapsed = self.get_timestamp() - progress_started
-            fraction = min(1.0, elapsed / self.progress_duration)
-            self._draw_trial_state(
-                char_surface, gesture_surface, GREEN, progress_fraction=fraction
-            )
+        # 5-6. Go cue(s) + progress phase(s).
+        if self.task_mode == "sync":
+            # 5. Go cue: bar turns GREEN (+ optional tone). Speech + movement
+            #    onset is read off this timestamp by downstream analysis.
+            self._draw_trial_state(char_surface, gesture_surface, GREEN)
+            cue_channel = self._play_cue()
             pygame.display.flip()
-            self.clock.tick(60)
-        trial_data["actual_progress_duration"] = (
-            self.get_timestamp() - progress_started
-        )
-        trial_data["progress_offset"] = self.get_timestamp()
-        trial_data["progress_offset_abs"] = self.get_absolute_time()
-        if not progress_ok:
-            return False
 
-        # 7. Final hold: keep the completed progress bar + green bar briefly
-        #    before the rest screen (fixation cross) appears.
+            go_onset = self.get_timestamp()
+            go_onset_abs = self.get_absolute_time()
+            trial_data["go_onset"] = go_onset
+            trial_data["go_onset_abs"] = go_onset_abs
+            if cue_channel is not None:
+                trial_data["cue_tone_onset"] = go_onset
+                trial_data["cue_tone_onset_abs"] = go_onset_abs
+
+            # 6. Response window: a locked-in-style LIGHT_BROWN progress bar
+            #    fills behind the numeral over speech_progress_duration while
+            #    the bottom bar stays green. Speech + movement happen during
+            #    this fill.
+            trial_data["progress_duration_planned"] = (
+                self.speech_progress_duration
+            )
+            progress_ok, actual_progress = self._fill_progress(
+                lambda fraction: self._draw_trial_state(
+                    char_surface,
+                    gesture_surface,
+                    GREEN,
+                    progress_fraction=fraction,
+                ),
+                self.speech_progress_duration,
+            )
+            trial_data["actual_progress_duration"] = actual_progress
+            trial_data["progress_offset"] = self.get_timestamp()
+            trial_data["progress_offset_abs"] = self.get_absolute_time()
+            if not progress_ok:
+                return False
+        else:
+            speak_first = self.task_mode == "speak_first"
+            trial_data["phase1"] = "speech" if speak_first else "gesture"
+            trial_data["phase2"] = "gesture" if speak_first else "speech"
+            phase1_duration = (
+                self.speech_progress_duration
+                if speak_first
+                else self.gesture_progress_duration
+            )
+            phase2_duration = (
+                self.gesture_progress_duration
+                if speak_first
+                else self.speech_progress_duration
+            )
+            trial_data["phase1_progress_duration_planned"] = phase1_duration
+            trial_data["phase2_progress_duration_planned"] = phase2_duration
+
+            def phase1_state(fraction):
+                if speak_first:
+                    self._draw_sequential_state(
+                        char_surface,
+                        gesture_surface,
+                        GREEN,
+                        RED,
+                        speech_fraction=fraction,
+                    )
+                else:
+                    self._draw_sequential_state(
+                        char_surface,
+                        gesture_surface,
+                        RED,
+                        GREEN,
+                        gesture_fraction=fraction,
+                    )
+
+            # Go cue 1: the first square turns GREEN (+ tone).
+            phase1_state(0.0)
+            cue1 = self._play_cue()
+            pygame.display.flip()
+            go_onset = self.get_timestamp()
+            go_onset_abs = self.get_absolute_time()
+            trial_data["go_onset"] = go_onset
+            trial_data["go_onset_abs"] = go_onset_abs
+            if cue1 is not None:
+                trial_data["cue_tone_onset"] = go_onset
+                trial_data["cue_tone_onset_abs"] = go_onset_abs
+
+            ok1, dur1 = self._fill_progress(phase1_state, phase1_duration)
+            trial_data["actual_phase1_progress_duration"] = dur1
+            trial_data["phase1_progress_offset"] = self.get_timestamp()
+            trial_data["phase1_progress_offset_abs"] = (
+                self.get_absolute_time()
+            )
+            if not ok1:
+                return False
+
+            # Inter-phase interval: hold the phase-1 completed state (first
+            # square green + first bar full, second square still red) before
+            # the second go cue.
+            trial_data["planned_inter_phase_interval"] = (
+                self.inter_phase_interval
+            )
+            trial_data["inter_phase_onset"] = self.get_timestamp()
+            trial_data["inter_phase_onset_abs"] = self.get_absolute_time()
+            interval_ok, actual_interval = self._show_for_duration(
+                self.inter_phase_interval,
+                lambda: phase1_state(1.0),
+            )
+            trial_data["actual_inter_phase_interval"] = actual_interval
+            if not interval_ok:
+                return False
+
+            def phase2_state(fraction):
+                if speak_first:
+                    self._draw_sequential_state(
+                        char_surface,
+                        gesture_surface,
+                        GREEN,
+                        GREEN,
+                        speech_fraction=1.0,
+                        gesture_fraction=fraction,
+                    )
+                else:
+                    self._draw_sequential_state(
+                        char_surface,
+                        gesture_surface,
+                        GREEN,
+                        GREEN,
+                        gesture_fraction=1.0,
+                        speech_fraction=fraction,
+                    )
+
+            # Go cue 2: the second square turns GREEN (+ tone); the first
+            # progress bar stays fully filled.
+            phase2_state(0.0)
+            cue2 = self._play_cue()
+            pygame.display.flip()
+            go2_onset = self.get_timestamp()
+            go2_onset_abs = self.get_absolute_time()
+            trial_data["go2_onset"] = go2_onset
+            trial_data["go2_onset_abs"] = go2_onset_abs
+            if cue2 is not None:
+                trial_data["cue2_tone_onset"] = go2_onset
+                trial_data["cue2_tone_onset_abs"] = go2_onset_abs
+
+            ok2, dur2 = self._fill_progress(phase2_state, phase2_duration)
+            trial_data["actual_phase2_progress_duration"] = dur2
+            trial_data["phase2_progress_offset"] = self.get_timestamp()
+            trial_data["phase2_progress_offset_abs"] = (
+                self.get_absolute_time()
+            )
+            trial_data["actual_progress_duration"] = dur1 + dur2
+            trial_data["progress_offset"] = trial_data[
+                "phase2_progress_offset"
+            ]
+            trial_data["progress_offset_abs"] = trial_data[
+                "phase2_progress_offset_abs"
+            ]
+            if not ok2:
+                return False
+
+        # 7. Final hold: keep the completed state briefly before the rest
+        #    screen (fixation cross) appears.
+        if self.task_mode == "sync":
+            def hold_draw():
+                self._draw_trial_state(
+                    char_surface,
+                    gesture_surface,
+                    GREEN,
+                    progress_fraction=1.0,
+                )
+        else:
+            def hold_draw():
+                self._draw_sequential_state(
+                    char_surface,
+                    gesture_surface,
+                    GREEN,
+                    GREEN,
+                    speech_fraction=1.0,
+                    gesture_fraction=1.0,
+                )
         hold_ok, actual_hold = self._show_for_duration(
-            self.final_hold,
-            lambda: self._draw_trial_state(
-                char_surface, gesture_surface, GREEN, progress_fraction=1.0
-            ),
+            self.final_hold, hold_draw
         )
         trial_data["actual_final_hold"] = actual_hold
         if not hold_ok:
@@ -1087,6 +1389,18 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
             f"{self.repetitions} repetition(s), {len(schedule)} trials"
         )
         print(f"Shuffle each repetition: {self.shuffle}")
+        if self.task_mode == "sync":
+            print("Task mode: sync (speech + gesture together, bottom bar)")
+        elif self.task_mode == "speak_first":
+            print(
+                "Task mode: speak first (left square cued, then right); "
+                f"inter-phase interval: {self.inter_phase_interval} s"
+            )
+        else:
+            print(
+                "Task mode: gesture first (right square cued, then left); "
+                f"inter-phase interval: {self.inter_phase_interval} s"
+            )
         if self.continue_button_enabled:
             print(
                 "Press ESC or close window to quit "
@@ -1099,7 +1413,8 @@ class SpeechMotorSyncParadigm(_ParadigmBase):
             f"{self.pre_audio_delay_min}-{self.pre_audio_delay_max} s; "
             "silent delay: "
             f"{self.silent_delay_min}-{self.silent_delay_max} s; "
-            f"progress: {self.progress_duration} s; "
+            f"speech progress: {self.speech_progress_duration} s; "
+            f"gesture progress: {self.gesture_progress_duration} s; "
             f"final hold: {self.final_hold} s; "
             f"rest: {self.rest_min}-{self.rest_max} s"
         )

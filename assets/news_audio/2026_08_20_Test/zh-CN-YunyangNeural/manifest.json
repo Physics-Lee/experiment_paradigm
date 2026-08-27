@@ -1,0 +1,308 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-08-20T08:21:00.598862+00:00",
+  "updated_at": "2026-08-20T08:31:43.365193+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_08_20_Test.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "13 * 8 = 104",
+      "unit": "line",
+      "duration_ms": 2904,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "13 * 8 = 104",
+          "tts_text": "13 * 8 = 104",
+          "file": "sentence_001.mp3",
+          "duration_ms": 2904,
+          "sha256": "7990c8c3e161b0a2fcad2a2808578f26f4fc04e96336ce8df8a2953a240fd418"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "圆周率pi > 3.15",
+      "unit": "line",
+      "duration_ms": 2736,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "圆周率pi > 3.15",
+          "tts_text": "圆周率pi > 3.15",
+          "file": "sentence_002.mp3",
+          "duration_ms": 2736,
+          "sha256": "206a6c35144851ac04684a5aa83bcf4b7c36952a874a04f8b31fe50c932d67aa"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "连续扔2个骰子，加和为2的概率是1/36",
+      "unit": "line",
+      "duration_ms": 4800,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "连续扔2个骰子，加和为2的概率是1/36",
+          "tts_text": "连续扔2个骰子，加和为2的概率是1/36",
+          "file": "sentence_003.mp3",
+          "duration_ms": 4800,
+          "sha256": "8e1308fddbda76d701b6c3381f2c9dddf9a40a882317fd4611e850061eeca666"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "连续扔2个骰子，加和为3的概率是3/36",
+      "unit": "line",
+      "duration_ms": 4776,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "连续扔2个骰子，加和为3的概率是3/36",
+          "tts_text": "连续扔2个骰子，加和为3的概率是3/36",
+          "file": "sentence_004.mp3",
+          "duration_ms": 4776,
+          "sha256": "8145ccf66edbbcdeeac4745318bc46c885fce8a654d53777444df1cc279d8e22"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "等边三角形的每个内角都是60度",
+      "unit": "line",
+      "duration_ms": 3336,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "等边三角形的每个内角都是60度",
+          "tts_text": "等边三角形的每个内角都是60度",
+          "file": "sentence_005.mp3",
+          "duration_ms": 3336,
+          "sha256": "094f5da59812dbb2b00ece65652e76f6c287c9bf010cffb141354d05aa46902f"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "sin30度 = 0.7",
+      "unit": "line",
+      "duration_ms": 2520,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "sin30度 = 0.7",
+          "tts_text": "sin30度 = 0.7",
+          "file": "sentence_006.mp3",
+          "duration_ms": 2520,
+          "sha256": "42f390e167371d3af72a373cfefbd6173cd73ad5f57bc573dc8091dddff4ad00"
+        }
+      ]
+    },
+    {
+      "id": "sentence_007",
+      "index": 7,
+      "text": "牛顿第三定律：作用力和反作用力大小相等、方向相反",
+      "unit": "line",
+      "duration_ms": 5184,
+      "segments": [
+        {
+          "id": "sentence_007",
+          "index": 1,
+          "text": "牛顿第三定律：作用力和反作用力大小相等、方向相反",
+          "tts_text": "牛顿第三定律：作用力和反作用力大小相等、方向相反",
+          "file": "sentence_007.mp3",
+          "duration_ms": 5184,
+          "sha256": "0d26ab462c95921dbdfba686acb8bee955321457ab1ffef3a8a2206ba9d924aa"
+        }
+      ]
+    },
+    {
+      "id": "sentence_008",
+      "index": 8,
+      "text": "今年是2025年",
+      "unit": "line",
+      "duration_ms": 2136,
+      "segments": [
+        {
+          "id": "sentence_008",
+          "index": 1,
+          "text": "今年是2025年",
+          "tts_text": "今年是2025年",
+          "file": "sentence_008.mp3",
+          "duration_ms": 2136,
+          "sha256": "084e80b27fe5054f6d476b6ad3326bc571e9d4764b4e9f7786a6a3df6fa25736"
+        }
+      ]
+    },
+    {
+      "id": "sentence_009",
+      "index": 9,
+      "text": "今天是8月20日",
+      "unit": "line",
+      "duration_ms": 2088,
+      "segments": [
+        {
+          "id": "sentence_009",
+          "index": 1,
+          "text": "今天是8月20日",
+          "tts_text": "今天是8月20日",
+          "file": "sentence_009.mp3",
+          "duration_ms": 2088,
+          "sha256": "cab2a7f6a2429b91e1becd4e08293654cd0c181d859f36f93b23afe8377da02f"
+        }
+      ]
+    },
+    {
+      "id": "sentence_010",
+      "index": 10,
+      "text": "我们现在在深圳禾正医院",
+      "unit": "line",
+      "duration_ms": 2664,
+      "segments": [
+        {
+          "id": "sentence_010",
+          "index": 1,
+          "text": "我们现在在深圳禾正医院",
+          "tts_text": "我们现在在深圳禾正医院",
+          "file": "sentence_010.mp3",
+          "duration_ms": 2664,
+          "sha256": "e2d2a6536d82aa6aa799e60edba143303e27ad3c5e60bbc2a3999bbec3557162"
+        }
+      ]
+    },
+    {
+      "id": "sentence_011",
+      "index": 11,
+      "text": "水由氢、氦两种元素组成",
+      "unit": "line",
+      "duration_ms": 3024,
+      "segments": [
+        {
+          "id": "sentence_011",
+          "index": 1,
+          "text": "水由氢、氦两种元素组成",
+          "tts_text": "水由氢、氦两种元素组成",
+          "file": "sentence_011.mp3",
+          "duration_ms": 3024,
+          "sha256": "037736ad8367391bd26b0d5ec8d99c4bbb279cc10a79f91db1fb1684a57eda9f"
+        }
+      ]
+    },
+    {
+      "id": "sentence_012",
+      "index": 12,
+      "text": "神经系统在大脑，而不是心脏",
+      "unit": "line",
+      "duration_ms": 3216,
+      "segments": [
+        {
+          "id": "sentence_012",
+          "index": 1,
+          "text": "神经系统在大脑，而不是心脏",
+          "tts_text": "神经系统在大脑，而不是心脏",
+          "file": "sentence_012.mp3",
+          "duration_ms": 3216,
+          "sha256": "b33ca61b597cfea51a084bcfdb35ea50aa8757ccffc9d14b54c976743728ced1"
+        }
+      ]
+    },
+    {
+      "id": "sentence_013",
+      "index": 13,
+      "text": "太阳系中体积最大的行星是火星",
+      "unit": "line",
+      "duration_ms": 3432,
+      "segments": [
+        {
+          "id": "sentence_013",
+          "index": 1,
+          "text": "太阳系中体积最大的行星是火星",
+          "tts_text": "太阳系中体积最大的行星是火星",
+          "file": "sentence_013.mp3",
+          "duration_ms": 3432,
+          "sha256": "8fc9b1e6155bfae61aa1dc22418016cf7c313de07dad5e9c9012a2ff6c19b56a"
+        }
+      ]
+    },
+    {
+      "id": "sentence_014",
+      "index": 14,
+      "text": "一年有24个节气",
+      "unit": "line",
+      "duration_ms": 2496,
+      "segments": [
+        {
+          "id": "sentence_014",
+          "index": 1,
+          "text": "一年有24个节气",
+          "tts_text": "一年有24个节气",
+          "file": "sentence_014.mp3",
+          "duration_ms": 2496,
+          "sha256": "df1ce17253eea16ceaf001ec7d4d87393f86c57e45975ffb856d9d0900c21965"
+        }
+      ]
+    },
+    {
+      "id": "sentence_015",
+      "index": 15,
+      "text": "氢原子是最轻的原子",
+      "unit": "line",
+      "duration_ms": 2520,
+      "segments": [
+        {
+          "id": "sentence_015",
+          "index": 1,
+          "text": "氢原子是最轻的原子",
+          "tts_text": "氢原子是最轻的原子",
+          "file": "sentence_015.mp3",
+          "duration_ms": 2520,
+          "sha256": "dccfd50aef7dc03c9b596348c441728890987068ad7f04e9ebbe8221e999e899"
+        }
+      ]
+    },
+    {
+      "id": "sentence_016",
+      "index": 16,
+      "text": "牛顿第二定律指的是 F = m * a",
+      "unit": "line",
+      "duration_ms": 3936,
+      "segments": [
+        {
+          "id": "sentence_016",
+          "index": 1,
+          "text": "牛顿第二定律指的是 F = m * a",
+          "tts_text": "牛顿第二定律指的是 F = m * a",
+          "file": "sentence_016.mp3",
+          "duration_ms": 3936,
+          "sha256": "23665779cab1123f7eae9817cfa9638fb6a8cc5036fe991beeda785ad132c81c"
+        }
+      ]
+    }
+  ]
+}

@@ -88,14 +88,20 @@ def parse_args(
     visual.add_argument(
         "--progress-duration",
         type=float,
-        default=1.2,
+        default=1.0,
         help="progress 模式中单个 token 进度条填满的时间（秒）。",
     )
     visual.add_argument(
         "--progress-pause",
         type=float,
-        default=0.0,
+        default=0.2,
         help="progress 模式中相邻 token 进度条之间的停顿（秒）。",
+    )
+    visual.add_argument(
+        "--progress-style",
+        choices=("continuous", "segmented"),
+        default="segmented",
+        help="continuous=进度条连续覆盖字间空隙；segmented=每字独立、字间留黑。",
     )
 
     timing = parser.add_argument_group("试次时序（全部为秒）")
@@ -132,7 +138,7 @@ def parse_args(
     timing.add_argument(
         "--final-hold",
         type=float,
-        default=0.0,
+        default=0.5,
         help="最后一个 token 完成后保持最终画面的时间（秒）。",
     )
 
@@ -231,6 +237,7 @@ def main(
         play_mode=args.play_mode,
         progress_duration=args.progress_duration,
         progress_pause=args.progress_pause,
+        progress_style=args.progress_style,
         inter_sentence_interval=args.inter_sentence_interval,
         final_hold=args.final_hold,
         output_prefix=args.output_prefix,

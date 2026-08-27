@@ -25,14 +25,15 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
         prep_mode="square",
         dot_interval=0.5,
         play_mode="progress",
-        progress_duration=1.2,
-        progress_pause=0.0,
+        progress_duration=1.0,
+        progress_pause=0.2,
+        progress_style="segmented",
         cue_tone=True,
         cue_frequency=1000,
         cue_duration=0.08,
         cue_volume=0.7,
         inter_sentence_interval=0.0,
-        final_hold=0.0,
+        final_hold=0.5,
         output_prefix="sentence",
         audio_manifest=None,
         play_audio_before=None,
@@ -69,6 +70,12 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
             raise ValueError("audio_screen must be 'fixation' or 'black'")
         if token_mode not in ("word", "character"):
             raise ValueError("token_mode must be 'word' or 'character'")
+        if play_mode not in ("green", "progress"):
+            raise ValueError("play_mode must be 'green' or 'progress'")
+        if progress_style not in ("continuous", "segmented"):
+            raise ValueError(
+                "progress_style must be 'continuous' or 'segmented'"
+            )
         if font_size < 12:
             raise ValueError("font_size must be at least 12")
         if cue_frequency <= 0:
@@ -116,6 +123,7 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
         self.play_mode = play_mode
         self.progress_duration = progress_duration
         self.progress_pause = progress_pause
+        self.progress_style = progress_style
         self.inter_sentence_interval = inter_sentence_interval
         self.final_hold = final_hold
         
@@ -162,8 +170,8 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
         # Spacing settings
         self.char_spacing = 15
 
-        # Square settings: twice the legacy side length, centered on screen.
-        self.square_size = 80
+        # Square settings: side length in pixels, centered on screen.
+        self.square_size = 100
 
         # Dots settings
         self.dot_radius = 8
@@ -205,6 +213,7 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
             'sentence': sentence,
             'prep_mode': self.prep_mode,
             'play_mode': self.play_mode,
+            'progress_style': self.progress_style,
             'token_mode': self.token_mode,
             'trial_start': self.get_timestamp(),
             'trial_start_abs': self.get_absolute_time()
@@ -384,12 +393,25 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
             for word_idx in range(len(words)):
                 word_x = start_x + sum(word_widths[:word_idx]) + word_spacing * word_idx
                 word_width = word_widths[word_idx]
+                # continuous 样式下每个进度条向右延伸覆盖字间空隙，
+                # 使相邻进度条首尾相接；segmented 保留字间黑隙。
+                bar_extent = (
+                    word_width + word_spacing
+                    if (
+                        self.progress_style == "continuous"
+                        and word_idx < len(words) - 1
+                    )
+                    else word_width
+                )
                 
                 start_time = time.time()
-                while time.time() - start_time < self.progress_duration:
+                # 以 progress 驱动循环，退出前必绘制一帧满宽进度条，
+                # 避免最后一帧不足 100%、切换到完成态时右端向右跳变。
+                progress = 0.0
+                while progress < 1.0:
                     if not self.check_exit_events():
                         return False
-                    
+
                     elapsed = time.time() - start_time
                     progress = min(1.0, elapsed / self.progress_duration)
                     
@@ -410,7 +432,7 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
                         )
                     
                     # Draw current progress bar
-                    progress_bar_width = int(word_width * progress)
+                    progress_bar_width = int(bar_extent * progress)
                     pygame.draw.rect(
                         self.screen,
                         self.LIGHT_BROWN,
@@ -433,9 +455,11 @@ class SentenceParadigm(SentenceAudioMixin, BaseParadigm):
                         self.draw_centered_green_square()
                     
                     pygame.display.flip()
-                    self.clock.tick(60)
-                
-                completed_bars.append((word_idx, word_x, int(word_width * 0.99)))
+                    # 完成帧（progress 已到 1.0）不再 tick，避免每字多等一帧。
+                    if progress < 1.0:
+                        self.clock.tick(60)
+
+                completed_bars.append((word_idx, word_x, bar_extent))
                 
                 # Pause between words
                 if word_idx < len(words) - 1:

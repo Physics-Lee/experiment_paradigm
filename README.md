@@ -233,6 +233,38 @@ python scripts\run_relaxing_news.py `
 
 若更换语音，请同时替换生成命令中的 `--voice` 和输出目录的最后一级目录；播放时也选择同一个 `--audio-dir`。完整流程见 `docs/relaxing_news_paradigm.md`。
 
+## 测试题库（AI 生成）
+
+`stimuli/news/AI_AGENT_GENERATE/` 存放生成的判断题题库（数学、自然科学等，
+题干不超过 30 字），沿用新闻范式的两步流程。
+
+第 1 步：生成音频（每个文件跑一次，替换文件名和日期即可）：
+
+```powershell
+python scripts/generate_news_audio.py `
+  --news "stimuli/news/AI_AGENT_GENERATE/2026_08_08_Test.md" `
+  --output-dir "assets/news_audio/2026_08_08_Test/zh-CN-YunyangNeural" `
+  --voice zh-CN-YunyangNeural
+```
+
+第 2 步：运行范式（全屏播放）：
+
+```powershell
+python scripts/run_relaxing_news.py `
+  --news "stimuli/news/AI_AGENT_GENERATE/2026_08_08_Test.md" `
+  --audio-dir "assets/news_audio/2026_08_08_Test/zh-CN-YunyangNeural" `
+  --gesture-hint
+```
+
+`--gesture-hint` 会在红方块下方以 60 号字显示一行提示：
+
+```text
+左手握拳-是，摇头-否，左手张开-跳过
+```
+
+不需要该提示时去掉 `--gesture-hint` 即可。新闻文字默认最大字号为 100；
+题干过长时会自动缩小并换行。
+
 ## 实验前检查
 
 给患者正式运行前，请检查：

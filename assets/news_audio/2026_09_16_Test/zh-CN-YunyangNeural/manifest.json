@@ -1,0 +1,326 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-09-16T08:03:41.034459+00:00",
+  "updated_at": "2026-09-16T08:04:38.692293+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_09_16_Test.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "13 * 11 = 143",
+      "unit": "line",
+      "duration_ms": 3120,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "13 * 11 = 143",
+          "tts_text": "13 * 11 = 143",
+          "file": "sentence_001.mp3",
+          "duration_ms": 3120,
+          "sha256": "0e83712aa7533a57691efe88f5b97fb9738c741d82d9519c345380179f4314e9"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "圆周率pi > 3.16",
+      "unit": "line",
+      "duration_ms": 2832,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "圆周率pi > 3.16",
+          "tts_text": "圆周率pi > 3.16",
+          "file": "sentence_002.mp3",
+          "duration_ms": 2832,
+          "sha256": "a66319077e593a17919f143bab1824bb693c8e1d93c663ce530c9a31eeba151f"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "二的四次方等于四的二次方，2^4 = 4^2",
+      "unit": "line",
+      "duration_ms": 5208,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "二的四次方等于四的二次方，2^4 = 4^2",
+          "tts_text": "二的四次方等于四的二次方，2^4 = 4^2",
+          "file": "sentence_003.mp3",
+          "duration_ms": 5208,
+          "sha256": "73ee5feedb688ef35c81b98cbb9fdf97cb5dc65668ee6f14b6a05b6b0b66cd54"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "法拉第提出了电磁感应定律",
+      "unit": "line",
+      "duration_ms": 2808,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "法拉第提出了电磁感应定律",
+          "tts_text": "法拉第提出了电磁感应定律",
+          "file": "sentence_004.mp3",
+          "duration_ms": 2808,
+          "sha256": "1c419b4b0f0e206bc65e361eb9a463e73c6f6a074711cc2e07ab71bd6b602dc3"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "氦原子有四个电子",
+      "unit": "line",
+      "duration_ms": 2280,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "氦原子有四个电子",
+          "tts_text": "氦原子有四个电子",
+          "file": "sentence_005.mp3",
+          "duration_ms": 2280,
+          "sha256": "0153d8d701e7b5bcaac0e58237cfc1f81c9bd8a3d45e3d63e46c837e5adc0dad"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "碳原子有六个电子",
+      "unit": "line",
+      "duration_ms": 2328,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "碳原子有六个电子",
+          "tts_text": "碳原子有六个电子",
+          "file": "sentence_006.mp3",
+          "duration_ms": 2328,
+          "sha256": "c6d03e2515714f5162c49a603e30290a80695125e9a5afee0eafc56d50d412d3"
+        }
+      ]
+    },
+    {
+      "id": "sentence_007",
+      "index": 7,
+      "text": "氢氧化钠是碱性的",
+      "unit": "line",
+      "duration_ms": 2304,
+      "segments": [
+        {
+          "id": "sentence_007",
+          "index": 1,
+          "text": "氢氧化钠是碱性的",
+          "tts_text": "氢氧化钠是碱性的",
+          "file": "sentence_007.mp3",
+          "duration_ms": 2304,
+          "sha256": "e971de47159fcbfdb73465efa4757aeaa6f302491b113bbb34ebca020e943c9e"
+        }
+      ]
+    },
+    {
+      "id": "sentence_008",
+      "index": 8,
+      "text": "蛋白质是生物大分子，是由成千上万的氨基酸组成的长链。",
+      "unit": "line",
+      "duration_ms": 5112,
+      "segments": [
+        {
+          "id": "sentence_008",
+          "index": 1,
+          "text": "蛋白质是生物大分子，是由成千上万的氨基酸组成的长链。",
+          "tts_text": "蛋白质是生物大分子，是由成千上万的氨基酸组成的长链。",
+          "file": "sentence_008.mp3",
+          "duration_ms": 5112,
+          "sha256": "7db391be23da06daaaf7c5c309d871d7a3be2dec0d4ba8e3556dffe8fd433c7c"
+        }
+      ]
+    },
+    {
+      "id": "sentence_009",
+      "index": 9,
+      "text": "现在有红、黑、蓝、黄四个颜色的小球，从中随机取3个，一共有6种情况",
+      "unit": "line",
+      "duration_ms": 7776,
+      "segments": [
+        {
+          "id": "sentence_009",
+          "index": 1,
+          "text": "现在有红、黑、蓝、黄四个颜色的小球，从中随机取3个，一共有6种情况",
+          "tts_text": "现在有红、黑、蓝、黄四个颜色的小球，从中随机取3个，一共有6种情况",
+          "file": "sentence_009.mp3",
+          "duration_ms": 7776,
+          "sha256": "1ac4c96a3605d7509a72a2b66469534ed4b76fe43b7a9d70733feff6fbb20ea2"
+        }
+      ]
+    },
+    {
+      "id": "sentence_010",
+      "index": 10,
+      "text": "海龟是哺乳动物",
+      "unit": "line",
+      "duration_ms": 2088,
+      "segments": [
+        {
+          "id": "sentence_010",
+          "index": 1,
+          "text": "海龟是哺乳动物",
+          "tts_text": "海龟是哺乳动物",
+          "file": "sentence_010.mp3",
+          "duration_ms": 2088,
+          "sha256": "568c700d618ac643f655b2a5a4998afffadbe7d25ea13576d9380cadf717e60e"
+        }
+      ]
+    },
+    {
+      "id": "sentence_011",
+      "index": 11,
+      "text": "中国面积最大的省或自治区是新疆",
+      "unit": "line",
+      "duration_ms": 3744,
+      "segments": [
+        {
+          "id": "sentence_011",
+          "index": 1,
+          "text": "中国面积最大的省或自治区是新疆",
+          "tts_text": "中国面积最大的省或自治区是新疆",
+          "file": "sentence_011.mp3",
+          "duration_ms": 3744,
+          "sha256": "fcc1d88218e7738321bad593f6d589ee9cd3de58691f4dd46d522ebcc6da59bf"
+        }
+      ]
+    },
+    {
+      "id": "sentence_012",
+      "index": 12,
+      "text": "中国人口最多的省是广东省",
+      "unit": "line",
+      "duration_ms": 3000,
+      "segments": [
+        {
+          "id": "sentence_012",
+          "index": 1,
+          "text": "中国人口最多的省是广东省",
+          "tts_text": "中国人口最多的省是广东省",
+          "file": "sentence_012.mp3",
+          "duration_ms": 3000,
+          "sha256": "76d90be8c0667a71306ef2e2cabd0505d51e2838a2ef4f0e7635cd8b3c28e192"
+        }
+      ]
+    },
+    {
+      "id": "sentence_013",
+      "index": 13,
+      "text": "渤海比黄海纬度高",
+      "unit": "line",
+      "duration_ms": 2328,
+      "segments": [
+        {
+          "id": "sentence_013",
+          "index": 1,
+          "text": "渤海比黄海纬度高",
+          "tts_text": "渤海比黄海纬度高",
+          "file": "sentence_013.mp3",
+          "duration_ms": 2328,
+          "sha256": "1707ce69742ecbf8600b8a04bc9303fb391485e6552a0a92705ab20cc063fff0"
+        }
+      ]
+    },
+    {
+      "id": "sentence_014",
+      "index": 14,
+      "text": "汉朝的第一个皇帝是刘邦",
+      "unit": "line",
+      "duration_ms": 2928,
+      "segments": [
+        {
+          "id": "sentence_014",
+          "index": 1,
+          "text": "汉朝的第一个皇帝是刘邦",
+          "tts_text": "汉朝的第一个皇帝是刘邦",
+          "file": "sentence_014.mp3",
+          "duration_ms": 2928,
+          "sha256": "5a0e5c0d6ebecae0d84c521974a1994b7fe5923dce0b8ca4c905a2cf65fb2263"
+        }
+      ]
+    },
+    {
+      "id": "sentence_015",
+      "index": 15,
+      "text": "今天是2026年9月16日",
+      "unit": "line",
+      "duration_ms": 2832,
+      "segments": [
+        {
+          "id": "sentence_015",
+          "index": 1,
+          "text": "今天是2026年9月16日",
+          "tts_text": "今天是2026年9月16日",
+          "file": "sentence_015.mp3",
+          "duration_ms": 2832,
+          "sha256": "e8770a3707020509546d8c2e50f745fb43f023928e98696673fe30e8d13b274b"
+        }
+      ]
+    },
+    {
+      "id": "sentence_016",
+      "index": 16,
+      "text": "今天是星期三",
+      "unit": "line",
+      "duration_ms": 1920,
+      "segments": [
+        {
+          "id": "sentence_016",
+          "index": 1,
+          "text": "今天是星期三",
+          "tts_text": "今天是星期三",
+          "file": "sentence_016.mp3",
+          "duration_ms": 1920,
+          "sha256": "77f7501f6448691348ec158d233945a1a5360886498be711d9a1642e3f574e8f"
+        }
+      ]
+    },
+    {
+      "id": "sentence_017",
+      "index": 17,
+      "text": "我们现在在深圳禾正医院",
+      "unit": "line",
+      "duration_ms": 2664,
+      "segments": [
+        {
+          "id": "sentence_017",
+          "index": 1,
+          "text": "我们现在在深圳禾正医院",
+          "tts_text": "我们现在在深圳禾正医院",
+          "file": "sentence_017.mp3",
+          "duration_ms": 2664,
+          "sha256": "e2d2a6536d82aa6aa799e60edba143303e27ad3c5e60bbc2a3999bbec3557162"
+        }
+      ]
+    }
+  ]
+}

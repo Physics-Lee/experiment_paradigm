@@ -1,0 +1,200 @@
+{
+  "schema_version": 2,
+  "complete": true,
+  "created_at": "2026-09-16T08:11:32.105333+00:00",
+  "updated_at": "2026-09-16T08:11:48.474386+00:00",
+  "sentences_file": "..\\..\\..\\..\\stimuli\\news\\2026_09_17_Test.md",
+  "tts": {
+    "provider": "microsoft-edge-tts",
+    "client": "edge-tts",
+    "client_version": "7.2.8",
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "+0%",
+    "volume": "+0%",
+    "pitch": "+0Hz",
+    "format": "mp3",
+    "unit": "line"
+  },
+  "items": [
+    {
+      "id": "sentence_001",
+      "index": 1,
+      "text": "在二维坐标系中，点(1,1)关于x轴对称点是点(1,-1)",
+      "unit": "line",
+      "duration_ms": 7248,
+      "segments": [
+        {
+          "id": "sentence_001",
+          "index": 1,
+          "text": "在二维坐标系中，点(1,1)关于x轴对称点是点(1,-1)",
+          "tts_text": "在二维坐标系中，点(1,1)关于x轴对称点是点(1,-1)",
+          "file": "sentence_001.mp3",
+          "duration_ms": 7248,
+          "sha256": "8103d01d850fe7972156db3f4aeb6ef0d4babd9694107bd74a76b5da2b32db2a"
+        }
+      ]
+    },
+    {
+      "id": "sentence_002",
+      "index": 2,
+      "text": "在二维坐标系中，点(1,1)和点(2,1)的直线距离是1",
+      "unit": "line",
+      "duration_ms": 6960,
+      "segments": [
+        {
+          "id": "sentence_002",
+          "index": 1,
+          "text": "在二维坐标系中，点(1,1)和点(2,1)的直线距离是1",
+          "tts_text": "在二维坐标系中，点(1,1)和点(2,1)的直线距离是1",
+          "file": "sentence_002.mp3",
+          "duration_ms": 6960,
+          "sha256": "8f51dafabddfac9ab6328e952a8b477aa450f94636bd4a4ec3bb8d7bd6ad1e47"
+        }
+      ]
+    },
+    {
+      "id": "sentence_003",
+      "index": 3,
+      "text": "在二维坐标系中，点(1,1)和点(2,2)的直线距离是根号2",
+      "unit": "line",
+      "duration_ms": 7368,
+      "segments": [
+        {
+          "id": "sentence_003",
+          "index": 1,
+          "text": "在二维坐标系中，点(1,1)和点(2,2)的直线距离是根号2",
+          "tts_text": "在二维坐标系中，点(1,1)和点(2,2)的直线距离是根号2",
+          "file": "sentence_003.mp3",
+          "duration_ms": 7368,
+          "sha256": "9b0bd0570b7ce5f7635101860bb5cf459edbe7906b80a6d2c546753846be44d8"
+        }
+      ]
+    },
+    {
+      "id": "sentence_004",
+      "index": 4,
+      "text": "哥白尼撰写了《天体运行论》",
+      "unit": "line",
+      "duration_ms": 2616,
+      "segments": [
+        {
+          "id": "sentence_004",
+          "index": 1,
+          "text": "哥白尼撰写了《天体运行论》",
+          "tts_text": "哥白尼撰写了《天体运行论》",
+          "file": "sentence_004.mp3",
+          "duration_ms": 2616,
+          "sha256": "6c4c8431066094eed46acc736314c44c910c66220bc75219e75fc11ee8ea9854"
+        }
+      ]
+    },
+    {
+      "id": "sentence_005",
+      "index": 5,
+      "text": "伽利略撰写了《两大世界体系的对话》",
+      "unit": "line",
+      "duration_ms": 3480,
+      "segments": [
+        {
+          "id": "sentence_005",
+          "index": 1,
+          "text": "伽利略撰写了《两大世界体系的对话》",
+          "tts_text": "伽利略撰写了《两大世界体系的对话》",
+          "file": "sentence_005.mp3",
+          "duration_ms": 3480,
+          "sha256": "c7245db2bdb7555e8cc2a07a488ea595f3c37ea01bf6d113d8813885cc26aef0"
+        }
+      ]
+    },
+    {
+      "id": "sentence_006",
+      "index": 6,
+      "text": "牛顿撰写了《自然哲学的数学原理》",
+      "unit": "line",
+      "duration_ms": 3240,
+      "segments": [
+        {
+          "id": "sentence_006",
+          "index": 1,
+          "text": "牛顿撰写了《自然哲学的数学原理》",
+          "tts_text": "牛顿撰写了《自然哲学的数学原理》",
+          "file": "sentence_006.mp3",
+          "duration_ms": 3240,
+          "sha256": "e0b3a7c4dd3d5835af749f7870d3dd18b9e2c1de97ce19467a36c047d71c9679"
+        }
+      ]
+    },
+    {
+      "id": "sentence_007",
+      "index": 7,
+      "text": "孟德尔进行了豌豆实验，确定了遗传因子的存在",
+      "unit": "line",
+      "duration_ms": 4416,
+      "segments": [
+        {
+          "id": "sentence_007",
+          "index": 1,
+          "text": "孟德尔进行了豌豆实验，确定了遗传因子的存在",
+          "tts_text": "孟德尔进行了豌豆实验，确定了遗传因子的存在",
+          "file": "sentence_007.mp3",
+          "duration_ms": 4416,
+          "sha256": "2f0d1c8d7e38ff3e06e29023e33f8c6b37c674270c4681eb401015450ece3074"
+        }
+      ]
+    },
+    {
+      "id": "sentence_008",
+      "index": 8,
+      "text": "y=x^2 的导数是 y=4x",
+      "unit": "line",
+      "duration_ms": 3912,
+      "segments": [
+        {
+          "id": "sentence_008",
+          "index": 1,
+          "text": "y=x^2 的导数是 y=4x",
+          "tts_text": "y=x^2 的导数是 y=4x",
+          "file": "sentence_008.mp3",
+          "duration_ms": 3912,
+          "sha256": "7420950af18f12e733f9e5d3b909235e00b4259aac31e8fa14d8e0b31dd16e6d"
+        }
+      ]
+    },
+    {
+      "id": "sentence_009",
+      "index": 9,
+      "text": "现在有红、黑、蓝、黄、白五个颜色的小球，从中随机取3个，一共有10种情况",
+      "unit": "line",
+      "duration_ms": 8328,
+      "segments": [
+        {
+          "id": "sentence_009",
+          "index": 1,
+          "text": "现在有红、黑、蓝、黄、白五个颜色的小球，从中随机取3个，一共有10种情况",
+          "tts_text": "现在有红、黑、蓝、黄、白五个颜色的小球，从中随机取3个，一共有10种情况",
+          "file": "sentence_009.mp3",
+          "duration_ms": 8328,
+          "sha256": "35a73a5e59b7a348ab4f8a1351ca3905e8c112c79083f12b4f2415c952c6b453"
+        }
+      ]
+    },
+    {
+      "id": "sentence_010",
+      "index": 10,
+      "text": "7，10，208，20，6 这几个数字的中位数是208",
+      "unit": "line",
+      "duration_ms": 5976,
+      "segments": [
+        {
+          "id": "sentence_010",
+          "index": 1,
+          "text": "7，10，208，20，6 这几个数字的中位数是208",
+          "tts_text": "7，10，208，20，6 这几个数字的中位数是208",
+          "file": "sentence_010.mp3",
+          "duration_ms": 5976,
+          "sha256": "e3c5f13852669c7f8a07367c4670f8a952de7e1c692d5036e6f289f437d4ad6d"
+        }
+      ]
+    }
+  ]
+}
